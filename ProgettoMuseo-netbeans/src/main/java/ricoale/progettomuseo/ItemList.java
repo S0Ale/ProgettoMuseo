@@ -38,17 +38,17 @@ public class ItemList extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(232, 234, 238));
 
-        jPanel2.setBackground(new java.awt.Color(223, 226, 231));
-        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(180, 180, 180), 1, true));
+        jPanel2.setBackground(new java.awt.Color(220, 224, 230));
+        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(145, 155, 173), 1, true));
         jPanel2.setMinimumSize(new java.awt.Dimension(300, 200));
         jPanel2.setPreferredSize(new java.awt.Dimension(200, 598));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jScrollPane1.setBackground(new java.awt.Color(223, 226, 231));
-        jScrollPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(180, 180, 180), 1, true));
+        jScrollPane1.setBackground(new java.awt.Color(220, 224, 230));
+        jScrollPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(145, 155, 173), 1, true));
 
-        jTable1.setBackground(new java.awt.Color(223, 226, 231));
-        jTable1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(180, 180, 180), 1, true));
+        jTable1.setBackground(new java.awt.Color(220, 224, 230));
+        jTable1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(145, 155, 173), 1, true));
         jTable1.setForeground(new java.awt.Color(100, 100, 100));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -70,8 +70,8 @@ public class ItemList extends javax.swing.JPanel {
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 520));
 
-        jPanel1.setBackground(new java.awt.Color(223, 226, 231));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(180, 180, 180)));
+        jPanel1.setBackground(new java.awt.Color(220, 224, 230));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(145, 155, 173)));
 
         jButton1.setText("Home");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -109,7 +109,7 @@ public class ItemList extends javax.swing.JPanel {
         );
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(100, 100, 100));
+        jLabel2.setForeground(new java.awt.Color(70, 79, 94));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Reperti");
         jLabel2.setToolTipText("");

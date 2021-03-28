@@ -15,6 +15,7 @@ public class AppWindow extends javax.swing.JFrame {
     
     private CardLayout layout;
     private ItemList itemPanel;
+    private VisualizerPanel visualizer;
 
     /**
      * Creates new form AppWindow
@@ -24,12 +25,14 @@ public class AppWindow extends javax.swing.JFrame {
         layout = new CardLayout();
         mainPanel.setLayout(layout);
         itemPanel = new ItemList();
+        visualizer = new VisualizerPanel();
         mainPanel.add(itemPanel, "items");
+        mainPanel.add(visualizer, "view");
         initPanel();
     }
     
     private void initPanel(){
-        layout.show(mainPanel, "items");
+        layout.show(mainPanel, "view");
     }
 
     /**
@@ -60,7 +63,7 @@ public class AppWindow extends javax.swing.JFrame {
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 721, Short.MAX_VALUE)
+            .addGap(0, 720, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -88,7 +91,7 @@ public class AppWindow extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
