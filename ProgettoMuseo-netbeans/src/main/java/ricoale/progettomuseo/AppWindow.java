@@ -15,6 +15,7 @@ public class AppWindow extends javax.swing.JFrame {
     
     private CardLayout layout;
     private ItemList itemPanel;
+    private LoginPanel login;
     private VisualizerPanel visualizer;
 
     /**
@@ -25,7 +26,9 @@ public class AppWindow extends javax.swing.JFrame {
         layout = new CardLayout();
         mainPanel.setLayout(layout);
         itemPanel = new ItemList();
+        login = new LoginPanel();
         visualizer = new VisualizerPanel();
+        mainPanel.add(login, "login");
         mainPanel.add(itemPanel, "items");
         mainPanel.add(visualizer, "view");
         initPanel();
