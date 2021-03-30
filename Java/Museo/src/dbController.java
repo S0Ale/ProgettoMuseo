@@ -12,7 +12,7 @@ public class dbController {
       try{
         connessione = DriverManager.getConnection(url, user, password);
         if(connessione != null){
-            System.out.println("cazzo sì");
+            System.out.println("La connessione è avvenuta con successo");
         }
       }catch(SQLException e){
         System.out.println(e);
