@@ -35,7 +35,7 @@ public class AppWindow extends javax.swing.JFrame {
     }
     
     private void initPanel(){
-        layout.show(mainPanel, "view");
+        layout.show(mainPanel, "items");
     }
 
     /**

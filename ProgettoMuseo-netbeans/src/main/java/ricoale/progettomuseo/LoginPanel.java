@@ -5,6 +5,8 @@
  */
 package ricoale.progettomuseo;
 
+import javax.swing.border.LineBorder;
+
 /**
  *
  * @author user
@@ -35,46 +37,73 @@ public class LoginPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(232, 234, 238));
+        setBackground(new java.awt.Color(81, 91, 105));
 
-        jPanel1.setBackground(new java.awt.Color(220, 224, 230));
-        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(145, 155, 173), 1, true));
+        jPanel1.setBackground(new java.awt.Color(102, 114, 132));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(131, 142, 159), 1, true));
 
-        jTextField1.setBackground(new java.awt.Color(198, 203, 212));
+        jTextField1.setBackground(new java.awt.Color(114, 128, 146));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(117, 122, 133));
+        jTextField1.setForeground(new java.awt.Color(199, 213, 229));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextField1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(145, 155, 173), 1, true));
+        jTextField1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(131, 142, 159), 1, true));
         jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jTextField1.setMargin(new java.awt.Insets(2, 32, 2, 6));
         jTextField1.setName(""); // NOI18N
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField1FocusLost(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(70, 79, 94));
+        jLabel2.setForeground(new java.awt.Color(199, 213, 229));
         jLabel2.setText("Biglietto");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(70, 79, 94));
+        jLabel3.setForeground(new java.awt.Color(199, 213, 229));
         jLabel3.setText("Password");
 
-        jPasswordField1.setBackground(new java.awt.Color(198, 203, 212));
+        jPasswordField1.setBackground(new java.awt.Color(114, 128, 146));
         jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(117, 122, 133));
+        jPasswordField1.setForeground(new java.awt.Color(199, 213, 229));
         jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jPasswordField1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(145, 155, 173), 1, true));
+        jPasswordField1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(131, 142, 159), 1, true));
         jPasswordField1.setMargin(new java.awt.Insets(2, 32, 2, 6));
         jPasswordField1.setName(""); // NOI18N
+        jPasswordField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPasswordField1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPasswordField1FocusLost(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(70, 79, 94));
+        jLabel1.setForeground(new java.awt.Color(199, 213, 229));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Login");
 
-        jButton1.setBackground(new java.awt.Color(232, 234, 238));
+        jButton1.setBackground(new java.awt.Color(86, 96, 112));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(70, 79, 94));
+        jButton1.setForeground(new java.awt.Color(199, 213, 229));
         jButton1.setText("Submit");
-        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(145, 155, 173), 1, true));
+        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(131, 142, 159), 1, true));
+        jButton1.setContentAreaFilled(false);
+        jButton1.setFocusPainted(false);
+        jButton1.setOpaque(true);
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton1MouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -137,6 +166,30 @@ public class LoginPanel extends javax.swing.JPanel {
                 .addContainerGap(223, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
+        jButton1.setBackground(ColorManager.getInstance().getColor("color1"));
+    }//GEN-LAST:event_jButton1MouseEntered
+
+    private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
+        jButton1.setBackground(ColorManager.getInstance().getColor("btn"));
+    }//GEN-LAST:event_jButton1MouseExited
+
+    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
+        jTextField1.setBorder(new LineBorder(ColorManager.getInstance().getColor("color2")));
+    }//GEN-LAST:event_jTextField1FocusGained
+
+    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
+        jTextField1.setBorder(new LineBorder(ColorManager.getInstance().getColor("border")));
+    }//GEN-LAST:event_jTextField1FocusLost
+
+    private void jPasswordField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusGained
+        jPasswordField1.setBorder(new LineBorder(ColorManager.getInstance().getColor("color2")));
+    }//GEN-LAST:event_jPasswordField1FocusGained
+
+    private void jPasswordField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusLost
+        jPasswordField1.setBorder(new LineBorder(ColorManager.getInstance().getColor("border")));
+    }//GEN-LAST:event_jPasswordField1FocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
