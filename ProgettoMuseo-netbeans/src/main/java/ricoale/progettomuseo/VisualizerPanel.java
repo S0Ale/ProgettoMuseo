@@ -5,6 +5,9 @@
  */
 package ricoale.progettomuseo;
 
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
+
 /**
  *
  * @author user
@@ -56,15 +59,15 @@ public class VisualizerPanel extends javax.swing.JPanel {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setBackground(new java.awt.Color(81, 91, 105));
+        setBackground(new java.awt.Color(231, 233, 242));
 
-        menuBar.setBackground(new java.awt.Color(102, 114, 132));
-        menuBar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(131, 142, 159)));
+        menuBar.setBackground(new java.awt.Color(246, 248, 254));
+        menuBar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(211, 215, 225)));
 
-        jButton1.setBackground(new java.awt.Color(86, 96, 112));
-        jButton1.setForeground(new java.awt.Color(199, 213, 229));
+        jButton1.setBackground(new java.awt.Color(248, 250, 255));
+        jButton1.setForeground(new java.awt.Color(112, 121, 138));
         jButton1.setText("Home");
-        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(131, 142, 159)));
+        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(211, 215, 225)));
         jButton1.setContentAreaFilled(false);
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.setFocusPainted(false);
@@ -99,14 +102,14 @@ public class VisualizerPanel extends javax.swing.JPanel {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(102, 114, 132));
-        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(131, 142, 159), 1, true));
+        jPanel2.setBackground(new java.awt.Color(246, 248, 254));
+        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
 
-        jButton4.setBackground(new java.awt.Color(86, 96, 112));
-        jButton4.setForeground(new java.awt.Color(199, 213, 229));
+        jButton4.setBackground(new java.awt.Color(248, 250, 255));
+        jButton4.setForeground(new java.awt.Color(112, 121, 138));
         jButton4.setText("A");
         jButton4.setActionCommand("C");
-        jButton4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(131, 142, 159)));
+        jButton4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(211, 215, 225)));
         jButton4.setContentAreaFilled(false);
         jButton4.setFocusPainted(false);
         jButton4.setOpaque(true);
@@ -119,11 +122,11 @@ public class VisualizerPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(86, 96, 112));
-        jButton5.setForeground(new java.awt.Color(199, 213, 229));
+        jButton5.setBackground(new java.awt.Color(248, 250, 255));
+        jButton5.setForeground(new java.awt.Color(112, 121, 138));
         jButton5.setText("B");
         jButton5.setActionCommand("C");
-        jButton5.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(131, 142, 159)));
+        jButton5.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(211, 215, 225)));
         jButton5.setContentAreaFilled(false);
         jButton5.setFocusPainted(false);
         jButton5.setOpaque(true);
@@ -136,10 +139,10 @@ public class VisualizerPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(86, 96, 112));
-        jButton6.setForeground(new java.awt.Color(199, 213, 229));
+        jButton6.setBackground(new java.awt.Color(248, 250, 255));
+        jButton6.setForeground(new java.awt.Color(112, 121, 138));
         jButton6.setText("C");
-        jButton6.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(131, 142, 159)));
+        jButton6.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(211, 215, 225)));
         jButton6.setContentAreaFilled(false);
         jButton6.setFocusPainted(false);
         jButton6.setOpaque(true);
@@ -152,11 +155,11 @@ public class VisualizerPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(86, 96, 112));
-        jButton7.setForeground(new java.awt.Color(199, 213, 229));
+        jButton7.setBackground(new java.awt.Color(248, 250, 255));
+        jButton7.setForeground(new java.awt.Color(112, 121, 138));
         jButton7.setText("D");
         jButton7.setActionCommand("C");
-        jButton7.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(131, 142, 159)));
+        jButton7.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(211, 215, 225)));
         jButton7.setContentAreaFilled(false);
         jButton7.setFocusPainted(false);
         jButton7.setOpaque(true);
@@ -185,17 +188,17 @@ public class VisualizerPanel extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(131, 142, 159), 1, true));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
         jPanel1.setToolTipText("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -209,8 +212,8 @@ public class VisualizerPanel extends javax.swing.JPanel {
             .addGap(0, 508, Short.MAX_VALUE)
         );
 
-        jPanel3.setBackground(new java.awt.Color(102, 114, 132));
-        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(131, 142, 159), 1, true));
+        jPanel3.setBackground(new java.awt.Color(246, 248, 254));
+        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -223,19 +226,19 @@ public class VisualizerPanel extends javax.swing.JPanel {
             .addGap(0, 508, Short.MAX_VALUE)
         );
 
-        jPanel4.setBackground(new java.awt.Color(102, 114, 132));
-        jPanel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(131, 142, 159), 1, true));
+        jPanel4.setBackground(new java.awt.Color(246, 248, 254));
+        jPanel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
 
-        jTabbedPane1.setBackground(new java.awt.Color(102, 114, 132));
-        jTabbedPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(131, 142, 159), 1, true));
-        jTabbedPane1.setForeground(new java.awt.Color(199, 213, 229));
+        jTabbedPane1.setBackground(new java.awt.Color(246, 248, 254));
+        jTabbedPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
+        jTabbedPane1.setForeground(new java.awt.Color(112, 121, 138));
         jTabbedPane1.setToolTipText("");
         jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTabbedPane1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTabbedPane1.setOpaque(true);
 
-        jPanel6.setBackground(new java.awt.Color(124, 137, 154));
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(131, 142, 159)));
+        jPanel6.setBackground(new java.awt.Color(238, 240, 250));
+        jPanel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -250,8 +253,8 @@ public class VisualizerPanel extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Descrizione", null, jPanel6, "");
 
-        jPanel7.setBackground(new java.awt.Color(124, 137, 154));
-        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(131, 142, 159)));
+        jPanel7.setBackground(new java.awt.Color(238, 240, 250));
+        jPanel7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
         jPanel7.setForeground(new java.awt.Color(199, 213, 229));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -320,43 +323,55 @@ public class VisualizerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
-        jButton1.setBackground(ColorManager.getInstance().getColor("color1"));
+        jButton1.setBackground(ColorManager.getInstance().getColor("btnHover"));
+        jButton1.setForeground(ColorManager.getInstance().getColor("txt"));
+        jButton1.setBorder(new MatteBorder(0, 0, 0, 2, ColorManager.getInstance().getColor("color1")));
     }//GEN-LAST:event_jButton1MouseEntered
 
     private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
-        jButton1.setBackground(ColorManager.getInstance().getColor("btn"));
+        jButton1.setBackground(ColorManager.getInstance().getColor("boxColor"));
+        jButton1.setForeground(ColorManager.getInstance().getColor("txtInactive"));
+        jButton1.setBorder(new MatteBorder(0, 0, 0, 1, ColorManager.getInstance().getColor("border")));
     }//GEN-LAST:event_jButton1MouseExited
 
     private void jButton4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseEntered
-        jButton4.setBackground(ColorManager.getInstance().getColor("color2"));
+        jButton4.setBackground(ColorManager.getInstance().getColor("btnHover"));
+        jButton4.setForeground(ColorManager.getInstance().getColor("color2"));
     }//GEN-LAST:event_jButton4MouseEntered
 
     private void jButton4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseExited
-        jButton4.setBackground(ColorManager.getInstance().getColor("btn"));
+        jButton4.setBackground(ColorManager.getInstance().getColor("boxColor"));
+        jButton4.setForeground(ColorManager.getInstance().getColor("txtInactive"));
     }//GEN-LAST:event_jButton4MouseExited
 
     private void jButton5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseEntered
-        jButton5.setBackground(ColorManager.getInstance().getColor("color2"));
+        jButton5.setBackground(ColorManager.getInstance().getColor("btnHover"));
+        jButton5.setForeground(ColorManager.getInstance().getColor("color2"));
     }//GEN-LAST:event_jButton5MouseEntered
 
     private void jButton5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseExited
-        jButton5.setBackground(ColorManager.getInstance().getColor("btn"));
+        jButton5.setBackground(ColorManager.getInstance().getColor("boxColor"));
+        jButton5.setForeground(ColorManager.getInstance().getColor("txtInactive"));
     }//GEN-LAST:event_jButton5MouseExited
 
     private void jButton6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseEntered
-        jButton6.setBackground(ColorManager.getInstance().getColor("color2"));
+        jButton6.setBackground(ColorManager.getInstance().getColor("btnHover"));
+        jButton6.setForeground(ColorManager.getInstance().getColor("color2"));
     }//GEN-LAST:event_jButton6MouseEntered
 
     private void jButton6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseExited
-        jButton6.setBackground(ColorManager.getInstance().getColor("btn"));
+        jButton6.setBackground(ColorManager.getInstance().getColor("boxColor"));
+        jButton6.setForeground(ColorManager.getInstance().getColor("txtInactive"));
     }//GEN-LAST:event_jButton6MouseExited
 
     private void jButton7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseEntered
-        jButton7.setBackground(ColorManager.getInstance().getColor("color2"));
+        jButton7.setBackground(ColorManager.getInstance().getColor("btnHover"));
+        jButton7.setForeground(ColorManager.getInstance().getColor("color2"));
     }//GEN-LAST:event_jButton7MouseEntered
 
     private void jButton7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseExited
-        jButton7.setBackground(ColorManager.getInstance().getColor("btn"));
+        jButton7.setBackground(ColorManager.getInstance().getColor("boxColor"));
+        jButton7.setForeground(ColorManager.getInstance().getColor("txtInactive"));
     }//GEN-LAST:event_jButton7MouseExited
 
 

@@ -20,17 +20,17 @@ public class ColorManager {
     public ColorManager(){
         colors = new HashMap<>();
         
-        colors.put("border", new Color(131, 142, 159));
-        colors.put("txt", new Color(119, 152, 199));
+        colors.put("border", new Color(211, 215, 225));
+        colors.put("txtInactive", new Color(112, 121, 138));
+        colors.put("txt", new Color(69, 75, 93));
 
-        colors.put("btnTxt1", new Color(199, 213, 229));
-        colors.put("btnTxt2", new Color(236, 192, 192));
+        colors.put("boxColor", new Color(246, 248, 254));
+        colors.put("bgnd", new Color(231, 233, 242));
         
-        colors.put("btn", new Color(86, 96, 112));
-        colors.put("btn2", new Color(205, 107, 107));
+        colors.put("btnHover", new Color(238, 240, 250));
         
-        colors.put("color1", new Color(90, 128, 182));
-        colors.put("color2", new Color(199, 73, 73));
+        colors.put("color1", new Color(230, 190, 96));
+        colors.put("color2", new Color(103, 144, 201));
     }
     
     public static ColorManager getInstance(){

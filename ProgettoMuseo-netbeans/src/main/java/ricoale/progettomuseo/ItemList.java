@@ -5,6 +5,8 @@
  */
 package ricoale.progettomuseo;
 
+import javax.swing.border.MatteBorder;
+
 /**
  *
  * @author user
@@ -31,18 +33,18 @@ public class ItemList extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
-        setBackground(new java.awt.Color(81, 91, 105));
+        setBackground(new java.awt.Color(231, 233, 242));
 
-        jPanel1.setBackground(new java.awt.Color(102, 114, 132));
-        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(131, 142, 159)));
+        jPanel1.setBackground(new java.awt.Color(246, 248, 254));
+        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(211, 215, 225)));
 
-        jButton1.setBackground(new java.awt.Color(86, 96, 112));
-        jButton1.setForeground(new java.awt.Color(199, 213, 229));
+        jButton1.setBackground(new java.awt.Color(248, 250, 255));
+        jButton1.setForeground(new java.awt.Color(112, 121, 138));
         jButton1.setText("Home");
-        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(131, 142, 159)));
+        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(211, 215, 225)));
         jButton1.setContentAreaFilled(false);
         jButton1.setFocusPainted(false);
         jButton1.setOpaque(true);
@@ -74,17 +76,20 @@ public class ItemList extends javax.swing.JPanel {
             .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
-        jPanel3.setBackground(new java.awt.Color(102, 114, 132));
-        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(131, 142, 159), 1, true));
+        jPanel3.setBackground(new java.awt.Color(246, 248, 254));
+        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(199, 213, 229));
+        jLabel2.setForeground(new java.awt.Color(69, 75, 93));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Reperti");
         jLabel2.setToolTipText("");
 
-        jTable1.setBackground(new java.awt.Color(81, 91, 105));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jScrollPane2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
+
+        jTable2.setBackground(new java.awt.Color(238, 240, 250));
+        jTable2.setForeground(new java.awt.Color(112, 121, 138));
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -95,7 +100,7 @@ public class ItemList extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -104,7 +109,7 @@ public class ItemList extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1254, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1254, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -116,7 +121,7 @@ public class ItemList extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -145,11 +150,15 @@ public class ItemList extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
-        jButton1.setBackground(ColorManager.getInstance().getColor("color1"));
+        jButton1.setBackground(ColorManager.getInstance().getColor("btnHover"));
+        jButton1.setForeground(ColorManager.getInstance().getColor("txt"));
+        jButton1.setBorder(new MatteBorder(0, 0, 0, 2, ColorManager.getInstance().getColor("color1")));
     }//GEN-LAST:event_jButton1MouseEntered
 
     private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
-        jButton1.setBackground(ColorManager.getInstance().getColor("btn"));
+        jButton1.setBackground(ColorManager.getInstance().getColor("boxColor"));
+        jButton1.setForeground(ColorManager.getInstance().getColor("txtInactive"));
+        jButton1.setBorder(new MatteBorder(0, 0, 0, 1, ColorManager.getInstance().getColor("border")));
     }//GEN-LAST:event_jButton1MouseExited
 
 
@@ -158,7 +167,7 @@ public class ItemList extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }
