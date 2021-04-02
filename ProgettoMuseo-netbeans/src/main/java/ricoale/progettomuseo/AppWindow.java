@@ -5,6 +5,7 @@
  */
 package ricoale.progettomuseo;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.CardLayout;
 
 /**
@@ -92,9 +93,10 @@ public class AppWindow extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        FlatLightLaf.install();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("com.formdev.flatlaf".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
