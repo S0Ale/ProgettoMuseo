@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ricoale.progettomuseo;
+package ricoale.progettomuseo.GUI;
 
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;

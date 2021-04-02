@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ricoale.progettomuseo;
+package ricoale.progettomuseo.GUI;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.CardLayout;
@@ -17,7 +17,7 @@ public class AppWindow extends javax.swing.JFrame {
     private CardLayout layout;
     private ItemList itemPanel;
     private LoginPanel login;
-    private VisualizerPanel visualizer;
+    private ViewPanel visualizer;
 
     /**
      * Creates new form AppWindow
@@ -28,7 +28,7 @@ public class AppWindow extends javax.swing.JFrame {
         mainPanel.setLayout(layout);
         itemPanel = new ItemList();
         login = new LoginPanel();
-        visualizer = new VisualizerPanel();
+        visualizer = new ViewPanel();
         mainPanel.add(login, "login");
         mainPanel.add(itemPanel, "items");
         mainPanel.add(visualizer, "view");

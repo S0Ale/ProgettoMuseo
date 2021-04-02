@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ricoale.progettomuseo;
+package ricoale.progettomuseo.GUI;
 
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
@@ -12,12 +12,12 @@ import javax.swing.border.MatteBorder;
  *
  * @author user
  */
-public class VisualizerPanel extends javax.swing.JPanel {
+public class ViewPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form VisualizerPanel
      */
-    public VisualizerPanel() {
+    public ViewPanel() {
         initComponents();
     }
 
