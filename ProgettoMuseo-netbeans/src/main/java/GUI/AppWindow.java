@@ -10,7 +10,7 @@ import java.awt.CardLayout;
 
 /**
  *
- * @author user
+ * @author S_Ale AKA S0Ale
  */
 public class AppWindow extends javax.swing.JFrame {
     

@@ -10,7 +10,7 @@ import javax.swing.border.MatteBorder;
 
 /**
  *
- * @author user
+ * @author S_Ale AKA S0Ale
  */
 public class LoginPanel extends javax.swing.JPanel {
 

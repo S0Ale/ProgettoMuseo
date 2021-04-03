@@ -11,6 +11,8 @@ import java.util.HashMap;
 /**
  *
  * @author user
+ * Questa classe permette di definire una sola istanza (Singleton) e permette di definire una palette di colori.
+ * l'istanza è accessibile ovunque nel codice. 
  */
 public class ColorManager {
     private static ColorManager instance;

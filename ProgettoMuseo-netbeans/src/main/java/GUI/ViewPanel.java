@@ -11,7 +11,7 @@ import javax.swing.border.MatteBorder;
 
 /**
  *
- * @author user
+ * @author S_Ale AKA S0Ale
  */
 public class ViewPanel extends javax.swing.JPanel {
     

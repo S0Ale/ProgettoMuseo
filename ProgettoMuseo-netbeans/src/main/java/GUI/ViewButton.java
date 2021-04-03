@@ -16,8 +16,11 @@ import javax.swing.border.LineBorder;
 /**
  *
  * @author user
+ * Questa classe è una versione custom di un normale JButton per comporre la lista di reperti
+ * se premuto, questo bottone deve portare alla visualizzazione del reperto.
  */
 public class ViewButton extends JButton{
+    
     public ViewButton(int x, int y){
         init();
         setLocation(x, y);
@@ -33,6 +36,7 @@ public class ViewButton extends JButton{
         setActionCommand("viewItem");
         setRolloverEnabled(false);
         
+        //azioni al click
         addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -42,6 +46,7 @@ public class ViewButton extends JButton{
             }
         });
         
+        //listener per gli effetti di hover
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent evt) {

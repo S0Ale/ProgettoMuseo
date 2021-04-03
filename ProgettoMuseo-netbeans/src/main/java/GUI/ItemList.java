@@ -13,7 +13,7 @@ import javax.swing.border.MatteBorder;
 
 /**
  *
- * @author user
+ * @author S_Ale AKA S0Ale
  */
 public class ItemList extends javax.swing.JPanel {
     
