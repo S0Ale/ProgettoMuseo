@@ -10,6 +10,7 @@ GUI\LoginPanel.class
 GUI\ViewButton.class
 GUI\ViewPanel$3.class
 GUI\ItemList$2.class
+Logic\ViewWorld.class
 GUI\ViewButton$2.class
 GUI\ItemList$4.class
 GUI\LoginPanel$2.class

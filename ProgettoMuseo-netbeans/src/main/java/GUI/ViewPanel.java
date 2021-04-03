@@ -17,6 +17,8 @@ public class ViewPanel extends javax.swing.JPanel {
     
     private final CardLayout layout;
     private final JPanel parent;
+    
+    //private Canvas3D viewWindow;
 
     /**
      * Creates new form VisualizerPanel
@@ -27,11 +29,17 @@ public class ViewPanel extends javax.swing.JPanel {
         this.layout = layout;
         this.parent = parent;
         initComponents();
+        initVisualizer();
         descPanel.getVerticalScrollBar().setUnitIncrement(3);
         updateLocationPanel("una data a caso", "Italia", "Europa");
         updateDescPanel("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis rutrum risus, a molestie purus. Nulla facilisi. Nulla metus eros, dapibus ac faucibus eget, iaculis eget nunc. Mauris varius convallis cursus. Morbi fermentum velit vehicula, lobortis sapien sed, feugiat arcu. Vivamus sit amet mauris in risus tincidunt cursus. Curabitur quis lorem ut mauris interdum fringilla. Vivamus in fringilla tortor. In elementum, diam vel blandit porttitor, dolor odio aliquet magna, sed lacinia nunc elit et eros. Quisque quis ex sed risus malesuada dignissim. Pellentesque velit dui, vestibulum non tellus ac, dignissim viverra purus. Cras vitae bibendum nibh, non cursus nibh.\n" +
 "\n" +
 "Etiam justo dolor, eleifend at dictum id, cursus et lorem. Duis eget pretium urna. Etiam ullamcorper nec risus non luctus. Proin pellentesque quam a augue cursus pharetra. Mauris ac blandit tortor. Vivamus rhoncus sem lorem, eget vehicula lacus viverra in. Curabitur sed mi non ipsum bibendum aliquet. Curabitur gravida urna mi, id viverra augue semper sit amet. Nullam pretium, erat sed posuere venenatis, neque lectus hendrerit turpis, sed tempus lectus enim at libero. Aliquam porttitor, erat porta condimentum posuere, tellus nunc auctor lorem, et rutrum tortor ipsum in tortor. Nam tellus quam, aliquet ut auctor accumsan, sagittis quis velit. In ac condimentum enim, nec dictum lectus. Curabitur fermentum, leo sed porta dapibus, lorem purus pulvinar quam, vitae blandit urna sem non urna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer finibus ipsum dapibus sagittis molestie. Ut auctor, metus a euismod tincidunt, ipsum tortor imperdiet mauris, ac consectetur lorem purus iaculis magna. ");
+    }
+    
+    private void initVisualizer(){
+        //viewWindow = new Canvas3D(null);
+        //visualizerBox.add(viewWindow);
     }
 
     /**
@@ -52,7 +60,7 @@ public class ViewPanel extends javax.swing.JPanel {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        visualizerBox = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -210,18 +218,18 @@ public class ViewPanel extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
-        jPanel1.setToolTipText("");
+        visualizerBox.setBackground(new java.awt.Color(255, 255, 255));
+        visualizerBox.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
+        visualizerBox.setToolTipText("");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout visualizerBoxLayout = new javax.swing.GroupLayout(visualizerBox);
+        visualizerBox.setLayout(visualizerBoxLayout);
+        visualizerBoxLayout.setHorizontalGroup(
+            visualizerBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 900, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        visualizerBoxLayout.setVerticalGroup(
+            visualizerBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 508, Short.MAX_VALUE)
         );
 
@@ -310,7 +318,7 @@ public class ViewPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(visualizerBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -325,7 +333,7 @@ public class ViewPanel extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(visualizerBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -411,7 +419,6 @@ public class ViewPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -420,5 +427,6 @@ public class ViewPanel extends javax.swing.JPanel {
     private javax.swing.JTextArea locationArea;
     private javax.swing.JScrollPane locationPanel;
     private javax.swing.JPanel menuBar;
+    private javax.swing.JPanel visualizerBox;
     // End of variables declaration//GEN-END:variables
 }
