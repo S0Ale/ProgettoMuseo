@@ -5,13 +5,10 @@
  */
 package GUI;
 
-import java.awt.Color;
+import java.awt.CardLayout;
 import java.awt.Dimension;
-import java.util.ArrayList;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
 /**
@@ -19,14 +16,19 @@ import javax.swing.border.MatteBorder;
  * @author user
  */
 public class ItemList extends javax.swing.JPanel {
+    
+    private final CardLayout layout;
+    private final JPanel parent;
 
     /**
      * Creates new form ItemList
+     * @param layout
+     * @param parent
      */
-    public ItemList() {
+    public ItemList(CardLayout layout, JPanel parent) {
+        this.layout = layout;
+        this.parent = parent;
         initComponents();
-        System.out.println(getClass().getResource("/refresh-resized.png"));
-        //refreshButton.setIcon(new ImageIcon(getClass().getResource("/res/refresh.png")));
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(10);
     }
 
@@ -198,11 +200,12 @@ public class ItemList extends javax.swing.JPanel {
 
         refreshButton.setBackground(new java.awt.Color(246, 248, 254));
         refreshButton.setForeground(new java.awt.Color(112, 121, 138));
-        refreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh-resized.png"))); // NOI18N
+        refreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh-hover.png"))); // NOI18N
         refreshButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
         refreshButton.setFocusPainted(false);
         refreshButton.setOpaque(true);
         refreshButton.setRolloverEnabled(false);
+        refreshButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh.png"))); // NOI18N
         refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 refreshButtonMouseEntered(evt);
@@ -267,7 +270,7 @@ public class ItemList extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
-        // TODO add your handling code here:
+        layout.show(parent, "items");
     }//GEN-LAST:event_HomeBtnActionPerformed
 
     private void HomeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeBtnMouseEntered
@@ -297,11 +300,13 @@ public class ItemList extends javax.swing.JPanel {
     }//GEN-LAST:event_refreshButtonMouseExited
 
     private void updateItemPanel(){
-        int n = 50;
+        itemsPanel.removeAll();
+        int n = 5;
         for(int i = 0; i < n; i++){
             itemsPanel.setPreferredSize(new Dimension(jScrollPane1.getWidth(), (i + 1) * 32));
             itemsPanel.setSize(new Dimension(jScrollPane1.getWidth(), (i + 1) * 32));
             JPanel panel = buildItemPanel(0, i * 32, "Nome", "Larghezza", "Altezza", "Profondità");
+            if(i == n - 1) panel.setBorder(new MatteBorder(0, 0, 1, 0, ColorManager.getInstance().getColor("border")));
             itemsPanel.add(panel);
         }
         itemsPanel.revalidate();
