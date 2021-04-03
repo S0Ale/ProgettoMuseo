@@ -379,7 +379,7 @@
               <Color blue="8a" green="79" red="70" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/refresh-resized.png"/>
+              <Image iconType="3" name="/refresh-hover.png"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -391,6 +391,9 @@
             <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="opaque" type="boolean" value="true"/>
             <Property name="rolloverEnabled" type="boolean" value="false"/>
+            <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/refresh.png"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="refreshButtonMouseEntered"/>

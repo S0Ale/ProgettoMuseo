@@ -5,7 +5,8 @@
  */
 package GUI;
 
-import javax.swing.border.LineBorder;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 
 /**
@@ -13,12 +14,24 @@ import javax.swing.border.MatteBorder;
  * @author user
  */
 public class ViewPanel extends javax.swing.JPanel {
+    
+    private final CardLayout layout;
+    private final JPanel parent;
 
     /**
      * Creates new form VisualizerPanel
+     * @param layout
+     * @param parent
      */
-    public ViewPanel() {
+    public ViewPanel(CardLayout layout, JPanel parent) {
+        this.layout = layout;
+        this.parent = parent;
         initComponents();
+        descPanel.getVerticalScrollBar().setUnitIncrement(3);
+        updateLocationPanel("una data a caso", "Italia", "Europa");
+        updateDescPanel("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis rutrum risus, a molestie purus. Nulla facilisi. Nulla metus eros, dapibus ac faucibus eget, iaculis eget nunc. Mauris varius convallis cursus. Morbi fermentum velit vehicula, lobortis sapien sed, feugiat arcu. Vivamus sit amet mauris in risus tincidunt cursus. Curabitur quis lorem ut mauris interdum fringilla. Vivamus in fringilla tortor. In elementum, diam vel blandit porttitor, dolor odio aliquet magna, sed lacinia nunc elit et eros. Quisque quis ex sed risus malesuada dignissim. Pellentesque velit dui, vestibulum non tellus ac, dignissim viverra purus. Cras vitae bibendum nibh, non cursus nibh.\n" +
+"\n" +
+"Etiam justo dolor, eleifend at dictum id, cursus et lorem. Duis eget pretium urna. Etiam ullamcorper nec risus non luctus. Proin pellentesque quam a augue cursus pharetra. Mauris ac blandit tortor. Vivamus rhoncus sem lorem, eget vehicula lacus viverra in. Curabitur sed mi non ipsum bibendum aliquet. Curabitur gravida urna mi, id viverra augue semper sit amet. Nullam pretium, erat sed posuere venenatis, neque lectus hendrerit turpis, sed tempus lectus enim at libero. Aliquam porttitor, erat porta condimentum posuere, tellus nunc auctor lorem, et rutrum tortor ipsum in tortor. Nam tellus quam, aliquet ut auctor accumsan, sagittis quis velit. In ac condimentum enim, nec dictum lectus. Curabitur fermentum, leo sed porta dapibus, lorem purus pulvinar quam, vitae blandit urna sem non urna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer finibus ipsum dapibus sagittis molestie. Ut auctor, metus a euismod tincidunt, ipsum tortor imperdiet mauris, ac consectetur lorem purus iaculis magna. ");
     }
 
     /**
@@ -43,6 +56,10 @@ public class ViewPanel extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        descPanel = new javax.swing.JScrollPane();
+        descArea = new javax.swing.JTextArea();
+        locationPanel = new javax.swing.JScrollPane();
+        locationArea = new javax.swing.JTextArea();
 
         jMenu1.setText("jMenu1");
 
@@ -233,6 +250,41 @@ public class ViewPanel extends javax.swing.JPanel {
         jTabbedPane1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTabbedPane1.setOpaque(true);
 
+        descPanel.setBackground(new java.awt.Color(238, 240, 250));
+        descPanel.setBorder(null);
+        descPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        descArea.setEditable(false);
+        descArea.setBackground(new java.awt.Color(238, 240, 250));
+        descArea.setColumns(20);
+        descArea.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        descArea.setForeground(new java.awt.Color(112, 121, 138));
+        descArea.setLineWrap(true);
+        descArea.setRows(5);
+        descArea.setMargin(new java.awt.Insets(6, 10, 6, 10));
+        descArea.setRequestFocusEnabled(false);
+        descPanel.setViewportView(descArea);
+
+        jTabbedPane1.addTab("Descrizione", descPanel);
+
+        locationPanel.setBackground(new java.awt.Color(238, 240, 250));
+        locationPanel.setBorder(null);
+        locationPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        locationArea.setEditable(false);
+        locationArea.setBackground(new java.awt.Color(238, 240, 250));
+        locationArea.setColumns(20);
+        locationArea.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        locationArea.setForeground(new java.awt.Color(112, 121, 138));
+        locationArea.setLineWrap(true);
+        locationArea.setRows(5);
+        locationArea.setText("Ciao");
+        locationArea.setMargin(new java.awt.Insets(6, 10, 6, 10));
+        locationArea.setRequestFocusEnabled(false);
+        locationPanel.setViewportView(locationArea);
+
+        jTabbedPane1.addTab("Ritrovamento", locationPanel);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -246,7 +298,7 @@ public class ViewPanel extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                 .addGap(6, 6, 6))
         );
 
@@ -282,7 +334,7 @@ public class ViewPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
-        // TODO add your handling code here:
+        layout.show(parent, "items");
     }//GEN-LAST:event_HomeBtnActionPerformed
 
     private void HomeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeBtnMouseEntered
@@ -337,9 +389,23 @@ public class ViewPanel extends javax.swing.JPanel {
         jButton7.setForeground(ColorManager.getInstance().getColor("txtInactive"));
     }//GEN-LAST:event_jButton7MouseExited
 
+    private void updateDescPanel(String text){
+        descArea.setText(text);
+    }
+    
+    private void updateLocationPanel(String date, String state, String continent){ //parametro: array di ricercatori
+        String text = "Data ritrovamento: " + date + ";\n";
+        if(state.equals("")) state = "sconosciuto";
+        if(continent.equals("")) continent = "sconosciuto";
+        text += "Luogo ritrovamento (stato, continente): " + state + ", " + continent + ";\n";
+        //ricercatori
+        locationArea.setText(text);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton HomeBtn;
+    private javax.swing.JTextArea descArea;
+    private javax.swing.JScrollPane descPanel;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -351,6 +417,8 @@ public class ViewPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextArea locationArea;
+    private javax.swing.JScrollPane locationPanel;
     private javax.swing.JPanel menuBar;
     // End of variables declaration//GEN-END:variables
 }
