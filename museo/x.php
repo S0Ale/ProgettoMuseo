@@ -1,7 +1,7 @@
 
 <?php
 
-    if(isset($_GET["id"]) and isset($_GET["psw"])){//login
+    if(isset($_GET["id"]) and isset($_GET["psw"])){//è una richiesta di login
         $id = $_GET["id"];
         $psw = $_GET["psw"];
         $connessione = new mysqli("127.0.0.1","root","","museoricoale");
@@ -18,39 +18,50 @@
                 echo session_id();
             }
         }
-    
-        if(isset($_GET["logout"])){//logout
+    }else{
+        if(isset($_GET["s"]))
             session_id($_GET["s"]);//il campo s contiene l'id sessione
-            session_start();
-            session_destroy();
-            echo "sei disconnesso";
-        }
-    }
-/*
-    if(isset($_GET["prova"]) and $_REQUEST["prova"] == 1){
-        session_id("424513563563fdsf234256352");
         session_start();
-        //echo "none";
-        if(isset($_SESSION["user"]))
-            echo $_SESSION["user"];
-        else echo "rieseguire il login";
-        $connessione = new mysqli("127.0.0.1","root","","museoricoale");
-        if ($connessione -> connect_errno) {
-             echo "Failed to connect to MySQL: " . $connessione -> connect_error;
-              exit();
-        }
-        $select = "SELECT * from teca";
-        if($risultato = $connessione -> query($select)){
-            $i = 0;
-            while(($tupla = $risultato -> fetch_assoc())){
-                $a[$i++] = $tupla;
+            if(isset($_SESSION["id"])){//controllo che la sessione fosse stata stabilita mediante autenticazione precedentemente
+                    //faccio robe
+                if(isset($_GET["logout"])){//si tratta di una richiesta di logout
+                    session_destroy();
+                    echo $_GET["s"]." sei disconnesso";//comunico al client che è stato disconnesso
+            }else
+                if(isset($_GET["pull"])){//si tratta di una richiesta di dati
+                    //compongo la query
+                    try{
+                        $campi = $_GET["campi"];
+                        $tabelle = $_GET["tabelle"];
+                        $predicato = $_GET["predicato"];
+                        $altro = $_GET["altro"];
+                    }catch(Exception $e){
+                        echo "Eccezione: ".$e->getMessage();
+                    }
+                    
+                    if(!empty($predicato)) $predicato = "WHERE ".$predicato;
+                    
+                    $select = "SELECT $campi from $tabelle $predicato $altro";
+                    //echo $select."<br>";
+                    try {
+                        $conn = connect();
+                        $i = 0;
+                        foreach($conn -> query($select, PDO::FETCH_ASSOC) as $row){
+                            $m = $row;
+                        }
+                        echo(json_encode($m));
+                    } catch(PDOException $e) {
+                      echo "Error: " . $e->getMessage();
+                    }
+                }
+            }else{
+                echo "sessione non trovata";//se non trovo una sessione con quell'id mando a quel paese la richiesta
+                session_destroy();// distruggo la sessione per non occupare memoria nel server ovviamente
             }
-            echo json_encode($a);
-        }
-        else
-        echo "errore nella Query";
     }
-*/
+    
+    
+
     function rString($length = 20) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -59,5 +70,21 @@
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+
+    function connect(){
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+
+        try{
+            $conn = new PDO("mysql:host=$servername;dbname=museoricoale", $username, $password);
+            // set the PDO error mode to exception
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            //echo "Connected successfully";
+            return $conn;
+        } catch(PDOException $e) {
+          //echo "Connection failed: " . $e->getMessage();
+        }
     }
 ?>
