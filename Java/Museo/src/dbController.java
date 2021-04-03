@@ -4,6 +4,14 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.io.BufferedInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 public class dbController {//poi diventerà il dbcontroller
     static String urlSito = "http://localhost/museo/x.php";
@@ -20,6 +28,31 @@ public class dbController {//poi diventerà il dbcontroller
         CompletableFuture<String> s=x.richiedi("dipendente.nome,dipendente.cognome,sala.periodo", "dipendente,sala", "dipendente.idSala=sala.id%20and%20sala.id=3", "ORDER%20BY%20dipendente.cognome");
         System.out.println(s.get());
         //System.out.println(s.get());
+    }
+
+    public static boolean download(String file_url, String file_name){
+        try (BufferedInputStream in = new BufferedInputStream(new URL(file_url).openStream());
+            FileOutputStream fileOutputStream = new FileOutputStream(file_name)) {
+            byte dataBuffer[] = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+                fileOutputStream.write(dataBuffer, 0, bytesRead);
+            }
+        } catch (IOException e) {
+            //System.out.println("Errore nel download");
+            //e.printStackTrace();
+            return false;
+        }
+        
+        try {
+            InputStream in = new URL(file_url).openStream();
+            Files.copy(in, Paths.get(file_name), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            //System.out.println("Errore nella memorizzazione");
+            //e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     public CompletableFuture<String> richiedi(String campi, String tabelle, String predicato, String altro){
