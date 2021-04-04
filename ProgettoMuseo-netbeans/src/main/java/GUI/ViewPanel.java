@@ -5,8 +5,15 @@
  */
 package GUI;
 
+import Logic.ViewWorld;
+import com.sun.j3d.utils.universe.SimpleUniverse;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GraphicsConfiguration;
+import javax.media.j3d.Canvas3D;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
 /**
@@ -18,7 +25,8 @@ public class ViewPanel extends javax.swing.JPanel {
     private final CardLayout layout;
     private final JPanel parent;
     
-    //private Canvas3D viewWindow;
+    private Canvas3D viewWindow;
+    private ViewWorld w;
 
     /**
      * Creates new form VisualizerPanel
@@ -38,8 +46,17 @@ public class ViewPanel extends javax.swing.JPanel {
     }
     
     private void initVisualizer(){
-        //viewWindow = new Canvas3D(null);
-        //visualizerBox.add(viewWindow);
+        GraphicsConfiguration config = SimpleUniverse
+        .getPreferredConfiguration();
+        
+        viewWindow = new Canvas3D(config);
+        viewWindow.setPreferredSize(new Dimension(902, 510)); //902, 510
+        viewWindow.setSize(new Dimension(902, 510));
+        
+        visualizerBox.add(viewWindow);
+        w = new ViewWorld(viewWindow);
+        visualizerBox.revalidate();
+        visualizerBox.repaint();
     }
 
     /**

@@ -56,6 +56,7 @@ public class AppWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(640, 360));
+        setResizable(false);
 
         mainPanel.setName(""); // NOI18N
 
