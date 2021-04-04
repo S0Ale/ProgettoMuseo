@@ -66,8 +66,8 @@ public class ViewWorld {
             obj.setFlags(ObjectFile.RESIZE | ObjectFile.TRIANGULATE | ObjectFile.STRIPIFY);
             System.out.println( "About to load" );
 
-            //Scene s = obj.load(getClass().getResource("/Modello_aereo.obj"));
-            Scene s = obj.load(new URL("http://www.java3d.org/renee.obj"));
+            Scene s = obj.load(getClass().getResource("/aereo.obj"));
+            //Scene s = obj.load(new URL("http://www.java3d.org/renee.obj"));
             System.out.println( "Daje" );
             Transform3D myTrans = new Transform3D();
             myTrans.setTranslation(new Vector3f(eyeOffset, -eyeOffset, 0F));
