@@ -9,16 +9,12 @@ import com.sun.j3d.loaders.Scene;
 import com.sun.j3d.loaders.objectfile.ObjectFile;
 import com.sun.j3d.utils.behaviors.mouse.MouseRotate;
 import com.sun.j3d.utils.behaviors.mouse.MouseTranslate;
-import com.sun.j3d.utils.behaviors.mouse.MouseWheelZoom;
 import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
-import com.sun.j3d.utils.universe.PlatformGeometry;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 import java.net.URL;
 import java.util.Enumeration;
-import java.util.Hashtable;
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.Appearance;
-import javax.media.j3d.BoundingLeaf;
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
@@ -53,8 +49,9 @@ public class ViewWorld {
         
         OrbitBehavior orbit = new OrbitBehavior(cv, OrbitBehavior.REVERSE_ALL);
         orbit.setZoomFactor(-1d);
+        orbit.setRotateEnable(false);
         
-        BoundingSphere defaultBounds = new BoundingSphere(new Point3d(0, 0, 0), 1f * 6.0d);
+        BoundingSphere defaultBounds = new BoundingSphere(new Point3d(0, 0, 0), 100d);
         orbit.setSchedulingBounds(defaultBounds);
         universe.getViewingPlatform().setViewPlatformBehavior(orbit);
         
@@ -69,8 +66,7 @@ public class ViewWorld {
             ObjectFile obj = new ObjectFile();
         
             Transform3D myTransform3D = new Transform3D();
-            //myTransform3D.setTranslation(new Vector3f(+0.0f,-0.15f,-3.6f));
-            myTransform3D.setTranslation(new Vector3f(0f, 0f, 0f));
+            myTransform3D.setTranslation(new Vector3f(0f,0f,-2f));
             TransformGroup objTrans = new TransformGroup(myTransform3D);
             objTrans.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
             Transform3D t = new Transform3D();
@@ -79,7 +75,6 @@ public class ViewWorld {
             tg.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
             objTrans.addChild(tg);
             obj.setFlags(ObjectFile.RESIZE | ObjectFile.TRIANGULATE | ObjectFile.STRIPIFY);
-            System.out.println( "About to load" );
 
             //Scene s = obj.load(getClass().getResource("/aereo.obj"));
             Scene s = obj.load(new URL("http://localhost/Katana.obj"));
@@ -94,21 +89,20 @@ public class ViewWorld {
                 Object obj2 = table.get(key);
                 Shape3D shape  = (Shape3D)obj2;
                 Appearance ap = new Appearance(); 
-                Color3f grey = new Color3f(0.5f, 0.5f, 0.5f);
+                Color3f grey = new Color3f(.4f, .4f, .4f);
                 Color3f white = new Color3f(.8f, .8f, .8f);
                 Color3f black = new Color3f(0.0f, 0.0f, 0.0f);
                 
-                ap.setMaterial(new Material(grey, black, grey, white, 5f));
+                ap.setMaterial(new Material(grey, black, grey, white, 10f));
                 ap.setRenderingAttributes( new RenderingAttributes() );
                 shape.setAppearance(ap);
                 mytg.addChild(new Shape3D(shape.getGeometry(),ap));
             }
-            System.out.println( "Finished Loading" );
-            BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 100.0);
-            Color3f light1Color = new Color3f(.5f, 0.5f, 0.5f);
+            BoundingSphere bounds = new BoundingSphere(new Point3d(-6f,3f,0.0), 100.0);
+            Color3f light1Color = new Color3f(.9f, 0.9f, 0.9f);
             Vector3f light1Direction  = new Vector3f(4.0f, -7.0f, -12.0f);
-            DirectionalLight light1
-            = new DirectionalLight(light1Color, light1Direction);
+            
+            DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
             light1.setInfluencingBounds(bounds);
             objTrans.addChild(light1);
 
@@ -116,6 +110,17 @@ public class ViewWorld {
             AmbientLight ambientLightNode = new AmbientLight(ambientColor);
             ambientLightNode.setInfluencingBounds(bounds);
             objTrans.addChild(ambientLightNode);
+            
+            MouseRotate behavior = new MouseRotate();
+            behavior.setFactor(.009f);
+	    behavior.setTransformGroup(tg);
+	    objTrans.addChild(behavior);
+	    MouseTranslate behavior3 = new MouseTranslate();
+	    behavior3.setTransformGroup(tg);
+	    objTrans.addChild(behavior3);
+	    behavior3.setSchedulingBounds(bounds);
+            
+            behavior.setSchedulingBounds(bounds);
             
             objRoot.addChild(objTrans);
         }catch(Throwable t){

@@ -50,8 +50,9 @@ public class ViewPanel extends javax.swing.JPanel {
         .getPreferredConfiguration();
         
         viewWindow = new Canvas3D(config);
-        viewWindow.setPreferredSize(new Dimension(902, 510)); //902, 510
-        viewWindow.setSize(new Dimension(902, 510));
+        viewWindow.setPreferredSize(new Dimension(900, 510)); //900, 510
+        viewWindow.setSize(new Dimension(900, 510));
+        viewWindow.setLocation(0, 0);
         
         visualizerBox.add(viewWindow);
         w = new ViewWorld(viewWindow);
@@ -72,11 +73,6 @@ public class ViewPanel extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         menuBar = new javax.swing.JPanel();
         HomeBtn = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         visualizerBox = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -140,101 +136,6 @@ public class ViewPanel extends javax.swing.JPanel {
             .addComponent(HomeBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
         );
 
-        jPanel2.setBackground(new java.awt.Color(246, 248, 254));
-        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
-
-        jButton4.setBackground(new java.awt.Color(248, 250, 255));
-        jButton4.setForeground(new java.awt.Color(112, 121, 138));
-        jButton4.setText("A");
-        jButton4.setActionCommand("C");
-        jButton4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(211, 215, 225)));
-        jButton4.setFocusPainted(false);
-        jButton4.setOpaque(true);
-        jButton4.setRolloverEnabled(false);
-        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton4MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton4MouseExited(evt);
-            }
-        });
-
-        jButton5.setBackground(new java.awt.Color(248, 250, 255));
-        jButton5.setForeground(new java.awt.Color(112, 121, 138));
-        jButton5.setText("B");
-        jButton5.setActionCommand("C");
-        jButton5.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(211, 215, 225)));
-        jButton5.setFocusPainted(false);
-        jButton5.setOpaque(true);
-        jButton5.setRolloverEnabled(false);
-        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton5MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton5MouseExited(evt);
-            }
-        });
-
-        jButton6.setBackground(new java.awt.Color(248, 250, 255));
-        jButton6.setForeground(new java.awt.Color(112, 121, 138));
-        jButton6.setText("C");
-        jButton6.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(211, 215, 225)));
-        jButton6.setFocusPainted(false);
-        jButton6.setOpaque(true);
-        jButton6.setRolloverEnabled(false);
-        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton6MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton6MouseExited(evt);
-            }
-        });
-
-        jButton7.setBackground(new java.awt.Color(248, 250, 255));
-        jButton7.setForeground(new java.awt.Color(112, 121, 138));
-        jButton7.setText("D");
-        jButton7.setActionCommand("C");
-        jButton7.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(211, 215, 225)));
-        jButton7.setFocusPainted(false);
-        jButton7.setOpaque(true);
-        jButton7.setRolloverEnabled(false);
-        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton7MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton7MouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
         visualizerBox.setBackground(new java.awt.Color(255, 255, 255));
         visualizerBox.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
         visualizerBox.setToolTipText("");
@@ -243,7 +144,7 @@ public class ViewPanel extends javax.swing.JPanel {
         visualizerBox.setLayout(visualizerBoxLayout);
         visualizerBoxLayout.setHorizontalGroup(
             visualizerBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGap(0, 898, Short.MAX_VALUE)
         );
         visualizerBoxLayout.setVerticalGroup(
             visualizerBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,7 +158,7 @@ public class ViewPanel extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 360, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,11 +234,11 @@ public class ViewPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(menuBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addComponent(visualizerBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -349,7 +250,6 @@ public class ViewPanel extends javax.swing.JPanel {
                 .addComponent(menuBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(visualizerBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -374,46 +274,6 @@ public class ViewPanel extends javax.swing.JPanel {
         HomeBtn.setBorder(new MatteBorder(0, 0, 0, 1, ColorManager.getInstance().getColor("border")));
     }//GEN-LAST:event_HomeBtnMouseExited
 
-    private void jButton4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseEntered
-        jButton4.setBackground(ColorManager.getInstance().getColor("btnHover"));
-        jButton4.setForeground(ColorManager.getInstance().getColor("color1Strong"));
-    }//GEN-LAST:event_jButton4MouseEntered
-
-    private void jButton4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseExited
-        jButton4.setBackground(ColorManager.getInstance().getColor("boxColor"));
-        jButton4.setForeground(ColorManager.getInstance().getColor("txtInactive"));
-    }//GEN-LAST:event_jButton4MouseExited
-
-    private void jButton5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseEntered
-        jButton5.setBackground(ColorManager.getInstance().getColor("btnHover"));
-        jButton5.setForeground(ColorManager.getInstance().getColor("color1Strong"));
-    }//GEN-LAST:event_jButton5MouseEntered
-
-    private void jButton5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseExited
-        jButton5.setBackground(ColorManager.getInstance().getColor("boxColor"));
-        jButton5.setForeground(ColorManager.getInstance().getColor("txtInactive"));
-    }//GEN-LAST:event_jButton5MouseExited
-
-    private void jButton6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseEntered
-        jButton6.setBackground(ColorManager.getInstance().getColor("btnHover"));
-        jButton6.setForeground(ColorManager.getInstance().getColor("color1Strong"));
-    }//GEN-LAST:event_jButton6MouseEntered
-
-    private void jButton6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseExited
-        jButton6.setBackground(ColorManager.getInstance().getColor("boxColor"));
-        jButton6.setForeground(ColorManager.getInstance().getColor("txtInactive"));
-    }//GEN-LAST:event_jButton6MouseExited
-
-    private void jButton7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseEntered
-        jButton7.setBackground(ColorManager.getInstance().getColor("btnHover"));
-        jButton7.setForeground(ColorManager.getInstance().getColor("color1Strong"));
-    }//GEN-LAST:event_jButton7MouseEntered
-
-    private void jButton7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseExited
-        jButton7.setBackground(ColorManager.getInstance().getColor("boxColor"));
-        jButton7.setForeground(ColorManager.getInstance().getColor("txtInactive"));
-    }//GEN-LAST:event_jButton7MouseExited
-
     private void updateDescPanel(String text){
         descArea.setText(text);
     }
@@ -431,12 +291,7 @@ public class ViewPanel extends javax.swing.JPanel {
     private javax.swing.JButton HomeBtn;
     private javax.swing.JTextArea descArea;
     private javax.swing.JScrollPane descPanel;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
