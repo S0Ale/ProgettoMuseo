@@ -7,6 +7,9 @@ package Logic;
 
 import com.sun.j3d.loaders.Scene;
 import com.sun.j3d.loaders.objectfile.ObjectFile;
+import com.sun.j3d.utils.behaviors.keyboard.KeyNavigatorBehavior;
+import com.sun.j3d.utils.behaviors.mouse.MouseRotate;
+import com.sun.j3d.utils.behaviors.mouse.MouseTranslate;
 import com.sun.j3d.utils.geometry.ColorCube;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 import java.io.FileNotFoundException;
@@ -66,8 +69,8 @@ public class ViewWorld {
             obj.setFlags(ObjectFile.RESIZE | ObjectFile.TRIANGULATE | ObjectFile.STRIPIFY);
             System.out.println( "About to load" );
 
-            Scene s = obj.load(getClass().getResource("/aereo.obj"));
-            //Scene s = obj.load(new URL("http://www.java3d.org/renee.obj"));
+            //Scene s = obj.load(getClass().getResource("/aereo.obj"));
+            Scene s = obj.load(new URL("http://localhost/Handgun_obj.obj"));
             System.out.println( "Daje" );
             Transform3D myTrans = new Transform3D();
             myTrans.setTranslation(new Vector3f(eyeOffset, -eyeOffset, 0F));
@@ -86,8 +89,6 @@ public class ViewWorld {
                 Color3f white = new Color3f(1f, 1f, 1f);
                 Color3f black = new Color3f(0.0f, 0.0f, 0.0f);
                 ap.setMaterial(new Material(grey, black, grey, white, 5f));
-                //Appearance ap2 = new Appearance();
-                //ap2.setMaterial(new Material(red, black, red, black, 1.0f));
                 float transparencyValue = 0.5f;
                 TransparencyAttributes t_attr =
                     new TransparencyAttributes(
@@ -95,12 +96,9 @@ public class ViewWorld {
                     transparencyValue,
                     TransparencyAttributes.BLEND_SRC_ALPHA,
                     TransparencyAttributes.BLEND_ONE);
-                //ap2.setTransparencyAttributes( t_attr );
-                //ap2.setRenderingAttributes( new RenderingAttributes() );
                 ap.setTransparencyAttributes( t_attr );
                 ap.setRenderingAttributes( new RenderingAttributes() );
                 shape.setAppearance(ap);
-                //mytg2.addChild(new Shape3D(shape.getGeometry(),ap2));
                 mytg.addChild(new Shape3D(shape.getGeometry(),ap));
             }
             System.out.println( "Finished Loading" );
@@ -116,6 +114,21 @@ public class ViewWorld {
             AmbientLight ambientLightNode = new AmbientLight(ambientColor);
             ambientLightNode.setInfluencingBounds(bounds);
             objTrans.addChild(ambientLightNode);
+            
+            MouseRotate behavior = new MouseRotate();
+	    behavior.setTransformGroup(tg);
+	    objTrans.addChild(behavior);
+	    MouseTranslate behavior3 = new MouseTranslate();
+	    behavior3.setTransformGroup(tg);
+	    objTrans.addChild(behavior3);
+	    behavior3.setSchedulingBounds(bounds);
+	    
+	    KeyNavigatorBehavior keyNavBeh = new KeyNavigatorBehavior(tg);
+		keyNavBeh.setSchedulingBounds(new BoundingSphere(
+			new Point3d(),1000.0));
+		objTrans.addChild(keyNavBeh);
+		
+	    behavior.setSchedulingBounds(bounds);
             
             objRoot.addChild(objTrans);
         }catch(Throwable t){
