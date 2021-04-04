@@ -31,10 +31,10 @@ public class LoginPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        ticketField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        passwordField = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         ErrorLabel = new javax.swing.JLabel();
@@ -45,44 +45,49 @@ public class LoginPanel extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(246, 248, 254));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
 
-        jTextField1.setBackground(new java.awt.Color(238, 240, 250));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(112, 121, 138));
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(211, 215, 225)));
-        jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jTextField1.setMargin(new java.awt.Insets(2, 32, 2, 6));
-        jTextField1.setName(""); // NOI18N
-        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+        ticketField.setBackground(new java.awt.Color(238, 240, 250));
+        ticketField.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        ticketField.setForeground(new java.awt.Color(112, 121, 138));
+        ticketField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        ticketField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(211, 215, 225)));
+        ticketField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        ticketField.setMargin(new java.awt.Insets(2, 32, 2, 6));
+        ticketField.setName(""); // NOI18N
+        ticketField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField1FocusGained(evt);
+                ticketFieldFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField1FocusLost(evt);
+                ticketFieldFocusLost(evt);
+            }
+        });
+        ticketField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ticketFieldActionPerformed(evt);
             }
         });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(112, 121, 138));
-        jLabel2.setText("Biglietto");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ticket.png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(112, 121, 138));
-        jLabel3.setText("Password");
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/key.png"))); // NOI18N
 
-        jPasswordField1.setBackground(new java.awt.Color(238, 240, 250));
-        jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(112, 121, 138));
-        jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jPasswordField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(211, 215, 225)));
-        jPasswordField1.setMargin(new java.awt.Insets(2, 32, 2, 6));
-        jPasswordField1.setName(""); // NOI18N
-        jPasswordField1.addFocusListener(new java.awt.event.FocusAdapter() {
+        passwordField.setBackground(new java.awt.Color(238, 240, 250));
+        passwordField.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        passwordField.setForeground(new java.awt.Color(112, 121, 138));
+        passwordField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        passwordField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(211, 215, 225)));
+        passwordField.setMargin(new java.awt.Insets(2, 32, 2, 6));
+        passwordField.setName(""); // NOI18N
+        passwordField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jPasswordField1FocusGained(evt);
+                passwordFieldFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jPasswordField1FocusLost(evt);
+                passwordFieldFocusLost(evt);
             }
         });
 
@@ -129,12 +134,12 @@ public class LoginPanel extends javax.swing.JPanel {
                                     .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                                            .addComponent(jTextField1))))))
+                                            .addComponent(ticketField, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                                            .addComponent(passwordField))))))
                         .addGap(0, 31, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -149,11 +154,11 @@ public class LoginPanel extends javax.swing.JPanel {
                 .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ticketField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
@@ -191,7 +196,7 @@ public class LoginPanel extends javax.swing.JPanel {
                 .addComponent(menuBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(144, 144, 144)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addContainerGap(223, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -207,21 +212,25 @@ public class LoginPanel extends javax.swing.JPanel {
         jButton1.setBorder(new LineBorder(ColorManager.getInstance().getColor("border")));
     }//GEN-LAST:event_jButton1MouseExited
 
-    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
-        jTextField1.setBorder(new MatteBorder(0, 0, 2, 0, ColorManager.getInstance().getColor("color1")));
-    }//GEN-LAST:event_jTextField1FocusGained
+    private void ticketFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ticketFieldFocusGained
+        ticketField.setBorder(new MatteBorder(0, 0, 2, 0, ColorManager.getInstance().getColor("color1")));
+    }//GEN-LAST:event_ticketFieldFocusGained
 
-    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
-        jTextField1.setBorder(new MatteBorder(0, 0, 2, 0, ColorManager.getInstance().getColor("border")));
-    }//GEN-LAST:event_jTextField1FocusLost
+    private void ticketFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ticketFieldFocusLost
+        ticketField.setBorder(new MatteBorder(0, 0, 2, 0, ColorManager.getInstance().getColor("border")));
+    }//GEN-LAST:event_ticketFieldFocusLost
 
-    private void jPasswordField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusGained
-        jPasswordField1.setBorder(new MatteBorder(0, 0, 2, 0, ColorManager.getInstance().getColor("color2")));
-    }//GEN-LAST:event_jPasswordField1FocusGained
+    private void passwordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusGained
+        passwordField.setBorder(new MatteBorder(0, 0, 2, 0, ColorManager.getInstance().getColor("color2")));
+    }//GEN-LAST:event_passwordFieldFocusGained
 
-    private void jPasswordField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusLost
-        jPasswordField1.setBorder(new MatteBorder(0, 0, 2, 0, ColorManager.getInstance().getColor("border")));
-    }//GEN-LAST:event_jPasswordField1FocusLost
+    private void passwordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusLost
+        passwordField.setBorder(new MatteBorder(0, 0, 2, 0, ColorManager.getInstance().getColor("border")));
+    }//GEN-LAST:event_passwordFieldFocusLost
+
+    private void ticketFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ticketFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ticketFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -231,8 +240,8 @@ public class LoginPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel menuBar;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JTextField ticketField;
     // End of variables declaration//GEN-END:variables
 }
