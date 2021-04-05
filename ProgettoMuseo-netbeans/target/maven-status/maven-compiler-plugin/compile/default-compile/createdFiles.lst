@@ -11,6 +11,7 @@ GUI\LoginPanel.class
 GUI\ViewButton.class
 GUI\ViewPanel$3.class
 GUI\ItemList$2.class
+GUI\LoginPanel$4.class
 Logic\ViewWorld.class
 GUI\ViewButton$2.class
 Logic\SoundPlayer.class

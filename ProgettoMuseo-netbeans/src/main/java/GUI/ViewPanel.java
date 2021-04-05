@@ -42,7 +42,7 @@ public class ViewPanel extends javax.swing.JPanel {
         this.layout = layout;
         this.parent = parent;
         initComponents();
-        initVisualizer();
+        initVisualizer(); // non utilizzare nel costruttore (solo per test)
         descPanel.getVerticalScrollBar().setUnitIncrement(3);
         updateLocationPanel("una data a caso", "Italia", "Europa");
         updateDescPanel("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis rutrum risus, a molestie purus. Nulla facilisi. Nulla metus eros, dapibus ac faucibus eget, iaculis eget nunc. Mauris varius convallis cursus. Morbi fermentum velit vehicula, lobortis sapien sed, feugiat arcu. Vivamus sit amet mauris in risus tincidunt cursus. Curabitur quis lorem ut mauris interdum fringilla. Vivamus in fringilla tortor. In elementum, diam vel blandit porttitor, dolor odio aliquet magna, sed lacinia nunc elit et eros. Quisque quis ex sed risus malesuada dignissim. Pellentesque velit dui, vestibulum non tellus ac, dignissim viverra purus. Cras vitae bibendum nibh, non cursus nibh.\n" +
@@ -307,7 +307,6 @@ public class ViewPanel extends javax.swing.JPanel {
         locationArea.setForeground(new java.awt.Color(112, 121, 138));
         locationArea.setLineWrap(true);
         locationArea.setRows(5);
-        locationArea.setText("Ciao");
         locationArea.setMargin(new java.awt.Insets(6, 10, 6, 10));
         locationArea.setRequestFocusEnabled(false);
         locationPanel.setViewportView(locationArea);

@@ -200,7 +200,7 @@ public class ItemList extends javax.swing.JPanel {
 
         refreshButton.setBackground(new java.awt.Color(246, 248, 254));
         refreshButton.setForeground(new java.awt.Color(112, 121, 138));
-        refreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh-hover.png"))); // NOI18N
+        refreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh.png"))); // NOI18N
         refreshButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
         refreshButton.setFocusPainted(false);
         refreshButton.setOpaque(true);
