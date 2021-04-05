@@ -5,12 +5,15 @@
  */
 package GUI;
 
+import Logic.Run;
+import Logic.SoundPlayer;
 import Logic.ViewWorld;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
+import java.io.File;
 import javax.media.j3d.Canvas3D;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
@@ -27,6 +30,8 @@ public class ViewPanel extends javax.swing.JPanel {
     
     private Canvas3D viewWindow;
     private ViewWorld w;
+    private Thread tr;
+    private SoundPlayer player;
 
     /**
      * Creates new form VisualizerPanel
@@ -56,6 +61,10 @@ public class ViewPanel extends javax.swing.JPanel {
         
         visualizerBox.add(viewWindow);
         w = new ViewWorld(viewWindow);
+        File f = new File(new File("").getAbsolutePath());//questo ha senso farlo in realtà quando preme sul pulsante la prima volta
+        player = new SoundPlayer(f.getPath()+"\\src\\main\\resources\\AAA (online-audio-converter.com).wav");
+        
+        System.out.println("Thread is started");
         visualizerBox.revalidate();
         visualizerBox.repaint();
     }
@@ -78,6 +87,9 @@ public class ViewPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        playPause = new javax.swing.JToggleButton();
+        jSlider1 = new javax.swing.JSlider();
         jPanel4 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         descPanel = new javax.swing.JScrollPane();
@@ -109,7 +121,6 @@ public class ViewPanel extends javax.swing.JPanel {
         HomeBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(211, 215, 225)));
         HomeBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         HomeBtn.setFocusPainted(false);
-        HomeBtn.setOpaque(true);
         HomeBtn.setRolloverEnabled(false);
         HomeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -180,6 +191,48 @@ public class ViewPanel extends javax.swing.JPanel {
 
         jScrollPane1.setViewportView(jPanel1);
 
+        playPause.setText("Play");
+        playPause.setMargin(new java.awt.Insets(10, 10, 10, 10));
+        playPause.setMaximumSize(new java.awt.Dimension(100, 100));
+        playPause.setMinimumSize(new java.awt.Dimension(100, 100));
+        playPause.setPreferredSize(new java.awt.Dimension(100, 100));
+        playPause.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playPauseActionPerformed(evt);
+            }
+        });
+
+        jSlider1.setMaximum(1000);
+        jSlider1.setValue(0);
+        jSlider1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jSlider1MousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(147, 147, 147)
+                .addComponent(playPause, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addComponent(playPause, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -187,10 +240,12 @@ public class ViewPanel extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(104, 104, 104)
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -198,8 +253,10 @@ public class ViewPanel extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -227,6 +284,14 @@ public class ViewPanel extends javax.swing.JPanel {
         descArea.setRows(5);
         descArea.setMargin(new java.awt.Insets(6, 10, 6, 10));
         descArea.setRequestFocusEnabled(false);
+        descArea.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                descAreaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                descAreaFocusLost(evt);
+            }
+        });
         descPanel.setViewportView(descArea);
 
         jTabbedPane1.addTab("Descrizione", descPanel);
@@ -262,7 +327,7 @@ public class ViewPanel extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
                 .addGap(6, 6, 6))
         );
 
@@ -298,6 +363,7 @@ public class ViewPanel extends javax.swing.JPanel {
 
     private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
         layout.show(parent, "items");
+        player.stop();
     }//GEN-LAST:event_HomeBtnActionPerformed
 
     private void HomeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeBtnMouseEntered
@@ -311,6 +377,73 @@ public class ViewPanel extends javax.swing.JPanel {
         HomeBtn.setForeground(ColorManager.getInstance().getColor("txtInactive"));
         HomeBtn.setBorder(new MatteBorder(0, 0, 0, 1, ColorManager.getInstance().getColor("border")));
     }//GEN-LAST:event_HomeBtnMouseExited
+
+    private void playPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPauseActionPerformed
+        // TODO add your handling code here:
+        System.out.println("time: " + player.getLastPos());
+        if(!playPause.isSelected()){//metto in pausa
+            // System.out.print("pausa");
+            
+            player.pause();
+            playPause.setText("Play");
+        }
+        else {//avvio
+            //System.out.print("avvio");
+            if(!player.isStarted()){//se l'ho già avviato lo devo avviare
+                System.out.print("avvio");
+                player.playMusic();
+                Run r1 = new Run(player, jSlider1);
+                tr = new Thread(r1);
+                tr.start();
+            }else{//altrimenti lo avvio
+               //  System.out.print("resume");
+                player.resume();
+            }
+            playPause.setText("Pause");
+        }
+    }//GEN-LAST:event_playPauseActionPerformed
+
+    private void descAreaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descAreaFocusGained
+        // TODO add your handling code here:
+       //  System.out.println("gained");
+    }//GEN-LAST:event_descAreaFocusGained
+    
+    private void descAreaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descAreaFocusLost
+        // TODO add your handling code here:
+        // System.out.println("lost");
+    }//GEN-LAST:event_descAreaFocusLost
+
+    private void jSlider1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSlider1MousePressed
+        // TODO add your handling code here:
+        /*synchronized(player){
+            synchronized(jSlider){*/
+            boolean b = false;
+            if(!player.isStarted()){
+                //     System.out.print("avvio");
+                    player.playMusic();
+                    Run r1 = new Run(player, jSlider1);
+                    tr = new Thread(r1);
+                    tr.start();
+                    b = true;
+            }
+
+            //  System.out.print("pausa");
+            
+            int v = jSlider1.getValue();
+            long durata = player.getClip().getMicrosecondLength();
+            int maxV = jSlider1.getMaximum();
+            long r = (durata * v / maxV);//devo usare un long perchè la moltiplicazione potrebbe portare a un valore grossino (o almeno così penso, ora funge, se uso gli int no)
+            System.out.println(durata + " * " + v + " / " + maxV + " = " + r);
+            player.setLastPos((int)r);
+            playPause.setText("Play");
+            if(playPause.isSelected() || b){//metto in pausa
+               //  System.out.print("pausa");
+               player.pause();
+               playPause.setSelected(false);
+            }
+            /*}
+        }*/
+    }//GEN-LAST:event_jSlider1MousePressed
 
     private void updateDescPanel(String text){
         descArea.setText(text);
@@ -332,14 +465,17 @@ public class ViewPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSlider jSlider1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea locationArea;
     private javax.swing.JScrollPane locationPanel;
     private javax.swing.JPanel menuBar;
+    private javax.swing.JToggleButton playPause;
     private javax.swing.JPanel visualizerBox;
     // End of variables declaration//GEN-END:variables
 }

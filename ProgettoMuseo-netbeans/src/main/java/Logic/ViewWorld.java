@@ -77,7 +77,7 @@ public class ViewWorld {
             obj.setFlags(ObjectFile.RESIZE | ObjectFile.TRIANGULATE | ObjectFile.STRIPIFY);
 
             //Scene s = obj.load(getClass().getResource("/aereo.obj"));
-            Scene s = obj.load(new URL("http://localhost/Katana.obj"));
+            Scene s = obj.load(new URL("http://localhost/museo/aereo.obj"));
             Transform3D myTrans = new Transform3D();
             myTrans.setTranslation(new Vector3f(eyeOffset, -eyeOffset, 0F));
             TransformGroup mytg = new TransformGroup(myTrans);
