@@ -92,8 +92,8 @@ public class SoundPlayer {
     
     public void stop(){
         if(isStarted){
-            this.clip.close();
             this.clip.stop();
+            this.clip.close();
             this.isStarted = false;
             isActive = false;
         }

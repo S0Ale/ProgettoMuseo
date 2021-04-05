@@ -47,6 +47,7 @@ public class ItemList extends javax.swing.JPanel {
         jMenu2 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         HomeBtn = new javax.swing.JButton();
+        logOutButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -102,6 +103,29 @@ public class ItemList extends javax.swing.JPanel {
             }
         });
 
+        logOutButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        logOutButton.setForeground(new java.awt.Color(112, 121, 138));
+        logOutButton.setText("Log out");
+        logOutButton.setBorder(null);
+        logOutButton.setBorderPainted(false);
+        logOutButton.setContentAreaFilled(false);
+        logOutButton.setFocusable(false);
+        logOutButton.setRequestFocusEnabled(false);
+        logOutButton.setRolloverEnabled(false);
+        logOutButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                logOutButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                logOutButtonMouseExited(evt);
+            }
+        });
+        logOutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -109,11 +133,15 @@ public class ItemList extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addComponent(HomeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(HomeBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(HomeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                .addComponent(logOutButton))
         );
 
         jPanel3.setBackground(new java.awt.Color(246, 248, 254));
@@ -299,6 +327,18 @@ public class ItemList extends javax.swing.JPanel {
         refreshButton.setForeground(ColorManager.getInstance().getColor("txtInactive"));
     }//GEN-LAST:event_refreshButtonMouseExited
 
+    private void logOutButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logOutButtonMouseEntered
+        logOutButton.setForeground(ColorManager.getInstance().getColor("color2Strong"));
+    }//GEN-LAST:event_logOutButtonMouseEntered
+
+    private void logOutButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logOutButtonMouseExited
+        logOutButton.setForeground(ColorManager.getInstance().getColor("txtInactive"));
+    }//GEN-LAST:event_logOutButtonMouseExited
+
+    private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
+        layout.show(parent, "login");
+    }//GEN-LAST:event_logOutButtonActionPerformed
+
     private void updateItemPanel(){
         itemsPanel.removeAll();
         int n = 5;
@@ -357,6 +397,7 @@ public class ItemList extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton logOutButton;
     private javax.swing.JButton refreshButton;
     // End of variables declaration//GEN-END:variables
 }

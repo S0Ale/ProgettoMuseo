@@ -1,3 +1,5 @@
+package Logic;
+
 public class Teca extends IdentifiedObj{
     private float altezza;
     private float larghezza;

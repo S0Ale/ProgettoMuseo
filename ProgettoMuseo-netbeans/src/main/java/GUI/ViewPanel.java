@@ -31,6 +31,7 @@ public class ViewPanel extends javax.swing.JPanel {
     
     private Canvas3D viewWindow;
     private SoundPlayer player;
+    private Timer audioTimer;
 
     /**
      * Creates new form VisualizerPanel
@@ -86,6 +87,7 @@ public class ViewPanel extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         menuBar = new javax.swing.JPanel();
         HomeBtn = new javax.swing.JButton();
+        logOutButton = new javax.swing.JButton();
         visualizerBox = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -141,6 +143,29 @@ public class ViewPanel extends javax.swing.JPanel {
             }
         });
 
+        logOutButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        logOutButton.setForeground(new java.awt.Color(112, 121, 138));
+        logOutButton.setText("Log out");
+        logOutButton.setBorder(null);
+        logOutButton.setBorderPainted(false);
+        logOutButton.setContentAreaFilled(false);
+        logOutButton.setFocusable(false);
+        logOutButton.setRequestFocusEnabled(false);
+        logOutButton.setRolloverEnabled(false);
+        logOutButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                logOutButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                logOutButtonMouseExited(evt);
+            }
+        });
+        logOutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menuBarLayout = new javax.swing.GroupLayout(menuBar);
         menuBar.setLayout(menuBarLayout);
         menuBarLayout.setHorizontalGroup(
@@ -148,11 +173,15 @@ public class ViewPanel extends javax.swing.JPanel {
             .addGroup(menuBarLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addComponent(HomeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         menuBarLayout.setVerticalGroup(
             menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(HomeBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(HomeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                .addComponent(logOutButton))
         );
 
         visualizerBox.setBackground(new java.awt.Color(246, 248, 254));
@@ -388,12 +417,7 @@ public class ViewPanel extends javax.swing.JPanel {
 
     private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
         layout.show(parent, "items");
-        player.stop();
-        world.stop();
-        visualizerBox.removeAll();
-        player = null;
-        viewWindow = null;
-        world = null;
+        endVisualizer();
     }//GEN-LAST:event_HomeBtnActionPerformed
 
     private void HomeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeBtnMouseEntered
@@ -452,11 +476,35 @@ public class ViewPanel extends javax.swing.JPanel {
     private void playPauseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playPauseMouseExited
         playPause.setBackground(ColorManager.getInstance().getColor("boxColor"));
     }//GEN-LAST:event_playPauseMouseExited
+
+    private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
+        endVisualizer();
+        layout.show(parent, "login");
+    }//GEN-LAST:event_logOutButtonActionPerformed
+
+    private void logOutButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logOutButtonMouseEntered
+        logOutButton.setForeground(ColorManager.getInstance().getColor("color2Strong"));
+    }//GEN-LAST:event_logOutButtonMouseEntered
+
+    private void logOutButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logOutButtonMouseExited
+        logOutButton.setForeground(ColorManager.getInstance().getColor("txtInactive"));
+    }//GEN-LAST:event_logOutButtonMouseExited
  
+    private void endVisualizer(){
+        player.stop();
+        world.stop();
+        audioTimer.cancel();
+        audioTimer.purge();
+        visualizerBox.removeAll();
+        player = null;
+        viewWindow = null;
+        world = null;
+    }
+    
     private void startSliderUpdate(){
         long durata = player.getClip().getMicrosecondLength();
         int maxV = jSlider1.getMaximum();
-        Timer audioTimer = new Timer();
+        audioTimer = new Timer();
                     
         audioTimer.scheduleAtFixedRate(new TimerTask(){
             @Override
@@ -501,6 +549,7 @@ public class ViewPanel extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea locationArea;
     private javax.swing.JScrollPane locationPanel;
+    private javax.swing.JButton logOutButton;
     private javax.swing.JPanel menuBar;
     private javax.swing.JToggleButton playPause;
     private javax.swing.JPanel visualizerBox;

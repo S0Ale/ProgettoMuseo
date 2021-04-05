@@ -1,3 +1,5 @@
+package Logic;
+
 public class Mesh extends ContenutoMultimediale{
     private int idNuvolaDiPunti;
 

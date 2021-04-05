@@ -1,3 +1,5 @@
+package Logic;
+
 import java.sql.Date;
 
 public class Foto extends ContenutoMultimediale{

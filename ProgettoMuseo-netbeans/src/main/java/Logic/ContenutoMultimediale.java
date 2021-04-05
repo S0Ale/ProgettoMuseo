@@ -1,3 +1,5 @@
+package Logic;
+
 public abstract class ContenutoMultimediale extends IdentifiedObj{
     
     private String percorso;

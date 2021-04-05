@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Logic.NuvolaDiPunti;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.CardLayout;
 
@@ -116,6 +117,10 @@ public class AppWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
+                NuvolaDiPunti nuvola = new NuvolaDiPunti(0, "sos");
+                
+                
                 new AppWindow().setVisible(true);
             }
         });

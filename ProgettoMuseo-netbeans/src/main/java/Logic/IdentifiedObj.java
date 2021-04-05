@@ -1,3 +1,5 @@
+package Logic;
+
 public abstract class IdentifiedObj{
     private int id;
 

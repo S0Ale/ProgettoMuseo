@@ -1,3 +1,5 @@
+package Logic;
+
 public class Audio extends ContenutoMultimediale{
     private String descrizione;
     private float durata;
