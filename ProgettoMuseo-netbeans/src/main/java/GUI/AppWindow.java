@@ -116,7 +116,6 @@ public class AppWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                System.setProperty("sun.awt.noerasebackground", "true ");
                 new AppWindow().setVisible(true);
             }
         });

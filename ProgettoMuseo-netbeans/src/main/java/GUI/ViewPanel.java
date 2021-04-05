@@ -5,18 +5,17 @@
  */
 package GUI;
 
-import Logic.Run;
 import Logic.SoundPlayer;
 import Logic.ViewWorld;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
-import java.io.File;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.media.j3d.Canvas3D;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
 /**
@@ -28,9 +27,9 @@ public class ViewPanel extends javax.swing.JPanel {
     private final CardLayout layout;
     private final JPanel parent;
     
+    private ViewWorld world;
+    
     private Canvas3D viewWindow;
-    private ViewWorld w;
-    private Thread tr;
     private SoundPlayer player;
 
     /**
@@ -60,9 +59,14 @@ public class ViewPanel extends javax.swing.JPanel {
         viewWindow.setLocation(0, 0);
         
         visualizerBox.add(viewWindow);
-        w = new ViewWorld(viewWindow);
-        File f = new File(new File("").getAbsolutePath());//questo ha senso farlo in realtà quando preme sul pulsante la prima volta
-        player = new SoundPlayer(f.getPath()+"\\src\\main\\resources\\AAA (online-audio-converter.com).wav");
+        world = new ViewWorld(viewWindow);
+        
+        // file audio
+        try{
+        player = new SoundPlayer("/raindance.wav");
+        }catch(Throwable t){
+            t.printStackTrace();
+        }
         
         System.out.println("Thread is started");
         visualizerBox.revalidate();
@@ -90,6 +94,7 @@ public class ViewPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         playPause = new javax.swing.JToggleButton();
         jSlider1 = new javax.swing.JSlider();
+        jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         descPanel = new javax.swing.JScrollPane();
@@ -150,7 +155,7 @@ public class ViewPanel extends javax.swing.JPanel {
             .addComponent(HomeBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
         );
 
-        visualizerBox.setBackground(new java.awt.Color(255, 255, 255));
+        visualizerBox.setBackground(new java.awt.Color(246, 248, 254));
         visualizerBox.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
         visualizerBox.setToolTipText("");
 
@@ -191,17 +196,37 @@ public class ViewPanel extends javax.swing.JPanel {
 
         jScrollPane1.setViewportView(jPanel1);
 
-        playPause.setText("Play");
+        jPanel2.setBackground(new java.awt.Color(246, 248, 254));
+        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
+
+        playPause.setBackground(new java.awt.Color(246, 248, 254));
+        playPause.setForeground(new java.awt.Color(112, 121, 138));
+        playPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/play.png"))); // NOI18N
+        playPause.setBorder(null);
+        playPause.setContentAreaFilled(false);
+        playPause.setFocusable(false);
         playPause.setMargin(new java.awt.Insets(10, 10, 10, 10));
         playPause.setMaximumSize(new java.awt.Dimension(100, 100));
         playPause.setMinimumSize(new java.awt.Dimension(100, 100));
         playPause.setPreferredSize(new java.awt.Dimension(100, 100));
+        playPause.setRequestFocusEnabled(false);
+        playPause.setRolloverEnabled(false);
+        playPause.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                playPauseMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                playPauseMouseExited(evt);
+            }
+        });
         playPause.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 playPauseActionPerformed(evt);
             }
         });
 
+        jSlider1.setBackground(new java.awt.Color(238, 240, 250));
+        jSlider1.setForeground(new java.awt.Color(230, 190, 96));
         jSlider1.setMaximum(1000);
         jSlider1.setValue(0);
         jSlider1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -210,26 +235,36 @@ public class ViewPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setForeground(new java.awt.Color(112, 121, 138));
+        jLabel2.setText("time");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(147, 147, 147)
-                .addComponent(playPause, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(playPause, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addComponent(playPause, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2))
+                    .addComponent(playPause, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -241,11 +276,10 @@ public class ViewPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
                         .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -284,14 +318,6 @@ public class ViewPanel extends javax.swing.JPanel {
         descArea.setRows(5);
         descArea.setMargin(new java.awt.Insets(6, 10, 6, 10));
         descArea.setRequestFocusEnabled(false);
-        descArea.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                descAreaFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                descAreaFocusLost(evt);
-            }
-        });
         descPanel.setViewportView(descArea);
 
         jTabbedPane1.addTab("Descrizione", descPanel);
@@ -326,7 +352,7 @@ public class ViewPanel extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                 .addGap(6, 6, 6))
         );
 
@@ -363,6 +389,11 @@ public class ViewPanel extends javax.swing.JPanel {
     private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
         layout.show(parent, "items");
         player.stop();
+        world.stop();
+        visualizerBox.removeAll();
+        player = null;
+        viewWindow = null;
+        world = null;
     }//GEN-LAST:event_HomeBtnActionPerformed
 
     private void HomeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeBtnMouseEntered
@@ -378,72 +409,68 @@ public class ViewPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_HomeBtnMouseExited
 
     private void playPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPauseActionPerformed
-        // TODO add your handling code here:
-        System.out.println("time: " + player.getLastPos());
-        if(!playPause.isSelected()){//metto in pausa
-            // System.out.print("pausa");
+        if(!playPause.isSelected()){
             
             player.pause();
-            playPause.setText("Play");
-        }
-        else {//avvio
-            //System.out.print("avvio");
-            if(!player.isStarted()){//se l'ho già avviato lo devo avviare
-                System.out.print("avvio");
+            playPause.setIcon(new ImageIcon(getClass().getResource("/play.png")));
+        }else {
+            if(!player.isStarted()){
                 player.playMusic();
-                Run r1 = new Run(player, jSlider1);
-                tr = new Thread(r1);
-                tr.start();
-            }else{//altrimenti lo avvio
-               //  System.out.print("resume");
+                startSliderUpdate();
+            }else{
                 player.resume();
             }
-            playPause.setText("Pause");
+            playPause.setIcon(new ImageIcon(getClass().getResource("/pause.png")));
         }
     }//GEN-LAST:event_playPauseActionPerformed
-
-    private void descAreaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descAreaFocusGained
-        // TODO add your handling code here:
-       //  System.out.println("gained");
-    }//GEN-LAST:event_descAreaFocusGained
     
-    private void descAreaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descAreaFocusLost
-        // TODO add your handling code here:
-        // System.out.println("lost");
-    }//GEN-LAST:event_descAreaFocusLost
-
     private void jSlider1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSlider1MousePressed
-        // TODO add your handling code here:
-        /*synchronized(player){
-            synchronized(jSlider){*/
-            boolean b = false;
-            if(!player.isStarted()){
-                //     System.out.print("avvio");
-                    player.playMusic();
-                    Run r1 = new Run(player, jSlider1);
-                    tr = new Thread(r1);
-                    tr.start();
-                    b = true;
-            }
-
-            //  System.out.print("pausa");
+        boolean b = false;
+        if(!player.isStarted()){
+            player.playMusic();
+            startSliderUpdate();
+            b = true;
+        }
             
-            int v = jSlider1.getValue();
-            long durata = player.getClip().getMicrosecondLength();
-            int maxV = jSlider1.getMaximum();
-            long r = (durata * v / maxV);//devo usare un long perchè la moltiplicazione potrebbe portare a un valore grossino (o almeno così penso, ora funge, se uso gli int no)
-            System.out.println(durata + " * " + v + " / " + maxV + " = " + r);
-            player.setLastPos((int)r);
-            playPause.setText("Play");
-            if(playPause.isSelected() || b){//metto in pausa
-               //  System.out.print("pausa");
-               player.pause();
-               playPause.setSelected(false);
-            }
-            /*}
-        }*/
+        int v = jSlider1.getValue();
+        long durata = player.getClip().getMicrosecondLength();
+        int maxV = jSlider1.getMaximum();
+        long r = (durata * v / maxV);
+        player.setLastPos((int)r);
+        
+        if(playPause.isSelected() || b){
+           player.pause();
+           playPause.setSelected(false);
+           playPause.setIcon(new ImageIcon(getClass().getResource("/play.png")));
+        }
     }//GEN-LAST:event_jSlider1MousePressed
 
+    private void playPauseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playPauseMouseEntered
+        playPause.setBackground(ColorManager.getInstance().getColor("btnHover"));
+    }//GEN-LAST:event_playPauseMouseEntered
+
+    private void playPauseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playPauseMouseExited
+        playPause.setBackground(ColorManager.getInstance().getColor("boxColor"));
+    }//GEN-LAST:event_playPauseMouseExited
+ 
+    private void startSliderUpdate(){
+        long durata = player.getClip().getMicrosecondLength();
+        int maxV = jSlider1.getMaximum();
+        Timer audioTimer = new Timer();
+                    
+        audioTimer.scheduleAtFixedRate(new TimerTask(){
+            @Override
+            public void run(){
+                if(player.isActive()){
+                    long secondaggio = player.getClip().getMicrosecondPosition();
+
+                    long r = secondaggio * maxV / durata;
+                    jSlider1.setValue((int)r);
+                }
+            }
+        }, 0, 500);
+    }
+    
     private void updateDescPanel(String text){
         descArea.setText(text);
     }
@@ -462,6 +489,7 @@ public class ViewPanel extends javax.swing.JPanel {
     private javax.swing.JTextArea descArea;
     private javax.swing.JScrollPane descPanel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

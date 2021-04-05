@@ -6,6 +6,9 @@
 package Logic;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -16,14 +19,13 @@ import javax.sound.sampled.AudioSystem;
  */
 public class SoundPlayer {
     private boolean isStarted;
-    private long lastPos;//indica il punto in cui è arrivato
-    private static Clip clip;
+    private long lastPos;
+    private Clip clip;
     private boolean isActive;
-    private File musicPath;//percorso file da riprodurre
+    private File musicPath;
     
-    public SoundPlayer(String path){
-        //System.out.println("FILE---C:\\Users\\andre\\Desktop\\ProgettoMuseo\\ProgettoMuseo-netbeans\\src\\main\\resources /n---> " + path);
-        musicPath =  new File(path);
+    public SoundPlayer(String path) throws MalformedURLException, URISyntaxException{
+        musicPath =  new File(getClass().getResource(path).toURI());
         lastPos = 0;
         clip = null;
         isActive = false;
@@ -53,7 +55,6 @@ public class SoundPlayer {
     public void setLastPos(long time){
         this.lastPos = time;
         this.clip.setMicrosecondPosition(time);
-        System.out.println("time : "+time + " frametime = "+ this.clip.getMicrosecondPosition());
     }
     
     public void playMusic(){
@@ -78,13 +79,11 @@ public class SoundPlayer {
     
     public void resume(){
         isActive = true;
-        System.out.println("Resumed");
         this.clip.setMicrosecondPosition(lastPos);
         this.clip.start();
     }
     
     public void pause(){
-        System.out.println("Paused");
         this.setLastPos(this.clip.getMicrosecondPosition());
         this.clip.stop();
         isActive = false;
@@ -92,11 +91,12 @@ public class SoundPlayer {
     }
     
     public void stop(){
-        System.out.println("Stopped");
-        this.clip.close();
-        this.clip.stop();
-        this.isStarted = false;
-        isActive = false;
+        if(isStarted){
+            this.clip.close();
+            this.clip.stop();
+            this.isStarted = false;
+            isActive = false;
+        }
     }
 
 }

@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.Enumeration;
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.Appearance;
+import javax.media.j3d.Background;
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
@@ -51,11 +52,24 @@ public class ViewWorld {
         orbit.setZoomFactor(-1d);
         orbit.setRotateEnable(false);
         
+        Background background = new Background(new Color3f(.1f, .1f, .1f));
+        BoundingSphere sphere = new BoundingSphere(new Point3d(0,0,0), 100000);
+        background.setApplicationBounds(sphere);
+        scene.addChild(background);
+        
         BoundingSphere defaultBounds = new BoundingSphere(new Point3d(0, 0, 0), 100d);
         orbit.setSchedulingBounds(defaultBounds);
         universe.getViewingPlatform().setViewPlatformBehavior(orbit);
         
         universe.addBranchGraph(scene);
+    }
+    
+    public void stop(){
+        cv.stopRenderer();
+    }
+    
+    public void start(){
+        cv.startRenderer();
     }
     
     private BranchGroup createScene(int i){
@@ -77,7 +91,7 @@ public class ViewWorld {
             obj.setFlags(ObjectFile.RESIZE | ObjectFile.TRIANGULATE | ObjectFile.STRIPIFY);
 
             //Scene s = obj.load(getClass().getResource("/aereo.obj"));
-            Scene s = obj.load(new URL("http://localhost/museo/aereo.obj"));
+            Scene s = obj.load(new URL("http://localhost/Katana.obj"));
             Transform3D myTrans = new Transform3D();
             myTrans.setTranslation(new Vector3f(eyeOffset, -eyeOffset, 0F));
             TransformGroup mytg = new TransformGroup(myTrans);
