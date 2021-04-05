@@ -9,6 +9,7 @@ import Logic.SoundPlayer;
 import Logic.ViewWorld;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
 import java.util.Timer;
@@ -43,6 +44,11 @@ public class ViewPanel extends javax.swing.JPanel {
         this.parent = parent;
         initComponents();
         initVisualizer(); // non utilizzare nel costruttore (solo per test)
+        
+        jScrollPane1.getVerticalScrollBar().setBackground(new Color(240, 241, 248));
+        descPanel.getVerticalScrollBar().setBackground(new Color(240, 241, 248));
+        locationPanel.getVerticalScrollBar().setBackground(new Color(240, 241, 248));
+        
         descPanel.getVerticalScrollBar().setUnitIncrement(3);
         updateLocationPanel("una data a caso", "Italia", "Europa");
         updateDescPanel("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis rutrum risus, a molestie purus. Nulla facilisi. Nulla metus eros, dapibus ac faucibus eget, iaculis eget nunc. Mauris varius convallis cursus. Morbi fermentum velit vehicula, lobortis sapien sed, feugiat arcu. Vivamus sit amet mauris in risus tincidunt cursus. Curabitur quis lorem ut mauris interdum fringilla. Vivamus in fringilla tortor. In elementum, diam vel blandit porttitor, dolor odio aliquet magna, sed lacinia nunc elit et eros. Quisque quis ex sed risus malesuada dignissim. Pellentesque velit dui, vestibulum non tellus ac, dignissim viverra purus. Cras vitae bibendum nibh, non cursus nibh.\n" +

@@ -6,6 +6,7 @@
 package GUI;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,6 +30,7 @@ public class ItemList extends javax.swing.JPanel {
         this.layout = layout;
         this.parent = parent;
         initComponents();
+        jScrollPane1.getVerticalScrollBar().setBackground(new Color(240, 241, 248));
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(10);
     }
 
