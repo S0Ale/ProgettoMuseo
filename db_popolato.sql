@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Versione server:              10.1.37-MariaDB - mariadb.org binary distribution
--- S.O. server:                  Win32
+-- Versione server:              10.4.14-MariaDB - mariadb.org binary distribution
+-- S.O. server:                  Win64
 -- HeidiSQL Versione:            11.2.0.6213
 -- --------------------------------------------------------
 
@@ -42,8 +42,10 @@ CREATE TABLE IF NOT EXISTS `biglietto` (
   CONSTRAINT `biglietto_ibfk_1` FOREIGN KEY (`emailCliente`) REFERENCES `cliente` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin7;
 
--- Dump dei dati della tabella museoricoale.biglietto: ~0 rows (circa)
+-- Dump dei dati della tabella museoricoale.biglietto: ~1 rows (circa)
 /*!40000 ALTER TABLE `biglietto` DISABLE KEYS */;
+INSERT INTO `biglietto` (`ID`, `intervalloTempo`, `psw`, `dataAcquisto`, `emailCliente`) VALUES
+	(1, '2022-12-31', '123456', '2021-04-06', 'lorenzorepetto@gmail.com');
 /*!40000 ALTER TABLE `biglietto` ENABLE KEYS */;
 
 -- Dump della struttura di tabella museoricoale.categoria
@@ -71,8 +73,10 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin7;
 
--- Dump dei dati della tabella museoricoale.cliente: ~0 rows (circa)
+-- Dump dei dati della tabella museoricoale.cliente: ~1 rows (circa)
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` (`email`, `nome`, `cognome`, `psw`) VALUES
+	('lorenzorepetto@gmail.com', 'Lorenzo', 'Repetto', '123');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 
 -- Dump della struttura di tabella museoricoale.dipendente
