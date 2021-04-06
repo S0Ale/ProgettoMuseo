@@ -11,6 +11,8 @@ import com.sun.j3d.utils.behaviors.mouse.MouseRotate;
 import com.sun.j3d.utils.behaviors.mouse.MouseTranslate;
 import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
 import com.sun.j3d.utils.universe.SimpleUniverse;
+import java.io.File;
+import java.net.URI;
 import java.net.URL;
 import java.util.Enumeration;
 import javax.media.j3d.AmbientLight;
@@ -83,6 +85,8 @@ public class ViewWorld {
     private BranchGroup createScene(String str){
         float eyeOffset = 0.01F;
         
+        System.out.println("QUESTA :" +str);
+        
         BranchGroup objRoot = new BranchGroup();
         objRoot.setCapability(BranchGroup.ALLOW_DETACH);
         try{
@@ -98,8 +102,9 @@ public class ViewWorld {
             tg.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
             objTrans.addChild(tg);
             obj.setFlags(ObjectFile.RESIZE | ObjectFile.TRIANGULATE | ObjectFile.STRIPIFY);
-
-            Scene s = obj.load(getClass().getResource(str));
+            
+            //System.out.println("il percorso è " + getClass().getResource(str));
+            Scene s = obj.load((new File(str).toURI().toURL()));
             Transform3D myTrans = new Transform3D();
             myTrans.setTranslation(new Vector3f(eyeOffset, -eyeOffset, 0F));
             TransformGroup mytg = new TransformGroup(myTrans);

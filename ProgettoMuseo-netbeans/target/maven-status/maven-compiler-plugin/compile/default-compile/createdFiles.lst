@@ -37,3 +37,4 @@ GUI\ItemList$1.class
 GUI\AppWindow.class
 GUI\ItemList$6.class
 GUI\ItemList.class
+Logic\JSon.class

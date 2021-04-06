@@ -5,13 +5,21 @@
  */
 package GUI;
 
+import Logic.DbController;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -21,9 +29,12 @@ import javax.swing.border.LineBorder;
  */
 public class ViewButton extends JButton{
     
-    public ViewButton(AppWindow window, int x, int y){
+    private int idReperto;
+    
+    public ViewButton(AppWindow window, int x, int y, int idReperto){
         init(window);
         setLocation(x, y);
+        this.idReperto = idReperto; 
     }
     
     private void init(AppWindow window){
@@ -41,7 +52,47 @@ public class ViewButton extends JButton{
             @Override
             public void actionPerformed(ActionEvent e){
                 if(e.getActionCommand().equals("viewItem")){
-                    window.updateViewPanel("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "una data a caso", "Italia", "Europa", "/Katana.obj", "/raindance.wav");
+                    //richiesta al db dei dati del reperto selezionato
+                    System.out.println(idReperto);
+                    String sJson = null;
+                    try {
+                        sJson = window.getController().richiedi(
+                                "reperto.descrizione,data,continente,stato,mesh.percorsom,audio.percorso",
+                                "reperto,ritrovamento,luogo,mesh,audio",
+                                "reperto.id="+idReperto+"%20and%20idRitrovamento=ritrovamento.ID%20and%20ritrovamento.idLuogo=luogo.ID%20and%20IDMesh=mesh.ID%20and%20IDAudio=audio.ID",
+                                "").get();
+                        sJson = sJson.replace("~", "");
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(ViewButton.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ExecutionException ex) {
+                        Logger.getLogger(ViewButton.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    System.out.println(sJson);
+                    JsonElement elJson = new JsonParser().parse(sJson);
+                    
+                    String descrizione = elJson.getAsJsonObject().get("descrizione").getAsString(),
+                            data = elJson.getAsJsonObject().get("data").getAsString(),
+                            stato = elJson.getAsJsonObject().get("stato").getAsString(),
+                            continente= elJson.getAsJsonObject().get("continente").getAsString(),
+                            mesh= DbController.urlSito + elJson.getAsJsonObject().get("percorsom").getAsString(),
+                            audio= DbController.urlSito + elJson.getAsJsonObject().get("percorso").getAsString();
+                    
+                    System.out.println("Mesh "+mesh);
+                    System.out.println("Audio "+audio);
+                    String d = "/src/main/resources/download";
+                    
+                    File dirMuseo = new File(FileSystemView.getFileSystemView().getDefaultDirectory().getPath()+"\\museo");
+                    String path = dirMuseo.getPath();
+                    if (!dirMuseo.exists()){
+                        System.out.println("creo la directory "+ path);
+                        dirMuseo.mkdirs();
+                    }
+                    /*DbController.download(mesh, String.valueOf(idReperto)+".obj");
+                    DbController.download(audio, String.valueOf(idReperto)+".wav");*/
+                    
+                    if(!DbController.download(mesh, path+"\\"+String.valueOf(idReperto)+".obj") || !DbController.download(audio, path + "\\"+String.valueOf(idReperto)+".wav")) System.out.println("Errore qui nel download");
+                    System.out.println(d+"\\"+String.valueOf(idReperto)+".obj");
+                    window.updateViewPanel(descrizione, data, stato, continente, path + "\\" +String.valueOf(idReperto)+".obj", path + "\\" +String.valueOf(idReperto)+".wav");
                     window.showViewPanel();
                 }
             }

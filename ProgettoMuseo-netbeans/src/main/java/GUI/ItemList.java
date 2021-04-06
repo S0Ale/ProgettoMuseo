@@ -5,13 +5,18 @@
  */
 package GUI;
 
+import Logic.JSon;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
-
 /**
  *
  * @author S_Ale AKA S0Ale
@@ -340,19 +345,39 @@ public class ItemList extends javax.swing.JPanel {
     public void updateItemPanel(){
         //richiesta al db
         itemsPanel.removeAll();
-        int n = 5;
+        String risulatoQuery = null;
+        try {
+            risulatoQuery = window.getController().richiedi("reperto.id,reperto.nome,reperto.altezza,reperto.profondita,reperto.larghezza", "reperto", "", "").get();
+            //creo hasmap<int, array di hasmap<String, String>>
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ItemList.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ExecutionException ex) {
+            Logger.getLogger(ItemList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int n = JSon.nTuple(risulatoQuery);
+        String[] sJson;
+        sJson = JSon.splitJSON(risulatoQuery);
         for(int i = 0; i < n; i++){
+            
+            JsonElement elJson = new JsonParser().parse(sJson[i]);
             itemsPanel.setPreferredSize(new Dimension(jScrollPane1.getWidth(), (i + 1) * 32));
             itemsPanel.setSize(new Dimension(jScrollPane1.getWidth(), (i + 1) * 32));
-            JPanel panel = buildItemPanel(0, i * 32, "Nome", "Larghezza", "Altezza", "Profondità");
+            String nome = elJson.getAsJsonObject().get("nome").getAsString(), 
+                larg = elJson.getAsJsonObject().get("larghezza").getAsString()+ " cm", 
+                alt = elJson.getAsJsonObject().get("altezza").getAsString() + " cm", 
+                prof = elJson.getAsJsonObject().get("profondita").getAsString() + " cm";
+            int id = Integer. parseInt(elJson.getAsJsonObject().get("id").getAsString());
+            JPanel panel = buildItemPanel(0, i * 32, nome, larg, alt, prof, id );//questo mi stabilisce i valori delle celle nella tabella
+            
             if(i == n - 1) panel.setBorder(new MatteBorder(0, 0, 1, 0, ColorManager.getInstance().getColor("border")));
             itemsPanel.add(panel);
         }
+        System.out.println(sJson.length);
         itemsPanel.revalidate();
         itemsPanel.repaint();
     }
     
-    private JPanel buildItemPanel(int x, int y, String name, String width, String height, String depth){
+    private JPanel buildItemPanel(int x, int y, String name, String width, String height, String depth, int id){
         JPanel panel = new JPanel();
         panel.setLayout(null);
         panel.setLocation(x, y);
@@ -374,7 +399,7 @@ public class ItemList extends javax.swing.JPanel {
             panel.add(labels[i]);
         }
         
-        panel.add(new ViewButton(window, 1075, 5));
+        panel.add(new ViewButton(window, 1075, 5, id));
         
         return panel;
     }

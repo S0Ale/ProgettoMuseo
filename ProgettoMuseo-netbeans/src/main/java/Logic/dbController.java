@@ -16,9 +16,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 public class DbController {//poi diventerà il dbcontroller
-    static String urlSito = "http://localhost/museo/x.php";
-    HttpClient client;
-    String idSessione;
+    public static String urlSito = "http://localhost/museo";
+    private HttpClient client;
+    private String idSessione;
 
     public DbController(){
         this.client= HttpClient.newHttpClient();
@@ -33,6 +33,7 @@ public class DbController {//poi diventerà il dbcontroller
     }
 
     public static boolean download(String file_url, String file_name){
+        //file_url = DbController.levaSpazi(file_url);
         try (BufferedInputStream in = new BufferedInputStream(new URL(file_url).openStream());
             FileOutputStream fileOutputStream = new FileOutputStream(file_name)) {
             byte dataBuffer[] = new byte[1024];
@@ -41,26 +42,29 @@ public class DbController {//poi diventerà il dbcontroller
                 fileOutputStream.write(dataBuffer, 0, bytesRead);
             }
         } catch (IOException e) {
-            //System.out.println("Errore nel download");
-            //e.printStackTrace();
+            System.out.println("Errore nel download");
+            e.printStackTrace();
             return false;
         }
         
         try {
             InputStream in = new URL(file_url).openStream();
             Files.copy(in, Paths.get(file_name), StandardCopyOption.REPLACE_EXISTING);
+            return true;
         } catch (IOException e) {
-            //System.out.println("Errore nella memorizzazione");
+            System.out.println("Errore nella memorizzazione");
             //e.printStackTrace();
             return false;
         }
-        return true;
+        
     }
 
     public CompletableFuture<String> richiedi(String campi, String tabelle, String predicato, String altro){
         if(this.idSessione == null)
             return null;
-        String s = urlSito+"?pull=1&s="+this.idSessione+"&campi="+campi+"&tabelle="+tabelle+"&predicato="+predicato+"&altro="+altro;
+        String s = urlSito+"/x.php?pull=1&s="+this.idSessione+"&campi="+campi+"&tabelle="+tabelle+"&predicato="+predicato+"&altro="+altro;
+        System.out.println("URL  = " + s);
+        s = DbController.levaSpazi(s);
         return this.sendRequest(this.creaHttpRequest(s));
     }
 
@@ -79,7 +83,7 @@ public class DbController {//poi diventerà il dbcontroller
 
     public boolean logout(){//metodo che esegue l'autenticazione, restituisce l'id sessione associato (oppure null se le credenziali non combaciano)
         try{
-            CompletableFuture<String> x = this.sendRequest(this.creaHttpRequest(urlSito+ "?logout=1&s="+this.idSessione));
+            CompletableFuture<String> x = this.sendRequest(this.creaHttpRequest(urlSito+ "/x.php?logout=1&s="+this.idSessione));
             String risultato = x.get().trim();
             if(risultato.equalsIgnoreCase("sessione non trovata")){// il server http nel caso non trovi la sessione restituisce "sessione non trovata"
                 return false;
@@ -94,9 +98,12 @@ public class DbController {//poi diventerà il dbcontroller
     private CompletableFuture<String> loginSupporter(String id, String psw) throws ExecutionException{
         //metodo che esegue l'autenticazione, restituisce l'id sessione associato (oppure null se le credenziali non combaciano)
         //da utilizzare solo all'interno del metodo login
-        return this.sendRequest(this.creaHttpRequest(urlSito+"?id="+id+"&psw="+psw));
+        return this.sendRequest(this.creaHttpRequest(urlSito+"/x.php?id="+id+"&psw="+psw));
     }
-
+    
+    private static String levaSpazi(String s){
+        return s = s.replace(" ", "%20");
+    }
     public HttpRequest creaHttpRequest(String url){
         //metodo che permette di creare un HttpRequest usando l'url come parametro
         return HttpRequest.newBuilder().uri(URI.create(url)).build();

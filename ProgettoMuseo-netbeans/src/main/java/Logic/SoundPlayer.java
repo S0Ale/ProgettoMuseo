@@ -25,7 +25,7 @@ public class SoundPlayer {
     private File musicPath;
     
     public SoundPlayer(String path) throws MalformedURLException, URISyntaxException{
-        musicPath =  new File(getClass().getResource(path).toURI());
+        musicPath =  new File(/*getClass().getResource(*/path/*).toURI()*/);
         lastPos = 0;
         clip = null;
         isActive = false;
