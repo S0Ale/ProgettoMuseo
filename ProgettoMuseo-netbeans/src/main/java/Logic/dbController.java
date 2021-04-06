@@ -61,7 +61,6 @@ public class DbController {//poi diventerà il dbcontroller
         if(this.idSessione == null)
             return null;
         String s = urlSito+"?pull=1&s="+this.idSessione+"&campi="+campi+"&tabelle="+tabelle+"&predicato="+predicato+"&altro="+altro;
-        //System.out.println("URL CAZZOZOZOAOSOOA = " + s);
         return this.sendRequest(this.creaHttpRequest(s));
     }
 

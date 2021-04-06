@@ -11,6 +11,7 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.media.j3d.Canvas3D;
@@ -542,7 +543,6 @@ public class ViewPanel extends javax.swing.JPanel {
         if(state.equals("")) state = "sconosciuto";
         if(continent.equals("")) continent = "sconosciuto";
         text += "Luogo ritrovamento (stato, continente): " + state + ", " + continent + ";\n";
-        //ricercatori
         locationArea.setText(text);
     }
 
