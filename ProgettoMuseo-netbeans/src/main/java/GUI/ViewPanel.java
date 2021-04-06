@@ -491,6 +491,8 @@ public class ViewPanel extends javax.swing.JPanel {
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
         endVisualizer();
+        if(window.getController().logout())
+            System.out.println("Disconnesso");
         window.showLoginPanel();
     }//GEN-LAST:event_logOutButtonActionPerformed
 

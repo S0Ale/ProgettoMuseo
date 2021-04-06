@@ -242,17 +242,26 @@ public class LoginPanel extends javax.swing.JPanel {
     private void checkTicket(){
         String ticket = ticketField.getText();
         char[] psw = passwordField.getPassword();
-        System.out.println(ticket);
-        System.out.println(Arrays.toString(psw));
+        //System.out.println(ticket);
+        //System.out.println(Arrays.toString(psw));
+        String password = "";
+        for(int i = 0; i < psw.length; i++)
+            password += psw[i];
         
         ticketField.setText("");
         passwordField.setText("");
         
+        
+        
         if(ticket.equals("") || psw.length == 0) errorLabel.setText("Please fill all fields.");
         else{
             //richiesta al db
-            System.out.println("successo");
-            window.showItemsPanel();
+            boolean s = window.getController().login(ticket, password);
+            //System.out.println(s);
+            if(s)
+                window.showItemsPanel();
+            else
+                errorLabel.setText("No match");
         }
     }
 
