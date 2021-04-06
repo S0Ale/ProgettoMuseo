@@ -338,7 +338,8 @@ public class ItemList extends javax.swing.JPanel {
         window.showLoginPanel();
     }//GEN-LAST:event_logOutButtonActionPerformed
 
-    private void updateItemPanel(){
+    public void updateItemPanel(){
+        //richiesta al db
         itemsPanel.removeAll();
         int n = 5;
         for(int i = 0; i < n; i++){

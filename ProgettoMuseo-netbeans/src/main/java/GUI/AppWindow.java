@@ -47,6 +47,7 @@ public class AppWindow extends javax.swing.JFrame {
     
     public void showItemsPanel(){
         if(itemPanel == null) itemPanel = new ItemList(this); 
+        itemPanel.updateItemPanel();
         layout.show(mainPanel, "items");
     }
     
