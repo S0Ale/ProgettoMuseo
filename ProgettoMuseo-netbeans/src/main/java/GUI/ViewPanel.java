@@ -69,6 +69,7 @@ public class ViewPanel extends javax.swing.JPanel {
     
     public void setViewPanel(String desc, String date, String state, String continent, String modelPath, String audioPath){
         jSlider1.setValue(0);
+        audioTimer = new Timer();
         
         // file audio
         try{
@@ -516,8 +517,6 @@ public class ViewPanel extends javax.swing.JPanel {
     private void startSliderUpdate(){
         long durata = player.getClip().getMicrosecondLength();
         int maxV = jSlider1.getMaximum();
-        
-        if(audioTimer == null) audioTimer = new Timer();
                     
         audioTimer.scheduleAtFixedRate(new TimerTask(){
             @Override
