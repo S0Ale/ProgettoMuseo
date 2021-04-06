@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import Logic.NuvolaDiPunti;
+import Logic.DbController;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.CardLayout;
 
@@ -14,18 +14,19 @@ import java.awt.CardLayout;
  * @author S_Ale AKA S0Ale
  */
 public class AppWindow extends javax.swing.JFrame {
-    
+    private DbController controller;
     private CardLayout layout;
     private ItemList itemPanel;
     private LoginPanel login;
     private ViewPanel visualizer;
-
+    
     /**
      * Creates new form AppWindow
      */
     public AppWindow() {
         initComponents();
         layout = new CardLayout();
+        controller = new DbController();
         mainPanel.setLayout(layout);
         itemPanel = new ItemList(this);
         login = new LoginPanel(this);
@@ -34,6 +35,10 @@ public class AppWindow extends javax.swing.JFrame {
         mainPanel.add(itemPanel, "items");
         mainPanel.add(visualizer, "view");
         initPanel();
+    }
+    
+    public DbController getController(){
+        return controller;
     }
     
     private void initPanel(){
@@ -138,10 +143,6 @@ public class AppWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                NuvolaDiPunti nuvola = new NuvolaDiPunti(0, "sos");
-                
-                
                 new AppWindow().setVisible(true);
             }
         });

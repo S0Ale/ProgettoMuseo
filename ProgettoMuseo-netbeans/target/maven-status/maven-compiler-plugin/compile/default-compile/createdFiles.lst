@@ -28,12 +28,12 @@ GUI\LoginPanel$3.class
 GUI\AppWindow$1.class
 GUI\ItemList$3.class
 GUI\ViewPanel$3.class
-Logic\dbController.class
 Logic\Classificazione.class
 Logic\ViewWorld.class
 GUI\ViewButton$2.class
 GUI\LoginPanel$2.class
 GUI\ViewPanel$1.class
 GUI\ViewPanel$4.class
+Logic\DbController.class
 GUI\ItemList$6.class
 GUI\ItemList.class

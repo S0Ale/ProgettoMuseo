@@ -129,7 +129,6 @@
               </Border>
             </Property>
             <Property name="focusPainted" type="boolean" value="false"/>
-            <Property name="opaque" type="boolean" value="true"/>
             <Property name="rolloverEnabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -418,7 +417,6 @@
               </Border>
             </Property>
             <Property name="focusPainted" type="boolean" value="false"/>
-            <Property name="opaque" type="boolean" value="true"/>
             <Property name="rolloverEnabled" type="boolean" value="false"/>
             <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/refresh.png"/>

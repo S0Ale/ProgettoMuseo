@@ -239,7 +239,6 @@
               </Border>
             </Property>
             <Property name="focusPainted" type="boolean" value="false"/>
-            <Property name="opaque" type="boolean" value="true"/>
             <Property name="rolloverEnabled" type="boolean" value="false"/>
           </Properties>
           <Events>

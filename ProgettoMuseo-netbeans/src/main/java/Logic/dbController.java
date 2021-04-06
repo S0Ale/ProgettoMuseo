@@ -15,17 +15,17 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-public class dbController {//poi diventerà il dbcontroller
+public class DbController {//poi diventerà il dbcontroller
     static String urlSito = "http://localhost/museo/x.php";
     HttpClient client;
     String idSessione;
 
-    public dbController(){
+    public DbController(){
         this.client= HttpClient.newHttpClient();
         this.idSessione = null;
     }
     public static void main(String[] args) throws InterruptedException, ExecutionException{
-        dbController x = new dbController();
+        DbController x = new DbController();
         x.login("2", "paolo");
         CompletableFuture<String> s=x.richiedi("dipendente.nome,dipendente.cognome,sala.periodo", "dipendente,sala", "dipendente.idSala=sala.id%20and%20sala.id=3", "ORDER%20BY%20dipendente.cognome");
         System.out.println(s.get());
@@ -107,4 +107,21 @@ public class dbController {//poi diventerà il dbcontroller
         //medoto che invia l'httpRequest indicato
         return client.sendAsync(/*gli dico cosa inviare*/daInviare, /*indico il formato in cui lo voglio (stringa in questo caso)*/HttpResponse.BodyHandlers.ofString()).thenApply(HttpResponse::body);//dopo che ricevo l'http "guardo" il body
     }
+
+    public HttpClient getClient() {
+        return this.client;
+    }
+
+    public void setClient(HttpClient client) {
+        this.client = client;
+    }
+
+    public String getIdSessione() {
+        return this.idSessione;
+    }
+
+    public void setIdSessione(String idSessione) {
+        this.idSessione = idSessione;
+    }
+
 }
