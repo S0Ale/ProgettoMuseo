@@ -20,6 +20,7 @@ import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.media.j3d.DirectionalLight;
+import javax.media.j3d.Group;
 import javax.media.j3d.Material;
 import javax.media.j3d.RenderingAttributes;
 import javax.media.j3d.Shape3D;
@@ -41,9 +42,10 @@ public class ViewWorld {
     private BranchGroup scene;
     private SimpleUniverse universe;
     
+    private Background background;
+    
     public ViewWorld(Canvas3D canvas){
         this.cv = canvas;
-        scene = createScene(0);
         
         universe = new SimpleUniverse(cv);
         universe.getViewingPlatform().setNominalViewingTransform();
@@ -52,30 +54,37 @@ public class ViewWorld {
         orbit.setZoomFactor(-1d);
         orbit.setRotateEnable(false);
         
-        Background background = new Background(new Color3f(.1f, .1f, .1f));
-        BoundingSphere sphere = new BoundingSphere(new Point3d(0,0,0), 100000);
-        background.setApplicationBounds(sphere);
-        scene.addChild(background);
-        
         BoundingSphere defaultBounds = new BoundingSphere(new Point3d(0, 0, 0), 100d);
         orbit.setSchedulingBounds(defaultBounds);
         universe.getViewingPlatform().setViewPlatformBehavior(orbit);
+    }
+    
+    public void changeNewGroup(String str){
+        scene = createScene(str);
+        
+        background = new Background(new Color3f(.1f, .1f, .1f));
+        BoundingSphere sphere = new BoundingSphere(new Point3d(0,0,0), 100000);
+        background.setApplicationBounds(sphere);
+        scene.addChild(background);
         
         universe.addBranchGraph(scene);
     }
     
     public void stop(){
+        if(scene != null) scene.detach();
+        scene = null;
         cv.stopRenderer();
     }
     
     public void start(){
-        cv.startRenderer();
+        if(!(cv.isRendererRunning())) cv.startRenderer();
     }
     
-    private BranchGroup createScene(int i){
+    private BranchGroup createScene(String str){
         float eyeOffset = 0.01F;
         
         BranchGroup objRoot = new BranchGroup();
+        objRoot.setCapability(BranchGroup.ALLOW_DETACH);
         try{
             ObjectFile obj = new ObjectFile();
         
@@ -90,8 +99,7 @@ public class ViewWorld {
             objTrans.addChild(tg);
             obj.setFlags(ObjectFile.RESIZE | ObjectFile.TRIANGULATE | ObjectFile.STRIPIFY);
 
-            Scene s = obj.load(getClass().getResource("/aereo.obj"));
-            //Scene s = obj.load(new URL("http://localhost/Katana.obj"));
+            Scene s = obj.load(getClass().getResource(str));
             Transform3D myTrans = new Transform3D();
             myTrans.setTranslation(new Vector3f(eyeOffset, -eyeOffset, 0F));
             TransformGroup mytg = new TransformGroup(myTrans);

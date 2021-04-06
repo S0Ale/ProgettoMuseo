@@ -84,10 +84,10 @@ public class SoundPlayer {
     }
     
     public void pause(){
+        if(this.clip == null) System.out.println("clip null");
         this.setLastPos(this.clip.getMicrosecondPosition());
         this.clip.stop();
-        isActive = false;
-        
+        isActive = false;   
     }
     
     public void stop(){

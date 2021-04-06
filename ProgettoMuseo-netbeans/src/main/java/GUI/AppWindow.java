@@ -27,9 +27,9 @@ public class AppWindow extends javax.swing.JFrame {
         initComponents();
         layout = new CardLayout();
         mainPanel.setLayout(layout);
-        itemPanel = new ItemList(layout, mainPanel);
+        itemPanel = new ItemList(this);
         login = new LoginPanel();
-        visualizer = new ViewPanel(layout, mainPanel);
+        visualizer = new ViewPanel(this);
         mainPanel.add(login, "login");
         mainPanel.add(itemPanel, "items");
         mainPanel.add(visualizer, "view");
@@ -37,7 +37,26 @@ public class AppWindow extends javax.swing.JFrame {
     }
     
     private void initPanel(){
+        layout.show(mainPanel, "items");
+    }
+    
+    public void showLoginPanel(){
+        if(login == null) login = new LoginPanel(); 
+        layout.show(mainPanel, "login");
+    }
+    
+    public void showItemsPanel(){
+        if(itemPanel == null) itemPanel = new ItemList(this); 
+        layout.show(mainPanel, "items");
+    }
+    
+    public void showViewPanel(){
+        if(visualizer == null) visualizer = new ViewPanel(this); 
         layout.show(mainPanel, "view");
+    }
+    
+    public void updateViewPanel(String desc, String date, String state, String continent, String modelPath, String audioPath){
+        visualizer.setViewPanel(desc, date, state, continent, modelPath, audioPath);
     }
 
     /**
@@ -55,6 +74,7 @@ public class AppWindow extends javax.swing.JFrame {
         jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Demo");
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(640, 360));
         setResizable(false);

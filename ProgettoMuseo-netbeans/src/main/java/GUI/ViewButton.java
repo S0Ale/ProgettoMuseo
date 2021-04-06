@@ -21,12 +21,12 @@ import javax.swing.border.LineBorder;
  */
 public class ViewButton extends JButton{
     
-    public ViewButton(int x, int y){
-        init();
+    public ViewButton(AppWindow window, int x, int y){
+        init(window);
         setLocation(x, y);
     }
     
-    private void init(){
+    private void init(AppWindow window){
         setPreferredSize(new Dimension(85, 22));
         setSize(new Dimension(85, 22));
         setText("View");
@@ -41,7 +41,8 @@ public class ViewButton extends JButton{
             @Override
             public void actionPerformed(ActionEvent e){
                 if(e.getActionCommand().equals("viewItem")){
-                    System.out.println("view!!!!");
+                    window.updateViewPanel("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "una data a caso", "Italia", "Europa", "/Katana.obj", "/raindance.wav");
+                    window.showViewPanel();
                 }
             }
         });

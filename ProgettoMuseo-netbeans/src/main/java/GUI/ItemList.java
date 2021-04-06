@@ -18,17 +18,14 @@ import javax.swing.border.MatteBorder;
  */
 public class ItemList extends javax.swing.JPanel {
     
-    private final CardLayout layout;
-    private final JPanel parent;
+    private final AppWindow window;
 
     /**
      * Creates new form ItemList
-     * @param layout
-     * @param parent
+     * @param window
      */
-    public ItemList(CardLayout layout, JPanel parent) {
-        this.layout = layout;
-        this.parent = parent;
+    public ItemList(AppWindow window) {
+        this.window = window;
         initComponents();
         jScrollPane1.getVerticalScrollBar().setBackground(new Color(240, 241, 248));
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(10);
@@ -300,7 +297,7 @@ public class ItemList extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
-        layout.show(parent, "items");
+        window.showItemsPanel();
     }//GEN-LAST:event_HomeBtnActionPerformed
 
     private void HomeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeBtnMouseEntered
@@ -338,7 +335,7 @@ public class ItemList extends javax.swing.JPanel {
     }//GEN-LAST:event_logOutButtonMouseExited
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
-        layout.show(parent, "login");
+        window.showLoginPanel();
     }//GEN-LAST:event_logOutButtonActionPerformed
 
     private void updateItemPanel(){
@@ -377,7 +374,7 @@ public class ItemList extends javax.swing.JPanel {
             panel.add(labels[i]);
         }
         
-        panel.add(new ViewButton(1075, 5));
+        panel.add(new ViewButton(window, 1075, 5));
         
         return panel;
     }

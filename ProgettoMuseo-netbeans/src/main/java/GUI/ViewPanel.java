@@ -8,7 +8,6 @@ package GUI;
 import Logic.SoundPlayer;
 import Logic.ViewWorld;
 import com.sun.j3d.utils.universe.SimpleUniverse;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
@@ -16,7 +15,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.media.j3d.Canvas3D;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 
 /**
@@ -25,8 +23,7 @@ import javax.swing.border.MatteBorder;
  */
 public class ViewPanel extends javax.swing.JPanel {
     
-    private final CardLayout layout;
-    private final JPanel parent;
+    private final AppWindow window;
     
     private ViewWorld world;
     
@@ -36,24 +33,21 @@ public class ViewPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form VisualizerPanel
-     * @param layout
-     * @param parent
+     * @param window
      */
-    public ViewPanel(CardLayout layout, JPanel parent) {
-        this.layout = layout;
-        this.parent = parent;
+    public ViewPanel(AppWindow window) {
+        this.window = window;
         initComponents();
         initVisualizer(); // non utilizzare nel costruttore (solo per test)
+        
+        audioTimer = new Timer();
         
         jScrollPane1.getVerticalScrollBar().setBackground(new Color(240, 241, 248));
         descPanel.getVerticalScrollBar().setBackground(new Color(240, 241, 248));
         locationPanel.getVerticalScrollBar().setBackground(new Color(240, 241, 248));
         
         descPanel.getVerticalScrollBar().setUnitIncrement(3);
-        updateLocationPanel("una data a caso", "Italia", "Europa");
-        updateDescPanel("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis rutrum risus, a molestie purus. Nulla facilisi. Nulla metus eros, dapibus ac faucibus eget, iaculis eget nunc. Mauris varius convallis cursus. Morbi fermentum velit vehicula, lobortis sapien sed, feugiat arcu. Vivamus sit amet mauris in risus tincidunt cursus. Curabitur quis lorem ut mauris interdum fringilla. Vivamus in fringilla tortor. In elementum, diam vel blandit porttitor, dolor odio aliquet magna, sed lacinia nunc elit et eros. Quisque quis ex sed risus malesuada dignissim. Pellentesque velit dui, vestibulum non tellus ac, dignissim viverra purus. Cras vitae bibendum nibh, non cursus nibh.\n" +
-"\n" +
-"Etiam justo dolor, eleifend at dictum id, cursus et lorem. Duis eget pretium urna. Etiam ullamcorper nec risus non luctus. Proin pellentesque quam a augue cursus pharetra. Mauris ac blandit tortor. Vivamus rhoncus sem lorem, eget vehicula lacus viverra in. Curabitur sed mi non ipsum bibendum aliquet. Curabitur gravida urna mi, id viverra augue semper sit amet. Nullam pretium, erat sed posuere venenatis, neque lectus hendrerit turpis, sed tempus lectus enim at libero. Aliquam porttitor, erat porta condimentum posuere, tellus nunc auctor lorem, et rutrum tortor ipsum in tortor. Nam tellus quam, aliquet ut auctor accumsan, sagittis quis velit. In ac condimentum enim, nec dictum lectus. Curabitur fermentum, leo sed porta dapibus, lorem purus pulvinar quam, vitae blandit urna sem non urna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer finibus ipsum dapibus sagittis molestie. Ut auctor, metus a euismod tincidunt, ipsum tortor imperdiet mauris, ac consectetur lorem purus iaculis magna. ");
+        //setViewPanel("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "una data a caso", "Italia", "Europa", "/Katana.obj");
     }
     
     private void initVisualizer(){
@@ -66,18 +60,28 @@ public class ViewPanel extends javax.swing.JPanel {
         viewWindow.setLocation(0, 0);
         
         visualizerBox.add(viewWindow);
-        world = new ViewWorld(viewWindow);
-        
-        // file audio
-        try{
-        player = new SoundPlayer("/raindance.wav");
-        }catch(Throwable t){
-            t.printStackTrace();
-        }
+        world = new ViewWorld(viewWindow);     
         
         System.out.println("Thread is started");
         visualizerBox.revalidate();
         visualizerBox.repaint();
+    }
+    
+    public void setViewPanel(String desc, String date, String state, String continent, String modelPath, String audioPath){
+        jSlider1.setValue(0);
+        
+        // file audio
+        try{
+            player = new SoundPlayer(audioPath);
+        }catch(Throwable t){
+            t.printStackTrace();
+        }
+        
+        world.stop();
+        updateLocationPanel(date, state, continent);
+        updateDescPanel(desc);
+        world.changeNewGroup(modelPath);
+        world.start();
     }
 
     /**
@@ -422,8 +426,8 @@ public class ViewPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
-        layout.show(parent, "items");
         endVisualizer();
+        window.showItemsPanel();
     }//GEN-LAST:event_HomeBtnActionPerformed
 
     private void HomeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeBtnMouseEntered
@@ -445,6 +449,7 @@ public class ViewPanel extends javax.swing.JPanel {
             playPause.setIcon(new ImageIcon(getClass().getResource("/play.png")));
         }else {
             if(!player.isStarted()){
+                System.out.println("ciao");
                 player.playMusic();
                 startSliderUpdate();
             }else{
@@ -485,7 +490,7 @@ public class ViewPanel extends javax.swing.JPanel {
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
         endVisualizer();
-        layout.show(parent, "login");
+        window.showLoginPanel();
     }//GEN-LAST:event_logOutButtonActionPerformed
 
     private void logOutButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logOutButtonMouseEntered
@@ -497,20 +502,22 @@ public class ViewPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_logOutButtonMouseExited
  
     private void endVisualizer(){
+        playPause.setSelected(false);
+        playPause.setIcon(new ImageIcon(getClass().getResource("/play.png")));
+        
         player.stop();
         world.stop();
-        audioTimer.cancel();
         audioTimer.purge();
-        visualizerBox.removeAll();
+        audioTimer.cancel();
+        audioTimer = null;
         player = null;
-        viewWindow = null;
-        world = null;
     }
     
     private void startSliderUpdate(){
         long durata = player.getClip().getMicrosecondLength();
         int maxV = jSlider1.getMaximum();
-        audioTimer = new Timer();
+        
+        if(audioTimer == null) audioTimer = new Timer();
                     
         audioTimer.scheduleAtFixedRate(new TimerTask(){
             @Override
