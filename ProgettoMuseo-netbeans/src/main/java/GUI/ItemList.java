@@ -86,7 +86,6 @@ public class ItemList extends javax.swing.JPanel {
         HomeBtn.setText("Home");
         HomeBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(211, 215, 225)));
         HomeBtn.setFocusPainted(false);
-        HomeBtn.setOpaque(true);
         HomeBtn.setRolloverEnabled(false);
         HomeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -230,9 +229,7 @@ public class ItemList extends javax.swing.JPanel {
         refreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/redo.png"))); // NOI18N
         refreshButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
         refreshButton.setFocusPainted(false);
-        refreshButton.setOpaque(true);
         refreshButton.setRolloverEnabled(false);
-        refreshButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh.png"))); // NOI18N
         refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 refreshButtonMouseEntered(evt);
