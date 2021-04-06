@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import java.util.Arrays;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
@@ -13,11 +14,15 @@ import javax.swing.border.MatteBorder;
  * @author S_Ale AKA S0Ale
  */
 public class LoginPanel extends javax.swing.JPanel {
+    
+    private AppWindow window;
 
     /**
      * Creates new form LoginPanel
+     * @param window
      */
-    public LoginPanel() {
+    public LoginPanel(AppWindow window) {
+        this.window = window;
         initComponents();
     }
 
@@ -36,8 +41,8 @@ public class LoginPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        ErrorLabel = new javax.swing.JLabel();
+        submitButton = new javax.swing.JButton();
+        errorLabel = new javax.swing.JLabel();
         menuBar = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(231, 233, 242));
@@ -59,11 +64,6 @@ public class LoginPanel extends javax.swing.JPanel {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 ticketFieldFocusLost(evt);
-            }
-        });
-        ticketField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ticketFieldActionPerformed(evt);
             }
         });
 
@@ -96,26 +96,31 @@ public class LoginPanel extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Login");
 
-        jButton1.setBackground(new java.awt.Color(248, 250, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(112, 121, 138));
-        jButton1.setText("Submit");
-        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
-        jButton1.setFocusPainted(false);
-        jButton1.setOpaque(true);
-        jButton1.setRolloverEnabled(false);
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        submitButton.setBackground(new java.awt.Color(248, 250, 255));
+        submitButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        submitButton.setForeground(new java.awt.Color(112, 121, 138));
+        submitButton.setText("Submit");
+        submitButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
+        submitButton.setFocusPainted(false);
+        submitButton.setOpaque(true);
+        submitButton.setRolloverEnabled(false);
+        submitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton1MouseEntered(evt);
+                submitButtonMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton1MouseExited(evt);
+                submitButtonMouseExited(evt);
+            }
+        });
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitButtonActionPerformed(evt);
             }
         });
 
-        ErrorLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        ErrorLabel.setForeground(new java.awt.Color(255, 102, 102));
-        ErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        errorLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        errorLabel.setForeground(new java.awt.Color(255, 102, 102));
+        errorLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,7 +136,7 @@ public class LoginPanel extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(35, 35, 35)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -143,7 +148,7 @@ public class LoginPanel extends javax.swing.JPanel {
                         .addGap(0, 31, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -160,9 +165,9 @@ public class LoginPanel extends javax.swing.JPanel {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -200,20 +205,21 @@ public class LoginPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
-        jButton1.setBackground(ColorManager.getInstance().getColor("btnHover"));
-        jButton1.setForeground(ColorManager.getInstance().getColor("txt"));
-        jButton1.setBorder(new LineBorder(ColorManager.getInstance().getColor("color1")));
-    }//GEN-LAST:event_jButton1MouseEntered
+    private void submitButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitButtonMouseEntered
+        submitButton.setBackground(ColorManager.getInstance().getColor("btnHover"));
+        submitButton.setForeground(ColorManager.getInstance().getColor("txt"));
+        submitButton.setBorder(new LineBorder(ColorManager.getInstance().getColor("color1")));
+    }//GEN-LAST:event_submitButtonMouseEntered
 
-    private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
-        jButton1.setBackground(ColorManager.getInstance().getColor("boxColor"));
-        jButton1.setForeground(ColorManager.getInstance().getColor("txtInactive"));
-        jButton1.setBorder(new LineBorder(ColorManager.getInstance().getColor("border")));
-    }//GEN-LAST:event_jButton1MouseExited
+    private void submitButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitButtonMouseExited
+        submitButton.setBackground(ColorManager.getInstance().getColor("boxColor"));
+        submitButton.setForeground(ColorManager.getInstance().getColor("txtInactive"));
+        submitButton.setBorder(new LineBorder(ColorManager.getInstance().getColor("border")));
+    }//GEN-LAST:event_submitButtonMouseExited
 
     private void ticketFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ticketFieldFocusGained
         ticketField.setBorder(new MatteBorder(0, 0, 2, 0, ColorManager.getInstance().getColor("color1")));
+        errorLabel.setText("");
     }//GEN-LAST:event_ticketFieldFocusGained
 
     private void ticketFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ticketFieldFocusLost
@@ -222,26 +228,43 @@ public class LoginPanel extends javax.swing.JPanel {
 
     private void passwordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusGained
         passwordField.setBorder(new MatteBorder(0, 0, 2, 0, ColorManager.getInstance().getColor("color2")));
+        errorLabel.setText("");
     }//GEN-LAST:event_passwordFieldFocusGained
 
     private void passwordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusLost
         passwordField.setBorder(new MatteBorder(0, 0, 2, 0, ColorManager.getInstance().getColor("border")));
     }//GEN-LAST:event_passwordFieldFocusLost
 
-    private void ticketFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ticketFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ticketFieldActionPerformed
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+        checkTicket();
+    }//GEN-LAST:event_submitButtonActionPerformed
 
+    private void checkTicket(){
+        String ticket = ticketField.getText();
+        char[] psw = passwordField.getPassword();
+        System.out.println(ticket);
+        System.out.println(Arrays.toString(psw));
+        
+        ticketField.setText("");
+        passwordField.setText("");
+        
+        if(ticket.equals("") || psw.length == 0) errorLabel.setText("Please fill all fields.");
+        else{
+            //richiesta al db
+            System.out.println("successo");
+            window.showItemsPanel();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel ErrorLabel;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel errorLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel menuBar;
     private javax.swing.JPasswordField passwordField;
+    private javax.swing.JButton submitButton;
     private javax.swing.JTextField ticketField;
     // End of variables declaration//GEN-END:variables
 }
