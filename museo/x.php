@@ -9,7 +9,7 @@
              echo "Failed to connect to MySQL: " . $connessione -> connect_error;
               exit();
         }
-        $select = "SELECT psw from dipendente where id =$id";
+        $select = "SELECT psw from biglietto where id =$id";
         if($risultato = $connessione -> query($select)-> fetch_array()){
             if($risultato[0] == $psw){
                 session_id(rString());
@@ -38,18 +38,19 @@
                     }catch(Exception $e){
                         echo "Eccezione: ".$e->getMessage();
                     }
-                    
+
                     if(!empty($predicato)) $predicato = "WHERE ".$predicato;
-                    
+
                     $select = "SELECT $campi from $tabelle $predicato $altro";
                     //echo $select."<br>";
                     try {
                         $conn = connect();
                         $i = 0;
                         foreach($conn -> query($select, PDO::FETCH_ASSOC) as $row){
-                            $m = $row;
+                            echo(json_encode($row)."-");
+                            //$m[$i++] = $row;
                         }
-                        echo(json_encode($m));
+                        //echo(json_encode($m));
                     } catch(PDOException $e) {
                       echo "Error: " . $e->getMessage();
                     }
@@ -59,8 +60,8 @@
                 session_destroy();// distruggo la sessione per non occupare memoria nel server ovviamente
             }
     }
-    
-    
+
+
 
     function rString($length = 20) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
