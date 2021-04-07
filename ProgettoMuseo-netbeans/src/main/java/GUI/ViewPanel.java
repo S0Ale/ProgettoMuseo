@@ -72,10 +72,10 @@ public class ViewPanel extends javax.swing.JPanel {
         visualizerBox.repaint();
     }
     
-    public void setViewPanel(String desc, String date, String state, String continent, String[] category, String modelPath, String audioPath, String ricercatori){
+    public void setViewPanel(String nomeReperto, String desc, String date, String state, String continent, String[] category, String modelPath, String audioPath, String ricercatori){
         jSlider1.setValue(0);
         audioTimer = new Timer();
-        
+        jLabel1.setText(nomeReperto);
         // file audio
         try{
             player = new SoundPlayer(audioPath);

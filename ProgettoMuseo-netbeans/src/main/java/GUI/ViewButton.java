@@ -104,7 +104,7 @@ public class ViewButton extends JButton{
                     String sJson = null;
                     try {
                         sJson = window.getController().richiedi(
-                                "reperto.descrizione,data,continente,stato,mesh.percorsom,audio.percorso",
+                                "reperto.nome,reperto.descrizione,data,continente,stato,mesh.percorsom,audio.percorso",
                                 "reperto,ritrovamento,luogo,mesh,audio",
                                 "reperto.id="+idReperto+"%20and%20idRitrovamento=ritrovamento.ID%20and%20ritrovamento.idLuogo=luogo.ID%20and%20IDMesh=mesh.ID%20and%20IDAudio=audio.ID",
                                 "").get();
@@ -117,7 +117,8 @@ public class ViewButton extends JButton{
                     //System.out.println(sJson);
                     JsonElement elJson = new JsonParser().parse(sJson);
                     
-                    String descrizione = elJson.getAsJsonObject().get("descrizione").getAsString(),
+                    String nomeReperto = elJson.getAsJsonObject().get("nome").getAsString(),
+                            descrizione = elJson.getAsJsonObject().get("descrizione").getAsString(),
                             data = elJson.getAsJsonObject().get("data").getAsString(),
                             stato = elJson.getAsJsonObject().get("stato").getAsString(),
                             continente= elJson.getAsJsonObject().get("continente").getAsString(),
@@ -152,7 +153,7 @@ public class ViewButton extends JButton{
                     DbController.download(audio, String.valueOf(idReperto)+".wav");*/
                     
                     //System.out.println(d+"\\"+String.valueOf(idReperto)+".obj");
-                    window.updateViewPanel(descrizione, data, stato, continente, specie, stringaRicercatori, path + "\\" +String.valueOf(idReperto)+".obj", path + "\\" +String.valueOf(idReperto)+".wav");
+                    window.updateViewPanel(nomeReperto, descrizione, data, stato, continente, specie, stringaRicercatori, path + "\\" +String.valueOf(idReperto)+".obj", path + "\\" +String.valueOf(idReperto)+".wav");
                     window.showViewPanel();
                 }
             }

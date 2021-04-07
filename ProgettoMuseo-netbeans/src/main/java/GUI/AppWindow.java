@@ -65,8 +65,8 @@ public class AppWindow extends javax.swing.JFrame {
         layout.show(mainPanel, "view");
     }
     
-    public void updateViewPanel(String desc, String date, String state, String continent, String[] category, String ricercatori,String modelPath, String audioPath){
-        visualizer.setViewPanel(desc, date, state, continent, category, modelPath, audioPath, ricercatori);
+    public void updateViewPanel(String nomeReperto, String desc, String date, String state, String continent, String[] category, String ricercatori,String modelPath, String audioPath){
+        visualizer.setViewPanel(nomeReperto, desc, date, state, continent, category, modelPath, audioPath, ricercatori);
     }
 
     /**
