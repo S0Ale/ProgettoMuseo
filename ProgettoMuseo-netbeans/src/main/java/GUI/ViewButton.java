@@ -6,6 +6,7 @@
 package GUI;
 
 import Logic.DbController;
+import Logic.JSon;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import java.awt.Dimension;
@@ -53,7 +54,53 @@ public class ViewButton extends JButton{
             public void actionPerformed(ActionEvent e){
                 if(e.getActionCommand().equals("viewItem")){
                     //richiesta al db dei dati del reperto selezionato
-                    System.out.println(idReperto);
+                    String ricercatoriJson = null;
+                    String[] ricercatori = null;
+                    String stringaRicercatori = "";
+                    try {
+                        ricercatoriJson = window.getController().richiedi(
+                                "ritrovamento.ID,ricercatore.nome,ricercatore.cognome",
+                                "ricercatore,ritrovamento,ricercatoreritrovamenti,reperto",
+                                "reperto.ID="+idReperto+"%20and%20reperto.IDRitrovamento=ritrovamento.ID%20and%20ricercatoreritrovamenti.IDRicercatore=ricercatore.ID",
+                                "").get();
+                        ricercatori = JSon.splitJSON(ricercatoriJson);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(ViewButton.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ExecutionException ex) {
+                        Logger.getLogger(ViewButton.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    for(int i = 0; i < ricercatori.length; i++){
+                        JsonElement sJson = new JsonParser().parse(ricercatori[i]);
+                        String t = ", ";
+                        if(i == ricercatori.length - 1) t = "."; 
+                        stringaRicercatori += sJson.getAsJsonObject().get("nome").getAsString() +" "+sJson.getAsJsonObject().get("cognome").getAsString()+t;
+                        //
+                    }
+                    System.out.println(stringaRicercatori);
+                    //String[] categorie = null;
+                    String categorieJson = null;
+                    String[] specie = null;
+                    try {
+                        categorieJson = window.getController().richiedi(
+                                "reperto.ID,categoria.ID,categoria.livello,categoria.nomeCategoria,categoria.valore,probabilita",
+                                "categoria,reperto,repertohacategorie",
+                                "reperto.id="+idReperto+"%20and%20repertohacategorie.IDReperto=reperto.ID%20and%20categoria.ID=repertohacategorie.IDCategoria",
+                                "ORDER%20by%20probabilita").get();
+                        specie = JSon.splitJSON(categorieJson);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(ViewButton.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ExecutionException ex) {
+                        Logger.getLogger(ViewButton.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    for(int i = 0; i < specie.length; i++){
+                        JsonElement sJson = new JsonParser().parse(specie[i]);
+                        String s = sJson.getAsJsonObject().get("nomeCategoria").getAsString() +" : "+sJson.getAsJsonObject().get("valore").getAsString()+" Probabilità stimata: "+sJson.getAsJsonObject().get("probabilita").getAsString();
+                        //System.out.println("STRINGA= "+s);
+                        specie[i] = new String(s);
+                    }
+                    
                     String sJson = null;
                     try {
                         sJson = window.getController().richiedi(
@@ -67,7 +114,7 @@ public class ViewButton extends JButton{
                     } catch (ExecutionException ex) {
                         Logger.getLogger(ViewButton.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    System.out.println(sJson);
+                    //System.out.println(sJson);
                     JsonElement elJson = new JsonParser().parse(sJson);
                     
                     String descrizione = elJson.getAsJsonObject().get("descrizione").getAsString(),
@@ -84,20 +131,20 @@ public class ViewButton extends JButton{
                     File dirMuseo = new File(FileSystemView.getFileSystemView().getDefaultDirectory().getPath()+"\\museo");
                     String path = dirMuseo.getPath();
                     if (!dirMuseo.exists()){
-                        System.out.println("creo la directory "+ path);
+                        //System.out.println("creo la directory "+ path);
                         dirMuseo.mkdirs();
                     }
                     
                     File f = new File(path+"\\"+String.valueOf(idReperto)+".obj");
                     if(!f.exists()) {
-                        System.out.println("S mesh");
+                        //System.out.println("S mesh");
                         if(!DbController.download(mesh, path+"\\"+String.valueOf(idReperto)+".obj"))
                             System.out.println("Errore nel download della mesh");
                     }
                     f = null;
                     f= new File(path + "\\"+String.valueOf(idReperto)+".wav");
                     if(!f.exists()) {
-                        System.out.println("S audio");
+                        //System.out.println("S audio");
                         if(!DbController.download(audio, path + "\\"+String.valueOf(idReperto)+".wav"))
                             System.out.println("Errore nel download della traccia audio");
                     }
@@ -105,7 +152,7 @@ public class ViewButton extends JButton{
                     DbController.download(audio, String.valueOf(idReperto)+".wav");*/
                     
                     //System.out.println(d+"\\"+String.valueOf(idReperto)+".obj");
-                    window.updateViewPanel(descrizione, data, stato, continente, path + "\\" +String.valueOf(idReperto)+".obj", path + "\\" +String.valueOf(idReperto)+".wav");
+                    window.updateViewPanel(descrizione, data, stato, continente, specie, stringaRicercatori, path + "\\" +String.valueOf(idReperto)+".obj", path + "\\" +String.valueOf(idReperto)+".wav");
                     window.showViewPanel();
                 }
             }

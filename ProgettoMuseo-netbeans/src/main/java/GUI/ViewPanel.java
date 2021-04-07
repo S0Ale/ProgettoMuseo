@@ -72,7 +72,7 @@ public class ViewPanel extends javax.swing.JPanel {
         visualizerBox.repaint();
     }
     
-    public void setViewPanel(String desc, String date, String state, String continent, String modelPath, String audioPath){
+    public void setViewPanel(String desc, String date, String state, String continent, String[] category, String modelPath, String audioPath, String ricercatori){
         jSlider1.setValue(0);
         audioTimer = new Timer();
         
@@ -84,8 +84,8 @@ public class ViewPanel extends javax.swing.JPanel {
         }
         
         world.stop();
-        updateLocationPanel(date, state, continent);
-        updateDescPanel(desc);
+        updateLocationPanel(date, state, continent, ricercatori);
+        updateDescPanel(desc, category);
         world.changeNewGroup(modelPath);
         world.start();
     }
@@ -538,15 +538,20 @@ public class ViewPanel extends javax.swing.JPanel {
         }, 0, 500);
     }
     
-    private void updateDescPanel(String text){
-        descArea.setText(text);
+    private void updateDescPanel(String text, String[] category){
+        String classificazione = "";
+        if(category != null)
+            for(int i=0; i< category.length; i++)
+                classificazione += category[i]+"\n";
+        descArea.setText(classificazione+"\n"+text);
     }
     
-    private void updateLocationPanel(String date, String state, String continent){ //parametro: array di ricercatori
+    private void updateLocationPanel(String date, String state, String continent, String ricercatori){ //parametro: array di ricercatori
         String text = "Data ritrovamento: " + date + ";\n";
         if(state.equals("")) state = "sconosciuto";
         if(continent.equals("")) continent = "sconosciuto";
         text += "Luogo ritrovamento (stato, continente): " + state + ", " + continent + ";\n";
+        text += "Ricercatori coinvolti : " + ricercatori +"\n";
         locationArea.setText(text);
     }
 
