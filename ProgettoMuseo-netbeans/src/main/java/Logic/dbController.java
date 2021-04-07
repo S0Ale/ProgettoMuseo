@@ -29,7 +29,6 @@ public class DbController {//poi diventerà il dbcontroller
         x.login("2", "paolo");
         CompletableFuture<String> s=x.richiedi("dipendente.nome,dipendente.cognome,sala.periodo", "dipendente,sala", "dipendente.idSala=sala.id%20and%20sala.id=3", "ORDER%20BY%20dipendente.cognome");
         System.out.println(s.get());
-        //System.out.println(s.get());
     }
 
     public static boolean download(String file_url, String file_name){
@@ -53,7 +52,6 @@ public class DbController {//poi diventerà il dbcontroller
             return true;
         } catch (IOException e) {
             System.out.println("Errore nella memorizzazione");
-            //e.printStackTrace();
             return false;
         }
         
@@ -74,7 +72,6 @@ public class DbController {//poi diventerà il dbcontroller
 
             if(login.get().trim().length() == 0) return false;
             this.idSessione= login.get().trim();
-            //System.out.println("id della sessione: "+idSessione);
             return true;
         }catch(Exception e){
             return false;
