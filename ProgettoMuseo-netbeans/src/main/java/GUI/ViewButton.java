@@ -87,11 +87,24 @@ public class ViewButton extends JButton{
                         System.out.println("creo la directory "+ path);
                         dirMuseo.mkdirs();
                     }
+                    
+                    File f = new File(path+"\\"+String.valueOf(idReperto)+".obj");
+                    if(!f.exists()) {
+                        System.out.println("S mesh");
+                        if(!DbController.download(mesh, path+"\\"+String.valueOf(idReperto)+".obj"))
+                            System.out.println("Errore nel download della mesh");
+                    }
+                    f = null;
+                    f= new File(path + "\\"+String.valueOf(idReperto)+".wav");
+                    if(!f.exists()) {
+                        System.out.println("S audio");
+                        if(!DbController.download(audio, path + "\\"+String.valueOf(idReperto)+".wav"))
+                            System.out.println("Errore nel download della traccia audio");
+                    }
                     /*DbController.download(mesh, String.valueOf(idReperto)+".obj");
                     DbController.download(audio, String.valueOf(idReperto)+".wav");*/
                     
-                    if(!DbController.download(mesh, path+"\\"+String.valueOf(idReperto)+".obj") || !DbController.download(audio, path + "\\"+String.valueOf(idReperto)+".wav")) System.out.println("Errore qui nel download");
-                    System.out.println(d+"\\"+String.valueOf(idReperto)+".obj");
+                    //System.out.println(d+"\\"+String.valueOf(idReperto)+".obj");
                     window.updateViewPanel(descrizione, data, stato, continente, path + "\\" +String.valueOf(idReperto)+".obj", path + "\\" +String.valueOf(idReperto)+".wav");
                     window.showViewPanel();
                 }

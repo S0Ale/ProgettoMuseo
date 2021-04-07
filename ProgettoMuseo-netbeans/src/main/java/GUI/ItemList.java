@@ -337,8 +337,8 @@ public class ItemList extends javax.swing.JPanel {
     }//GEN-LAST:event_logOutButtonMouseExited
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
-        if(window.getController().logout())
-            System.out.println("Disconnesso");
+        window.getController().logout();
+            //System.out.println("Disconnesso");
         window.showLoginPanel();
     }//GEN-LAST:event_logOutButtonActionPerformed
 

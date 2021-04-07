@@ -89,6 +89,7 @@ public class DbController {//poi diventerà il dbcontroller
                 return false;
             }
             this.idSessione= null;
+            System.out.println("Disconnesso");
             return true;
         }catch(Exception e){
             return false;

@@ -29,6 +29,7 @@ GUI\LoginPanel$2.class
 GUI\ViewPanel$1.class
 GUI\ViewPanel$6.class
 Logic\Reperto.class
+GUI\AppWindow$1$1.class
 GUI\ViewPanel$4.class
 Logic\DbController.class
 GUI\ColorManager.class

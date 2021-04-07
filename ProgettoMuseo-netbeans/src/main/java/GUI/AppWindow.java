@@ -8,6 +8,10 @@ package GUI;
 import Logic.DbController;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.CardLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -143,7 +147,14 @@ public class AppWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AppWindow().setVisible(true);
+                AppWindow frame = new AppWindow();
+                frame.setVisible(true);
+                frame.addWindowListener(new WindowAdapter(){
+                    @Override
+                    public void windowClosing(WindowEvent e){
+                         frame.closeAll();
+                    }
+                });
             }
         });
     }
@@ -152,4 +163,18 @@ public class AppWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel mainPanel;
     // End of variables declaration//GEN-END:variables
+
+    private int closeAll() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(visualizer.getPlayer() != null && visualizer.getPlayer().isStarted())visualizer.getPlayer().stop();
+        controller.logout();
+        File dirMuseo = new File(FileSystemView.getFileSystemView().getDefaultDirectory().getPath()+"\\museo");
+        if(dirMuseo.exists()) {
+            for(File file: dirMuseo.getAbsoluteFile().listFiles())
+                if (!file.isDirectory())
+                    file.delete();
+        }
+        System.exit(0);
+        return 1;
+    }
 }

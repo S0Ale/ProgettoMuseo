@@ -6,9 +6,12 @@
 package Logic;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -23,6 +26,7 @@ public class SoundPlayer {
     private Clip clip;
     private boolean isActive;
     private File musicPath;
+    private AudioInputStream audioInput;
     
     public SoundPlayer(String path) throws MalformedURLException, URISyntaxException{
         musicPath =  new File(/*getClass().getResource(*/path/*).toURI()*/);
@@ -60,7 +64,7 @@ public class SoundPlayer {
     public void playMusic(){
         try{
             if(this.musicPath.exists()){
-                AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+                audioInput = AudioSystem.getAudioInputStream(musicPath);
                 this.clip = (Clip) AudioSystem.getClip();
                 this.clip.open(audioInput);
                 this.clip.start();
@@ -92,8 +96,14 @@ public class SoundPlayer {
     
     public void stop(){
         if(isStarted){
+            try {
+                audioInput.close();
+            } catch (IOException ex) {
+                Logger.getLogger(SoundPlayer.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.clip.stop();
             this.clip.close();
+            clip = null;
             this.isStarted = false;
             isActive = false;
         }
