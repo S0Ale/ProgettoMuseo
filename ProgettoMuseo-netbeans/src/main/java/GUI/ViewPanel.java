@@ -16,6 +16,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.media.j3d.Canvas3D;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
 /**
@@ -43,11 +45,12 @@ public class ViewPanel extends javax.swing.JPanel {
         
         audioTimer = new Timer();
         
-        jScrollPane1.getVerticalScrollBar().setBackground(new Color(240, 241, 248));
+        imagePanel.getVerticalScrollBar().setBackground(new Color(240, 241, 248));
         descPanel.getVerticalScrollBar().setBackground(new Color(240, 241, 248));
         locationPanel.getVerticalScrollBar().setBackground(new Color(240, 241, 248));
         
         descPanel.getVerticalScrollBar().setUnitIncrement(3);
+        imagePanel.getVerticalScrollBar().setUnitIncrement(8);
         //setViewPanel("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "una data a caso", "Italia", "Europa", "/Katana.obj");
     }
     
@@ -83,6 +86,9 @@ public class ViewPanel extends javax.swing.JPanel {
             t.printStackTrace();
         }
         
+        String[] a = {"1", "2"}; // TEST
+        updatePhotos(a);
+        
         world.stop();
         updateLocationPanel(date, state, continent, ricercatori);
         updateDescPanel(desc, category);
@@ -107,8 +113,8 @@ public class ViewPanel extends javax.swing.JPanel {
         visualizerBox = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
+        imagePanel = new javax.swing.JScrollPane();
+        photoPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         playPause = new javax.swing.JToggleButton();
         jSlider1 = new javax.swing.JSlider();
@@ -222,24 +228,13 @@ public class ViewPanel extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(69, 75, 93));
         jLabel1.setText("Nome Reperto");
 
-        jScrollPane1.setBackground(new java.awt.Color(246, 248, 254));
-        jScrollPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        imagePanel.setBackground(new java.awt.Color(246, 248, 254));
+        imagePanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
+        imagePanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        jPanel1.setBackground(new java.awt.Color(246, 248, 254));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 346, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 453, Short.MAX_VALUE)
-        );
-
-        jScrollPane1.setViewportView(jPanel1);
+        photoPanel.setBackground(new java.awt.Color(246, 248, 254));
+        photoPanel.setLayout(null);
+        imagePanel.setViewportView(photoPanel);
 
         jPanel2.setBackground(new java.awt.Color(246, 248, 254));
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
@@ -320,7 +315,7 @@ public class ViewPanel extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(imagePanel)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -335,7 +330,7 @@ public class ViewPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -397,7 +392,7 @@ public class ViewPanel extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addGap(6, 6, 6))
         );
 
@@ -497,7 +492,6 @@ public class ViewPanel extends javax.swing.JPanel {
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
         endVisualizer();
         window.getController().logout();
-            //System.out.println("Disconnesso");
         window.showLoginPanel();
     }//GEN-LAST:event_logOutButtonActionPerformed
 
@@ -519,6 +513,29 @@ public class ViewPanel extends javax.swing.JPanel {
         audioTimer.cancel();
         audioTimer = null;
         player = null;
+    }
+    
+    private void updatePhotos(String[] paths){
+        photoPanel.removeAll();
+        int w = photoPanel.getWidth();
+        
+        //dimensione jlabel: 300 con 5 di margine
+        
+        int size = paths.length;
+        photoPanel.setPreferredSize(new Dimension(w, size * 305 + 10));
+        photoPanel.setSize(new Dimension(w, size * 305 + 10));
+        
+        for(int i = 0; i < size; i++){
+            JLabel label = new JLabel(new ImageIcon(paths[i])); // usa quello che vuoi (url, string, uri...) COMMENTA PER TESTING
+            label.setHorizontalAlignment(JLabel.CENTER);
+            label.setBorder(new LineBorder(Color.red)); // da rimuovere
+            label.setLocation(23, i * 305 + 5);
+            label.setPreferredSize(new Dimension(300, 300));
+            label.setSize(new Dimension(300, 300));
+            photoPanel.add(label);
+        }
+        photoPanel.revalidate();
+        photoPanel.repaint();
     }
     
     private void startSliderUpdate(){
@@ -559,21 +576,21 @@ public class ViewPanel extends javax.swing.JPanel {
     private javax.swing.JButton HomeBtn;
     private javax.swing.JTextArea descArea;
     private javax.swing.JScrollPane descPanel;
+    private javax.swing.JScrollPane imagePanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea locationArea;
     private javax.swing.JScrollPane locationPanel;
     private javax.swing.JButton logOutButton;
     private javax.swing.JPanel menuBar;
+    private javax.swing.JPanel photoPanel;
     private javax.swing.JToggleButton playPause;
     private javax.swing.JPanel visualizerBox;
     // End of variables declaration//GEN-END:variables
