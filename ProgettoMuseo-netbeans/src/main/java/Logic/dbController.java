@@ -24,12 +24,6 @@ public class DbController {//poi diventerà il dbcontroller
         this.client= HttpClient.newHttpClient();
         this.idSessione = null;
     }
-    public static void main(String[] args) throws InterruptedException, ExecutionException{
-        DbController x = new DbController();
-        x.login("2", "paolo");
-        CompletableFuture<String> s=x.richiedi("dipendente.nome,dipendente.cognome,sala.periodo", "dipendente,sala", "dipendente.idSala=sala.id%20and%20sala.id=3", "ORDER%20BY%20dipendente.cognome");
-        System.out.println(s.get());
-    }
 
     public static boolean download(String file_url, String file_name){
         //file_url = DbController.levaSpazi(file_url);
