@@ -38,6 +38,19 @@ public class ViewButton extends JButton{
         this.idReperto = idReperto; 
     }
     
+    private String[] ottieniFoto(String json){
+        String[] foto = JSon.splitJSON(json);
+        int i = 0;
+        for(String fotografia : foto){
+        JsonElement sJson = new JsonParser().parse(fotografia);
+                        String t = ", ";
+                        if(i == foto.length - 1) t = "."; 
+                        foto[i++] = DbController.urlSito + sJson.getAsJsonObject().get("percorso").getAsString();
+        }
+        
+        return foto;
+    }
+    
     private void init(AppWindow window){
         setPreferredSize(new Dimension(85, 22));
         setSize(new Dimension(85, 22));
@@ -77,7 +90,7 @@ public class ViewButton extends JButton{
                         stringaRicercatori += sJson.getAsJsonObject().get("nome").getAsString() +" "+sJson.getAsJsonObject().get("cognome").getAsString()+t;
                         //
                     }
-                    System.out.println(stringaRicercatori);
+                    //System.out.println(stringaRicercatori);
                     //String[] categorie = null;
                     String categorieJson = null;
                     String[] specie = null;
@@ -88,6 +101,19 @@ public class ViewButton extends JButton{
                                 "reperto.id="+idReperto+"%20and%20repertohacategorie.IDReperto=reperto.ID%20and%20categoria.ID=repertohacategorie.IDCategoria",
                                 "ORDER%20by%20probabilita").get();
                         specie = JSon.splitJSON(categorieJson);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(ViewButton.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ExecutionException ex) {
+                        Logger.getLogger(ViewButton.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    String[] foto = null;
+                    try {
+                        foto = ottieniFoto(window.getController().richiedi(
+                                "foto.percorso",
+                                "foto,reperto,fotoreperto",
+                                "reperto.ID="+idReperto+"%20and%20fotoreperto.IDReperto=reperto.ID%20and%20fotoreperto.idfoto=foto.id",
+                                "").get());
                     } catch (InterruptedException ex) {
                         Logger.getLogger(ViewButton.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ExecutionException ex) {
@@ -125,8 +151,8 @@ public class ViewButton extends JButton{
                             mesh= DbController.urlSito + elJson.getAsJsonObject().get("percorsom").getAsString(),
                             audio= DbController.urlSito + elJson.getAsJsonObject().get("percorso").getAsString();
                     
-                    System.out.println("Mesh "+mesh);
-                    System.out.println("Audio "+audio);
+                    //System.out.println("Mesh "+mesh);
+                    //System.out.println("Audio "+audio);
                     String d = "/src/main/resources/download";
                     
                     File dirMuseo = new File(FileSystemView.getFileSystemView().getDefaultDirectory().getPath()+"\\museo");
@@ -136,24 +162,35 @@ public class ViewButton extends JButton{
                         dirMuseo.mkdirs();
                     }
                     
-                    File f = new File(path+"\\"+String.valueOf(idReperto)+".obj");
+                    File f = new File(path+"\\"+String.valueOf(idReperto)+".obj");//download mesh
                     if(!f.exists()) {
                         //System.out.println("S mesh");
                         if(!DbController.download(mesh, path+"\\"+String.valueOf(idReperto)+".obj"))
                             System.out.println("Errore nel download della mesh");
                     }
-                    f = null;
-                    f= new File(path + "\\"+String.valueOf(idReperto)+".wav");
+                    
+                    f= new File(path + "\\"+String.valueOf(idReperto)+".wav");//download audio
                     if(!f.exists()) {
                         //System.out.println("S audio");
                         if(!DbController.download(audio, path + "\\"+String.valueOf(idReperto)+".wav"))
                             System.out.println("Errore nel download della traccia audio");
                     }
+                    
+                    for(int i = 0; i < foto.length; i++){//download foto
+                        f= new File(path + "\\"+String.valueOf(idReperto)+foto[i].substring(foto[i].lastIndexOf(".")));
+                        if(!f.exists()) {
+                        //System.out.println("S audio");
+                            if(!DbController.download(foto[i], path + "\\"+String.valueOf(idReperto)+"_"+ String.valueOf(i) +foto[i].substring(foto[i].lastIndexOf("."))))
+                                System.out.println("Errore nel download di una foto");
+                            foto[i] = path + "\\" + String.valueOf(idReperto) + "_" + String.valueOf(i) + foto[i].substring(foto[i].lastIndexOf("."));
+                        }
+                    }
+                    
                     /*DbController.download(mesh, String.valueOf(idReperto)+".obj");
                     DbController.download(audio, String.valueOf(idReperto)+".wav");*/
                     
                     //System.out.println(d+"\\"+String.valueOf(idReperto)+".obj");
-                    window.updateViewPanel(nomeReperto, descrizione, data, stato, continente, specie, stringaRicercatori, path + "\\" +String.valueOf(idReperto)+".obj", path + "\\" +String.valueOf(idReperto)+".wav");
+                    window.updateViewPanel(nomeReperto, descrizione, data, stato, continente, specie, stringaRicercatori, foto, path + "\\" +String.valueOf(idReperto)+".obj", path + "\\" +String.valueOf(idReperto)+".wav");
                     window.showViewPanel();
                 }
             }

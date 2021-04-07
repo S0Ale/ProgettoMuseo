@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.Clip;
@@ -73,7 +72,7 @@ public class SoundPlayer {
                 isActive = true;
             }
             else{
-                System.out.print("url sbagliato");
+                //System.out.print("url sbagliato");
             }
         }catch(Exception e){
             System.out.print("Errore nel caricamento");
@@ -88,7 +87,7 @@ public class SoundPlayer {
     }
     
     public void pause(){
-        if(this.clip == null) System.out.println("clip null");
+       // if(this.clip == null) System.out.println("clip null");
         this.setLastPos(this.clip.getMicrosecondPosition());
         this.clip.stop();
         isActive = false;   

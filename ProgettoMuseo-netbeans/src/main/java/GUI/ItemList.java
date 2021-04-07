@@ -8,7 +8,6 @@ package GUI;
 import Logic.JSon;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.concurrent.ExecutionException;
@@ -198,6 +197,8 @@ public class ItemList extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(112, 121, 138));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Periodo");
+        jLabel6.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(211, 215, 225)));
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -206,16 +207,16 @@ public class ItemList extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 212, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,7 +348,11 @@ public class ItemList extends javax.swing.JPanel {
         itemsPanel.removeAll();
         String risulatoQuery = null;
         try {
-            risulatoQuery = window.getController().richiedi("reperto.id,reperto.nome,reperto.altezza,reperto.profondita,reperto.larghezza", "reperto", "", "").get();
+            risulatoQuery = window.getController().richiedi(
+                    "reperto.id,reperto.nome,reperto.altezza,reperto.profondita,reperto.larghezza,sala.periodo",
+                    "reperto,teca,sala",
+                    "reperto.IDTeca=teca.ID%20and%20teca.IDSala=sala.ID",
+                    "ORDER%20by%20sala.ID").get();
             //creo hasmap<int, array di hasmap<String, String>>
         } catch (InterruptedException ex) {
             Logger.getLogger(ItemList.class.getName()).log(Level.SEVERE, null, ex);
@@ -362,12 +367,13 @@ public class ItemList extends javax.swing.JPanel {
             JsonElement elJson = new JsonParser().parse(sJson[i]);
             itemsPanel.setPreferredSize(new Dimension(jScrollPane1.getWidth(), (i + 1) * 32));
             itemsPanel.setSize(new Dimension(jScrollPane1.getWidth(), (i + 1) * 32));
-            String nome = elJson.getAsJsonObject().get("nome").getAsString(), 
-                larg = elJson.getAsJsonObject().get("larghezza").getAsString()+ " cm", 
-                alt = elJson.getAsJsonObject().get("altezza").getAsString() + " cm", 
-                prof = elJson.getAsJsonObject().get("profondita").getAsString() + " cm";
+            String nome = elJson.getAsJsonObject().get("nome").getAsString(),
+                   periodo = elJson.getAsJsonObject().get("periodo").getAsString(),
+                   larg = elJson.getAsJsonObject().get("larghezza").getAsString()+ " cm", 
+                   alt = elJson.getAsJsonObject().get("altezza").getAsString() + " cm", 
+                   prof = elJson.getAsJsonObject().get("profondita").getAsString() + " cm";
             int id = Integer. parseInt(elJson.getAsJsonObject().get("id").getAsString());
-            JPanel panel = buildItemPanel(0, i * 32, nome, larg, alt, prof, id );//questo mi stabilisce i valori delle celle nella tabella
+            JPanel panel = buildItemPanel(0, i * 32, nome, larg, alt, prof, periodo, id );//questo mi stabilisce i valori delle celle nella tabella
             
             if(i == n - 1) panel.setBorder(new MatteBorder(0, 0, 1, 0, ColorManager.getInstance().getColor("border")));
             itemsPanel.add(panel);
@@ -377,7 +383,7 @@ public class ItemList extends javax.swing.JPanel {
         itemsPanel.repaint();
     }
     
-    private JPanel buildItemPanel(int x, int y, String name, String width, String height, String depth, int id){
+    private JPanel buildItemPanel(int x, int y, String name, String width, String height, String depth, String periodo,int id){
         JPanel panel = new JPanel();
         panel.setLayout(null);
         panel.setLocation(x, y);
@@ -385,13 +391,13 @@ public class ItemList extends javax.swing.JPanel {
         panel.setPreferredSize(new Dimension(jScrollPane1.getWidth(), 32));
         panel.setSize(new Dimension(jScrollPane1.getWidth(), 32));
         
-        JLabel[] labels = {new JLabel(name), new JLabel(width), new JLabel(height), new JLabel(depth)};
+        JLabel[] labels = {new JLabel(name), new JLabel(width), new JLabel(height), new JLabel(depth), new JLabel(periodo)};
         
         int size = labels.length;
         for(int i = 0; i < size; i++){
-            labels[i].setPreferredSize(new Dimension(250, 32));
-            labels[i].setSize(new Dimension(250, 32));
-            labels[i].setLocation(i * 250, 0);
+            labels[i].setPreferredSize(new Dimension(208, 32));
+            labels[i].setSize(new Dimension(208, 32));
+            labels[i].setLocation(i * 208, 0);
             labels[i].setBackground(ColorManager.getInstance().getColor("boxColor"));
             labels[i].setForeground(ColorManager.getInstance().getColor("txtInactive"));
             labels[i].setBorder(new MatteBorder(0, 0, 0, 1, ColorManager.getInstance().getColor("border")));
@@ -399,7 +405,7 @@ public class ItemList extends javax.swing.JPanel {
             panel.add(labels[i]);
         }
         
-        panel.add(new ViewButton(window, 1075, 5, id));
+        panel.add(new ViewButton(window, 1110, 5, id));
         
         return panel;
     }

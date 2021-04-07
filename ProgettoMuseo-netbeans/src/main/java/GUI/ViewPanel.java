@@ -10,14 +10,19 @@ import Logic.ViewWorld;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
-import java.util.ArrayList;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.media.j3d.Canvas3D;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
 /**
@@ -70,12 +75,12 @@ public class ViewPanel extends javax.swing.JPanel {
         visualizerBox.add(viewWindow);
         world = new ViewWorld(viewWindow);     
         
-        System.out.println("Thread is started");
+        //System.out.println("Thread is started");
         visualizerBox.revalidate();
         visualizerBox.repaint();
     }
     
-    public void setViewPanel(String nomeReperto, String desc, String date, String state, String continent, String[] category, String modelPath, String audioPath, String ricercatori){
+    public void setViewPanel(String nomeReperto, String desc, String date, String state, String continent, String[] category, String[] foto, String modelPath, String audioPath, String ricercatori){
         jSlider1.setValue(0);
         audioTimer = new Timer();
         jLabel1.setText(nomeReperto);
@@ -86,8 +91,8 @@ public class ViewPanel extends javax.swing.JPanel {
             t.printStackTrace();
         }
         
-        String[] a = {"1", "2"}; // TEST
-        updatePhotos(a);
+        //String[] a = {"1", "2"}; // TEST
+        updatePhotos(foto);
         
         world.stop();
         updateLocationPanel(date, state, continent, ricercatori);
@@ -450,7 +455,6 @@ public class ViewPanel extends javax.swing.JPanel {
             playPause.setIcon(new ImageIcon(getClass().getResource("/play.png")));
         }else {
             if(!player.isStarted()){
-                System.out.println("ciao");
                 player.playMusic();
                 startSliderUpdate();
             }else{
@@ -515,23 +519,57 @@ public class ViewPanel extends javax.swing.JPanel {
         player = null;
     }
     
+    private BufferedImage resizeImg(BufferedImage img){
+        float larghezza = img.getWidth(), altezza = img.getHeight();
+        float proporzioni = larghezza/altezza;
+        float passo = 10*proporzioni;
+        while(larghezza > 300 || altezza > 300){
+            larghezza -= passo*proporzioni;
+            altezza -= passo;
+        }
+        
+        BufferedImage resizedImage = new BufferedImage((int)larghezza, (int)altezza, BufferedImage.TYPE_INT_RGB);
+        Graphics2D graphics2D = resizedImage.createGraphics();
+        graphics2D.drawImage(img, 0, 0, (int)larghezza, (int)altezza, null);
+        graphics2D.dispose();
+        return resizedImage;
+    }
+    
     private void updatePhotos(String[] paths){
         photoPanel.removeAll();
         int w = photoPanel.getWidth();
-        
+        photoPanel.setPreferredSize(new Dimension(w, 0));
+        photoPanel.setSize(new Dimension(w, 0));
         //dimensione jlabel: 300 con 5 di margine
         
         int size = paths.length;
-        photoPanel.setPreferredSize(new Dimension(w, size * 305 + 10));
-        photoPanel.setSize(new Dimension(w, size * 305 + 10));
         
+        
+        ImageIcon[] f = new ImageIcon[size];
         for(int i = 0; i < size; i++){
-            JLabel label = new JLabel(new ImageIcon(paths[i])); // usa quello che vuoi (url, string, uri...) COMMENTA PER TESTING
+            //String filename = null;
+            //BufferedImage bimg = ;
+            //(new ImageIcon(paths[i]).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)
+            JLabel label = new JLabel();
+            f[i] = new ImageIcon();
+            try {
+                f[i] = new ImageIcon(resizeImg(ImageIO.read(new File(paths[i]))));
+                label = new JLabel(f[i]);
+            } catch (IOException ex) {
+                Logger.getLogger(ViewPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
             label.setHorizontalAlignment(JLabel.CENTER);
-            label.setBorder(new LineBorder(Color.red)); // da rimuovere
-            label.setLocation(23, i * 305 + 5);
-            label.setPreferredSize(new Dimension(300, 300));
-            label.setSize(new Dimension(300, 300));
+            if(i != 0){
+                label.setLocation(23, i * (f[i-1].getIconHeight()+10) + 15);
+                label.setPreferredSize(new Dimension(300, f[i].getIconHeight()));
+                label.setSize(new Dimension(300, f[i].getIconHeight()));
+            }else{
+                label.setLocation(23, 15);
+                label.setPreferredSize(new Dimension(300, f[i].getIconHeight()));
+                label.setSize(new Dimension(f[i].getIconWidth(), f[i].getIconHeight()));
+            }
+            photoPanel.setPreferredSize(new Dimension(w, photoPanel.getHeight()+ f[i].getIconHeight() + 10));
+            photoPanel.setSize(new Dimension(w, photoPanel.getHeight()+ f[i].getIconHeight() + 10));
             photoPanel.add(label);
         }
         photoPanel.revalidate();

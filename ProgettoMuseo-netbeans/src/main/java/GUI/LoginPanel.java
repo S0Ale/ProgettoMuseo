@@ -5,7 +5,6 @@
  */
 package GUI;
 
-import java.util.Arrays;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 

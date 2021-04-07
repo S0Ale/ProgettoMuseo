@@ -12,8 +12,6 @@ import com.sun.j3d.utils.behaviors.mouse.MouseTranslate;
 import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 import java.io.File;
-import java.net.URI;
-import java.net.URL;
 import java.util.Enumeration;
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.Appearance;
@@ -22,7 +20,6 @@ import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.media.j3d.DirectionalLight;
-import javax.media.j3d.Group;
 import javax.media.j3d.Material;
 import javax.media.j3d.RenderingAttributes;
 import javax.media.j3d.Shape3D;
@@ -85,7 +82,7 @@ public class ViewWorld {
     private BranchGroup createScene(String str){
         float eyeOffset = 0.01F;
         
-        System.out.println("QUESTA :" +str);
+        //System.out.println("QUESTA :" +str);
         
         BranchGroup objRoot = new BranchGroup();
         objRoot.setCapability(BranchGroup.ALLOW_DETACH);
