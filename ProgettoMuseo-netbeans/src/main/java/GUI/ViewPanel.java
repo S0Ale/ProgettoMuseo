@@ -68,14 +68,14 @@ public class ViewPanel extends javax.swing.JPanel {
         .getPreferredConfiguration();
         
         viewWindow = new Canvas3D(config);
-        viewWindow.setPreferredSize(new Dimension(900, 510)); //900, 510
-        viewWindow.setSize(new Dimension(900, 510));
-        viewWindow.setLocation(0, 0);
+        
+        int w = visualizerBox.getWidth();
+        int h = visualizerBox.getHeight();
+        System.out.println(w + " " + h);
         
         visualizerBox.add(viewWindow);
         world = new ViewWorld(viewWindow);     
         
-        //System.out.println("Thread is started");
         visualizerBox.revalidate();
         visualizerBox.repaint();
     }
@@ -215,17 +215,7 @@ public class ViewPanel extends javax.swing.JPanel {
         visualizerBox.setBackground(new java.awt.Color(246, 248, 254));
         visualizerBox.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
         visualizerBox.setToolTipText("");
-
-        javax.swing.GroupLayout visualizerBoxLayout = new javax.swing.GroupLayout(visualizerBox);
-        visualizerBox.setLayout(visualizerBoxLayout);
-        visualizerBoxLayout.setHorizontalGroup(
-            visualizerBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 898, Short.MAX_VALUE)
-        );
-        visualizerBoxLayout.setVerticalGroup(
-            visualizerBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        visualizerBox.setLayout(new javax.swing.BoxLayout(visualizerBox, javax.swing.BoxLayout.LINE_AXIS));
 
         jPanel3.setBackground(new java.awt.Color(246, 248, 254));
         jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(211, 215, 225), 1, true));
@@ -409,7 +399,7 @@ public class ViewPanel extends javax.swing.JPanel {
             .addComponent(menuBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(visualizerBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(visualizerBox, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
