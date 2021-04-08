@@ -241,8 +241,6 @@ public class LoginPanel extends javax.swing.JPanel {
     private void checkTicket(){
         String ticket = ticketField.getText();
         char[] psw = passwordField.getPassword();
-        //System.out.println(ticket);
-        //System.out.println(Arrays.toString(psw));
         String password = "";
         for(int i = 0; i < psw.length; i++)
             password += psw[i];
@@ -254,9 +252,7 @@ public class LoginPanel extends javax.swing.JPanel {
         
         if(ticket.equals("") || psw.length == 0) errorLabel.setText("Please fill all fields.");
         else{
-            //richiesta al db
             boolean s = window.getController().login(ticket, password);
-            //System.out.println(s);
             if(s)
                 window.showItemsPanel();
             else

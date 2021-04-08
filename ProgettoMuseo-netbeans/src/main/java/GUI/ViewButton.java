@@ -89,8 +89,6 @@ public class ViewButton extends JButton{
                             stringaRicercatori += JSon.richiediJson(ricercatori[i], "nome") +" "+JSon.richiediJson(ricercatori[i], "cognome")+t;
                         }
                     }
-                    //System.out.println(stringaRicercatori);
-                    //String[] categorie = null;
                     String categorieJson = null;
                     String[] specie = null;
                     try {
@@ -98,7 +96,7 @@ public class ViewButton extends JButton{
                                 "reperto.ID,categoria.ID,categoria.livello,categoria.nomeCategoria,categoria.valore,probabilita",
                                 "categoria,reperto,repertohacategorie",
                                 "reperto.id="+idReperto+"%20and%20repertohacategorie.IDReperto=reperto.ID%20and%20categoria.ID=repertohacategorie.IDCategoria",
-                                "ORDER%20by%20probabilita").get();
+                                "ORDER%20by%20probabilita%20DESC").get();
                         specie = JSon.splitJSON(categorieJson);
                         
                     } catch (InterruptedException ex) {
@@ -122,64 +120,66 @@ public class ViewButton extends JButton{
                     
                     for(int i = 0; i < specie.length; i++){
                         String s = JSon.richiediJson(specie[i], "nomeCategoria") +" : "+ JSon.richiediJson(specie[i], "valore")+" Probabilità stimata: "+JSon.richiediJson(specie[i], "probabilita")+"%";
-                        //System.out.println("STRINGA= "+s);
                         specie[i] = new String(s);
                     }
                     
-                    String sJson = null;
+                    String sJsonDesc = null, sJsonRitr  = null, sJsonMesh  = null, sJsonAudio  = null;
                     try {
-                        sJson = window.getController().richiedi(
-                                "reperto.nome,reperto.descrizione,data,continente,stato,mesh.percorsom,audio.percorso",
-                                "reperto,ritrovamento,luogo,mesh,audio",
-                                "reperto.id="+idReperto+"%20and%20idRitrovamento=ritrovamento.ID%20and%20ritrovamento.idLuogo=luogo.ID%20and%20IDMesh=mesh.ID%20and%20IDAudio=audio.ID",
+                        sJsonDesc = window.getController().richiedi(
+                                "reperto.nome,reperto.descrizione",
+                                "reperto",
+                                "reperto.id="+idReperto,
                                 "").get();
-                        sJson = sJson.replace("~", "");
+                        sJsonRitr = window.getController().richiedi(
+                                "data,continente,stato",
+                                "reperto,ritrovamento,luogo",
+                                "reperto.id="+idReperto+"%20and%20idRitrovamento=ritrovamento.ID%20and%20ritrovamento.idLuogo=luogo.ID%20",
+                                "").get();
+                        sJsonMesh = window.getController().richiedi(
+                                "mesh.percorsom",
+                                "reperto,mesh",
+                                "reperto.id="+idReperto+"%20and%20IDMesh=mesh.ID",
+                                "").get();
+                        sJsonAudio = window.getController().richiedi(
+                                "audio.percorso",
+                                "reperto,audio",
+                                "reperto.id="+idReperto+"%20and%20IDAudio=audio.ID",
+                                "").get();
+                        sJsonDesc = sJsonDesc.replace("~", "");
+                        sJsonRitr = sJsonRitr.replace("~", "");
+                        sJsonMesh = sJsonMesh.replace("~", "");
+                        sJsonAudio = sJsonAudio.replace("~", "");
                     } catch (InterruptedException ex) {
                         Logger.getLogger(ViewButton.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ExecutionException ex) {
                         Logger.getLogger(ViewButton.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    //System.out.println(sJson);
-                    String nomeReperto = "Nome reperto non disponibile",
-                                descrizione = "Descrizione reperto non disponibile",
-                                data = "Data reperto non disponibile",
-                                stato = "Stato in cui è stato ritrovato il reperto sconosciuto",
-                                continente= "Stato in cui è stato ritrovato il reperto sconosciuto",
-                                mesh= null,
-                                audio= null,
-                                path = "";
                     
-                    if(sJson!=null && sJson!=""){
-                        JsonElement elJson = new JsonParser().parse(sJson);
+                    String
+                        path = "",
+                        nomeReperto = JSon.richiediJson(sJsonDesc, "nome"),
+                        descrizione = JSon.richiediJson(sJsonDesc, "descrizione"),
+                        data = JSon.richiediJson(sJsonRitr, "data"),
+                        stato = JSon.richiediJson(sJsonRitr, "stato"),
+                        continente= JSon.richiediJson(sJsonRitr, "continente"),
+                        mesh= DbController.urlSito + JSon.richiediJson(sJsonMesh, "percorsom"),
+                        audio= DbController.urlSito + JSon.richiediJson(sJsonAudio, "percorso");
 
-                        nomeReperto = JSon.richiediJson(sJson, "nome");
-                        descrizione = JSon.richiediJson(sJson, "descrizione");
-                        data = JSon.richiediJson(sJson, "data");
-                        stato = JSon.richiediJson(sJson, "stato");
-                        continente= JSon.richiediJson(sJson, "continente");
-                        mesh= DbController.urlSito + JSon.richiediJson(sJson, "percorsom");
-                        audio= DbController.urlSito + JSon.richiediJson(sJson, "percorso");
-
-                        //System.out.println("Mesh "+mesh);
-                        //System.out.println("Audio "+audio);
 
                         File dirMuseo = new File(FileSystemView.getFileSystemView().getDefaultDirectory().getPath()+"\\museo");
                         path = dirMuseo.getPath();
                         if (!dirMuseo.exists()){
-                            //System.out.println("creo la directory "+ path);
                             dirMuseo.mkdirs();
                         }
 
                         File f = new File(path+"\\"+String.valueOf(idReperto)+".obj");//download mesh
                         if(!f.exists()) {
-                            //System.out.println("S mesh");
                             if(!DbController.download(mesh, path+"\\"+String.valueOf(idReperto)+".obj"))
                                 System.out.println("Errore nel download della mesh");
                         }
 
                         f= new File(path + "\\"+String.valueOf(idReperto)+".wav");//download audio
                         if(!f.exists()) {
-                            //System.out.println("S audio");
                             if(!DbController.download(audio, path + "\\"+String.valueOf(idReperto)+".wav"))
                                 System.out.println("Errore nel download della traccia audio");
                         }
@@ -193,12 +193,11 @@ public class ViewButton extends JButton{
                             }
                             
                             if(!f.exists()) {
-                            //System.out.println("S audio");
                                 if(!DbController.download(foto[i], path + "\\"+String.valueOf(idReperto)+"_"+ String.valueOf(i) +foto[i].substring(foto[i].lastIndexOf("."))))
                                     System.out.println("Errore nel download di una foto");
                                 foto[i] = path + "\\" + String.valueOf(idReperto) + "_" + String.valueOf(i) + foto[i].substring(foto[i].lastIndexOf("."));
                             }
-                        }
+                        
                     }
                         /*DbController.download(mesh, String.valueOf(idReperto)+".obj");
                         DbController.download(audio, String.valueOf(idReperto)+".wav");*/

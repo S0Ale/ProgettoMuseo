@@ -73,7 +73,6 @@ public class ViewPanel extends javax.swing.JPanel {
         
         int w = visualizerBox.getWidth();
         int h = visualizerBox.getHeight();
-        System.out.println(w + " " + h);
         
         visualizerBox.add(viewWindow);
         world = new ViewWorld(viewWindow);     

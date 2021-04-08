@@ -89,8 +89,6 @@ public class ViewWorld {
         if(!f.exists()){
             err = true;
         }
-        //System.out.println("QUESTA :" +str);
-        
         BranchGroup objRoot = new BranchGroup();
         objRoot.setCapability(BranchGroup.ALLOW_DETACH);
         try{
@@ -107,7 +105,6 @@ public class ViewWorld {
             objTrans.addChild(tg);
             obj.setFlags(ObjectFile.RESIZE | ObjectFile.TRIANGULATE | ObjectFile.STRIPIFY);
             
-            //System.out.println("il percorso è " + getClass().getResource(str));
             Scene s = null;
             if(!err)
                 s = obj.load((new File(str).toURI().toURL()));

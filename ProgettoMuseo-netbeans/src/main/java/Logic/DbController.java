@@ -26,8 +26,6 @@ public class DbController {//poi diventerà il dbcontroller
     }
 
     public static boolean download(String file_url, String file_name){
-        //System.out.println("SCARICO : "+file_name);
-        //file_url = DbController.levaSpazi(file_url);
         try (BufferedInputStream in = new BufferedInputStream(new URL(file_url).openStream());
             FileOutputStream fileOutputStream = new FileOutputStream(file_name)) {
             byte dataBuffer[] = new byte[1024];
@@ -36,7 +34,6 @@ public class DbController {//poi diventerà il dbcontroller
                 fileOutputStream.write(dataBuffer, 0, bytesRead);
             }
         } catch (IOException e) {
-            //System.out.println("Errore nel download");
             return false;
         }
         
@@ -45,7 +42,6 @@ public class DbController {//poi diventerà il dbcontroller
             Files.copy(in, Paths.get(file_name), StandardCopyOption.REPLACE_EXISTING);
             return true;
         } catch (IOException e) {
-            //System.out.println("Errore nella memorizzazione");
             return false;
         }
         
@@ -55,7 +51,6 @@ public class DbController {//poi diventerà il dbcontroller
         if(this.idSessione == null)
             return null;
         String s = urlSito+"/x.php?pull=1&s="+this.idSessione+"&campi="+campi+"&tabelle="+tabelle+"&predicato="+predicato+"&altro="+altro;
-        System.out.println("URL  = " + s);
         s = DbController.levaSpazi(s);
         return this.sendRequest(this.creaHttpRequest(s));
     }
@@ -80,7 +75,6 @@ public class DbController {//poi diventerà il dbcontroller
                 return false;
             }
             this.idSessione= null;
-            //System.out.println("Disconnesso");
             return true;
         }catch(Exception e){
             return false;

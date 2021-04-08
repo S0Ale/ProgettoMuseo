@@ -339,7 +339,6 @@ public class ItemList extends javax.swing.JPanel {
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
         window.getController().logout();
-            //System.out.println("Disconnesso");
         window.showLoginPanel();
     }//GEN-LAST:event_logOutButtonActionPerformed
 
@@ -371,9 +370,7 @@ public class ItemList extends javax.swing.JPanel {
                        larg = JSon.richiediJson(sJson[i],"larghezza")+ " cm", 
                        alt = JSon.richiediJson(sJson[i],"altezza") + " cm", 
                        prof = JSon.richiediJson(sJson[i],"profondita") + " cm";
-                System.out.println("json ricevuto: "+ sJson[i]);
                 
-                System.out.println("ID: "+ JSon.richiediJson(sJson[i], "id"));
                 int id = Integer.parseInt(JSon.richiediJson(sJson[i], "id"));
                 JPanel panel = buildItemPanel(0, i * 32, nome, larg, alt, prof, periodo, id );//questo mi stabilisce i valori delle celle nella tabella
 
@@ -381,7 +378,6 @@ public class ItemList extends javax.swing.JPanel {
                 itemsPanel.add(panel);
             }
         }
-        //System.out.println(sJson.length);
         itemsPanel.revalidate();
         itemsPanel.repaint();
     }
