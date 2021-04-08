@@ -108,10 +108,10 @@ INSERT INTO ricercatoreritrovamenti(idricercatore,idritrovamento)VALUES(4,2);
 INSERT INTO ricercatoreritrovamenti(idricercatore,idritrovamento)VALUES(5,2);
 INSERT INTO ricercatoreritrovamenti(idricercatore,idritrovamento)VALUES(8,2);
 
-INSERT INTO foto(id, data, descrizione, percorso) VALUES (1, DATE "1997-06-09", "Questa è la descrizione della foto 1","./data/foto/foto1.png");
-INSERT INTO foto(id, data, descrizione, percorso) VALUES (2, DATE "1967-11-11", "Questa è la descrizione della foto 2","./data/foto/foto2.png");
-INSERT INTO foto(id, data, descrizione, percorso) VALUES (3, DATE "2020-03-05", "Questa è la descrizione della foto 3","./data/foto/foto3.png");
-INSERT INTO foto(id, data, descrizione, percorso) VALUES (4, DATE "1999-12-06", "Questa è la descrizione della foto 4","./data/foto/foto4.png");
+INSERT INTO foto(id, data, descrizione, percorso) VALUES (1, DATE "1997-06-09", "Questa è la descrizione della foto 1","./data/foto/foto1.jpg");
+INSERT INTO foto(id, data, descrizione, percorso) VALUES (2, DATE "1967-11-11", "Questa è la descrizione della foto 2","./data/foto/foto2.jpg");
+INSERT INTO foto(id, data, descrizione, percorso) VALUES (3, DATE "2020-03-05", "Questa è la descrizione della foto 3","./data/foto/foto3.jpg");
+INSERT INTO foto(id, data, descrizione, percorso) VALUES (4, DATE "1999-12-06", "Questa è la descrizione della foto 4","./data/foto/foto4.jpg");
 
 INSERT INTO fotoreperto(idfoto, idreperto) VALUES (1, 1);
 INSERT INTO fotoreperto(idfoto, idreperto) VALUES (2, 2);
