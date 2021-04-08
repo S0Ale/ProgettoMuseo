@@ -84,6 +84,7 @@ public class ViewPanel extends javax.swing.JPanel {
         jSlider1.setValue(0);
         audioTimer = new Timer();
         jLabel1.setText(nomeReperto);
+        time.setText("0:00/0:00");
         // file audio
         try{
             player = new SoundPlayer(audioPath);
@@ -123,7 +124,7 @@ public class ViewPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         playPause = new javax.swing.JToggleButton();
         jSlider1 = new javax.swing.JSlider();
-        jLabel2 = new javax.swing.JLabel();
+        time = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         descPanel = new javax.swing.JScrollPane();
@@ -280,8 +281,8 @@ public class ViewPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setForeground(new java.awt.Color(112, 121, 138));
-        jLabel2.setText("time");
+        time.setForeground(new java.awt.Color(112, 121, 138));
+        time.setText("0:00/0:00");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -297,7 +298,7 @@ public class ViewPanel extends javax.swing.JPanel {
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jLabel2)
+                        .addComponent(time)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -308,7 +309,7 @@ public class ViewPanel extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2))
+                        .addComponent(time))
                     .addComponent(playPause, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -583,6 +584,7 @@ public class ViewPanel extends javax.swing.JPanel {
         audioTimer.scheduleAtFixedRate(new TimerTask(){
             @Override
             public void run(){
+                player.writeTime(time);//lo faccio qui così aggiorna anche se non viene avviata la traccia
                 if(player.isActive()){
                     long secondaggio = player.getClip().getMicrosecondPosition();
 
@@ -616,7 +618,6 @@ public class ViewPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane descPanel;
     private javax.swing.JScrollPane imagePanel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -630,6 +631,7 @@ public class ViewPanel extends javax.swing.JPanel {
     private javax.swing.JPanel menuBar;
     private javax.swing.JPanel photoPanel;
     private javax.swing.JToggleButton playPause;
+    private javax.swing.JLabel time;
     private javax.swing.JPanel visualizerBox;
     // End of variables declaration//GEN-END:variables
 }

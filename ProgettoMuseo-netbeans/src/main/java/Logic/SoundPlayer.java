@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import javax.swing.JLabel;
 
 /**
  *
@@ -33,6 +34,28 @@ public class SoundPlayer {
         clip = null;
         isActive = false;
         isStarted = false;
+    }
+    
+    public void writeTime(JLabel t){
+        int min=0, sec=0;
+        double x = this.clip.getMicrosecondPosition()/1000000;
+        int st = (int)(this.clip.getMicrosecondLength()/1000000)% 60,
+            mt = (int)(this.clip.getMicrosecondLength()/1000000)/ 60;
+        sec = (int) x % 60;
+        min = (int) x/60;
+        
+        String s = "0",sTo = "0";
+        //System.out.println(String.valueOf(min)+"/"+String.valueOf(sec));
+        if(sec < 10)
+           s = "0"+String.valueOf(sec);
+        else
+           s = String.valueOf(sec);
+        if(st < 10)
+           sTo = "0"+String.valueOf(st);
+        else
+           sTo = String.valueOf(st);
+        
+        t.setText(String.valueOf(min)+":"+s+"/"+String.valueOf(mt)+":"+sTo);
     }
     
     public boolean isStarted(){
