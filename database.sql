@@ -27,7 +27,7 @@ CREATE TABLE NuvolaDiPunti(
 
 CREATE TABLE Mesh(
     ID int PRIMARY KEY,
-    percorso varchar(512) unique,
+    percorsom varchar(512) unique,
     IDNuvolaDiPunti int,
     FOREIGN KEY (IDNuvolaDiPunti) REFERENCES NuvolaDiPunti(ID) ON DELETE SET NULL
 );
@@ -101,6 +101,8 @@ CREATE TABLE RicercatoreRitrovamenti(
 
 CREATE TABLE Reperto(
     ID int PRIMARY KEY,
+    nome varchar(256),
+    descrizione varchar(2048),
     larghezza float,
     altezza float,
     profondita float,
@@ -125,7 +127,8 @@ CREATE TABLE FotoReperto(
 CREATE TABLE RepertoHaCategorie(
     IDCategoria int,
     IDReperto int,
+    probabilita float,
     PRIMARY KEY(IDCategoria, IDReperto),
-    FOREIGN KEY (idCategoria) REFERENCES Categoria(ID) ON DELETE CASCADE,
+    FOREIGN KEY (idCategoria) REFERENCES Categoria(ID),
     FOREIGN KEY (idReperto) REFERENCES Reperto(ID) ON DELETE CASCADE
 );
