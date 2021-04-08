@@ -28,8 +28,13 @@ public class SoundPlayer {
     private File musicPath;
     private AudioInputStream audioInput;
     
-    public SoundPlayer(String path) throws MalformedURLException, URISyntaxException{
+    public SoundPlayer(String path){
         musicPath =  new File(/*getClass().getResource(*/path/*).toURI()*/);
+        if(!musicPath.exists()) try {
+            musicPath = new File(getClass().getResource("/error.wav").toURI());
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(SoundPlayer.class.getName()).log(Level.SEVERE, null, ex);
+        }
         lastPos = 0;
         clip = null;
         isActive = false;

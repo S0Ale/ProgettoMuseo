@@ -42,10 +42,9 @@ public class ViewButton extends JButton{
         String[] foto = JSon.splitJSON(json);
         int i = 0;
         for(String fotografia : foto){
-        JsonElement sJson = new JsonParser().parse(fotografia);
                         String t = ", ";
                         if(i == foto.length - 1) t = "."; 
-                        foto[i++] = DbController.urlSito + sJson.getAsJsonObject().get("percorso").getAsString();
+                        foto[i++] = DbController.urlSito + JSon.richiediJson(fotografia, "percorso");
         }
         
         return foto;
@@ -84,11 +83,11 @@ public class ViewButton extends JButton{
                     }
                     
                     for(int i = 0; i < ricercatori.length; i++){
-                        JsonElement sJson = new JsonParser().parse(ricercatori[i]);
-                        String t = ", ";
-                        if(i == ricercatori.length - 1) t = "."; 
-                        stringaRicercatori += sJson.getAsJsonObject().get("nome").getAsString() +" "+sJson.getAsJsonObject().get("cognome").getAsString()+t;
-                        //
+                        if(ricercatori[i] != "" && ricercatori[i] != null){
+                            String t = ", ";
+                            if(i == ricercatori.length - 1) t = "."; 
+                            stringaRicercatori += JSon.richiediJson(ricercatori[i], "nome") +" "+JSon.richiediJson(ricercatori[i], "cognome")+t;
+                        }
                     }
                     //System.out.println(stringaRicercatori);
                     //String[] categorie = null;
@@ -101,6 +100,7 @@ public class ViewButton extends JButton{
                                 "reperto.id="+idReperto+"%20and%20repertohacategorie.IDReperto=reperto.ID%20and%20categoria.ID=repertohacategorie.IDCategoria",
                                 "ORDER%20by%20probabilita").get();
                         specie = JSon.splitJSON(categorieJson);
+                        
                     } catch (InterruptedException ex) {
                         Logger.getLogger(ViewButton.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ExecutionException ex) {
@@ -121,8 +121,7 @@ public class ViewButton extends JButton{
                     }
                     
                     for(int i = 0; i < specie.length; i++){
-                        JsonElement sJson = new JsonParser().parse(specie[i]);
-                        String s = sJson.getAsJsonObject().get("nomeCategoria").getAsString() +" : "+sJson.getAsJsonObject().get("valore").getAsString()+" Probabilità stimata: "+sJson.getAsJsonObject().get("probabilita").getAsString();
+                        String s = JSon.richiediJson(specie[i], "nomeCategoria") +" : "+ JSon.richiediJson(specie[i], "valore")+" Probabilità stimata: "+JSon.richiediJson(specie[i], "probabilita")+"%";
                         //System.out.println("STRINGA= "+s);
                         specie[i] = new String(s);
                     }
@@ -141,55 +140,69 @@ public class ViewButton extends JButton{
                         Logger.getLogger(ViewButton.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     //System.out.println(sJson);
-                    JsonElement elJson = new JsonParser().parse(sJson);
+                    String nomeReperto = "Nome reperto non disponibile",
+                                descrizione = "Descrizione reperto non disponibile",
+                                data = "Data reperto non disponibile",
+                                stato = "Stato in cui è stato ritrovato il reperto sconosciuto",
+                                continente= "Stato in cui è stato ritrovato il reperto sconosciuto",
+                                mesh= null,
+                                audio= null,
+                                path = "";
                     
-                    String nomeReperto = elJson.getAsJsonObject().get("nome").getAsString(),
-                            descrizione = elJson.getAsJsonObject().get("descrizione").getAsString(),
-                            data = elJson.getAsJsonObject().get("data").getAsString(),
-                            stato = elJson.getAsJsonObject().get("stato").getAsString(),
-                            continente= elJson.getAsJsonObject().get("continente").getAsString(),
-                            mesh= DbController.urlSito + elJson.getAsJsonObject().get("percorsom").getAsString(),
-                            audio= DbController.urlSito + elJson.getAsJsonObject().get("percorso").getAsString();
-                    
-                    //System.out.println("Mesh "+mesh);
-                    //System.out.println("Audio "+audio);
-                    String d = "/src/main/resources/download";
-                    
-                    File dirMuseo = new File(FileSystemView.getFileSystemView().getDefaultDirectory().getPath()+"\\museo");
-                    String path = dirMuseo.getPath();
-                    if (!dirMuseo.exists()){
-                        //System.out.println("creo la directory "+ path);
-                        dirMuseo.mkdirs();
-                    }
-                    
-                    File f = new File(path+"\\"+String.valueOf(idReperto)+".obj");//download mesh
-                    if(!f.exists()) {
-                        //System.out.println("S mesh");
-                        if(!DbController.download(mesh, path+"\\"+String.valueOf(idReperto)+".obj"))
-                            System.out.println("Errore nel download della mesh");
-                    }
-                    
-                    f= new File(path + "\\"+String.valueOf(idReperto)+".wav");//download audio
-                    if(!f.exists()) {
-                        //System.out.println("S audio");
-                        if(!DbController.download(audio, path + "\\"+String.valueOf(idReperto)+".wav"))
-                            System.out.println("Errore nel download della traccia audio");
-                    }
-                    
-                    for(int i = 0; i < foto.length; i++){//download foto
-                        f= new File(path + "\\"+String.valueOf(idReperto)+foto[i].substring(foto[i].lastIndexOf(".")));
+                    if(sJson!=null && sJson!=""){
+                        JsonElement elJson = new JsonParser().parse(sJson);
+
+                        nomeReperto = JSon.richiediJson(sJson, "nome");
+                        descrizione = JSon.richiediJson(sJson, "descrizione");
+                        data = JSon.richiediJson(sJson, "data");
+                        stato = JSon.richiediJson(sJson, "stato");
+                        continente= JSon.richiediJson(sJson, "continente");
+                        mesh= DbController.urlSito + JSon.richiediJson(sJson, "percorsom");
+                        audio= DbController.urlSito + JSon.richiediJson(sJson, "percorso");
+
+                        //System.out.println("Mesh "+mesh);
+                        //System.out.println("Audio "+audio);
+
+                        File dirMuseo = new File(FileSystemView.getFileSystemView().getDefaultDirectory().getPath()+"\\museo");
+                        path = dirMuseo.getPath();
+                        if (!dirMuseo.exists()){
+                            //System.out.println("creo la directory "+ path);
+                            dirMuseo.mkdirs();
+                        }
+
+                        File f = new File(path+"\\"+String.valueOf(idReperto)+".obj");//download mesh
                         if(!f.exists()) {
-                        //System.out.println("S audio");
-                            if(!DbController.download(foto[i], path + "\\"+String.valueOf(idReperto)+"_"+ String.valueOf(i) +foto[i].substring(foto[i].lastIndexOf("."))))
-                                System.out.println("Errore nel download di una foto");
-                            foto[i] = path + "\\" + String.valueOf(idReperto) + "_" + String.valueOf(i) + foto[i].substring(foto[i].lastIndexOf("."));
+                            //System.out.println("S mesh");
+                            if(!DbController.download(mesh, path+"\\"+String.valueOf(idReperto)+".obj"))
+                                System.out.println("Errore nel download della mesh");
+                        }
+
+                        f= new File(path + "\\"+String.valueOf(idReperto)+".wav");//download audio
+                        if(!f.exists()) {
+                            //System.out.println("S audio");
+                            if(!DbController.download(audio, path + "\\"+String.valueOf(idReperto)+".wav"))
+                                System.out.println("Errore nel download della traccia audio");
+                        }
+
+                        for(int i = 0; i < foto.length; i++){//download foto
+                            try{
+                                f= new File(path + "\\"+String.valueOf(idReperto)+foto[i].substring(foto[i].lastIndexOf(".")));
+                            }catch(Exception ex){
+                                f = new File("");
+                                break;
+                            }
+                            
+                            if(!f.exists()) {
+                            //System.out.println("S audio");
+                                if(!DbController.download(foto[i], path + "\\"+String.valueOf(idReperto)+"_"+ String.valueOf(i) +foto[i].substring(foto[i].lastIndexOf("."))))
+                                    System.out.println("Errore nel download di una foto");
+                                foto[i] = path + "\\" + String.valueOf(idReperto) + "_" + String.valueOf(i) + foto[i].substring(foto[i].lastIndexOf("."));
+                            }
                         }
                     }
-                    
-                    /*DbController.download(mesh, String.valueOf(idReperto)+".obj");
-                    DbController.download(audio, String.valueOf(idReperto)+".wav");*/
-                    
-                    //System.out.println(d+"\\"+String.valueOf(idReperto)+".obj");
+                        /*DbController.download(mesh, String.valueOf(idReperto)+".obj");
+                        DbController.download(audio, String.valueOf(idReperto)+".wav");*/
+
                     window.updateViewPanel(nomeReperto, descrizione, data, stato, continente, specie, stringaRicercatori, foto, path + "\\" +String.valueOf(idReperto)+".obj", path + "\\" +String.valueOf(idReperto)+".wav");
                     window.showViewPanel();
                 }

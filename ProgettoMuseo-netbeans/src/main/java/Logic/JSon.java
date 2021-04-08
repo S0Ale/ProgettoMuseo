@@ -5,6 +5,9 @@
  */
 package Logic;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 /**
  *
  * @author andre
@@ -23,5 +26,20 @@ public class JSon {
         String[] s = null;
         s = json.split("~");
         return s;
+    }
+    
+    public static String richiediJson(String json, String par){
+        String r = "";
+        try{
+            JsonElement elJson = new JsonParser().parse(json);
+            r = elJson.getAsJsonObject().get(par).getAsString();
+        }catch(Exception e){
+            if(par == "id")
+                r = "-1";
+            else
+                r = par+" non disponibile";
+        }
+        
+        return r;
     }
 }

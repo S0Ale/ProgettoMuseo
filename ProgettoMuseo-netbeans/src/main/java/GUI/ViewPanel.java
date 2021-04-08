@@ -43,7 +43,9 @@ public class ViewPanel extends javax.swing.JPanel {
      * Creates new form VisualizerPanel
      * @param window
      */
+    
     public ViewPanel(AppWindow window) {
+        
         this.window = window;
         initComponents();
         initVisualizer(); // non utilizzare nel costruttore (solo per test)
@@ -547,7 +549,13 @@ public class ViewPanel extends javax.swing.JPanel {
                 f[i] = new ImageIcon(resizeImg(ImageIO.read(new File(paths[i]))));
                 label = new JLabel(f[i]);
             } catch (IOException ex) {
-                Logger.getLogger(ViewPanel.class.getName()).log(Level.SEVERE, null, ex);
+                photoPanel.removeAll();
+                photoPanel.setSize(new Dimension(0, 0));
+                photoPanel.setPreferredSize(new Dimension(0,0));
+                photoPanel.revalidate();
+                photoPanel.repaint();
+                return;
+                //Logger.getLogger(ViewPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
             label.setHorizontalAlignment(JLabel.CENTER);
             if(i != 0){

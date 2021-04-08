@@ -363,22 +363,25 @@ public class ItemList extends javax.swing.JPanel {
         String[] sJson;
         sJson = JSon.splitJSON(risulatoQuery);
         for(int i = 0; i < n; i++){
-            
-            JsonElement elJson = new JsonParser().parse(sJson[i]);
-            itemsPanel.setPreferredSize(new Dimension(jScrollPane1.getWidth(), (i + 1) * 32));
-            itemsPanel.setSize(new Dimension(jScrollPane1.getWidth(), (i + 1) * 32));
-            String nome = elJson.getAsJsonObject().get("nome").getAsString(),
-                   periodo = elJson.getAsJsonObject().get("periodo").getAsString(),
-                   larg = elJson.getAsJsonObject().get("larghezza").getAsString()+ " cm", 
-                   alt = elJson.getAsJsonObject().get("altezza").getAsString() + " cm", 
-                   prof = elJson.getAsJsonObject().get("profondita").getAsString() + " cm";
-            int id = Integer. parseInt(elJson.getAsJsonObject().get("id").getAsString());
-            JPanel panel = buildItemPanel(0, i * 32, nome, larg, alt, prof, periodo, id );//questo mi stabilisce i valori delle celle nella tabella
-            
-            if(i == n - 1) panel.setBorder(new MatteBorder(0, 0, 1, 0, ColorManager.getInstance().getColor("border")));
-            itemsPanel.add(panel);
+            if(sJson[i] != ""){
+                itemsPanel.setPreferredSize(new Dimension(jScrollPane1.getWidth(), (i + 1) * 32));
+                itemsPanel.setSize(new Dimension(jScrollPane1.getWidth(), (i + 1) * 32));
+                String nome = JSon.richiediJson(sJson[i], "nome"),
+                       periodo = JSon.richiediJson(sJson[i], "periodo"),
+                       larg = JSon.richiediJson(sJson[i],"larghezza")+ " cm", 
+                       alt = JSon.richiediJson(sJson[i],"altezza") + " cm", 
+                       prof = JSon.richiediJson(sJson[i],"profondita") + " cm";
+                System.out.println("json ricevuto: "+ sJson[i]);
+                
+                System.out.println("ID: "+ JSon.richiediJson(sJson[i], "id"));
+                int id = Integer.parseInt(JSon.richiediJson(sJson[i], "id"));
+                JPanel panel = buildItemPanel(0, i * 32, nome, larg, alt, prof, periodo, id );//questo mi stabilisce i valori delle celle nella tabella
+
+                if(i == n - 1) panel.setBorder(new MatteBorder(0, 0, 1, 0, ColorManager.getInstance().getColor("border")));
+                itemsPanel.add(panel);
+            }
         }
-        System.out.println(sJson.length);
+        //System.out.println(sJson.length);
         itemsPanel.revalidate();
         itemsPanel.repaint();
     }

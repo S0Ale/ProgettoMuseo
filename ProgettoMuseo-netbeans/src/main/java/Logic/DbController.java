@@ -36,8 +36,7 @@ public class DbController {//poi diventerà il dbcontroller
                 fileOutputStream.write(dataBuffer, 0, bytesRead);
             }
         } catch (IOException e) {
-            System.out.println("Errore nel download");
-            e.printStackTrace();
+            //System.out.println("Errore nel download");
             return false;
         }
         
@@ -46,7 +45,7 @@ public class DbController {//poi diventerà il dbcontroller
             Files.copy(in, Paths.get(file_name), StandardCopyOption.REPLACE_EXISTING);
             return true;
         } catch (IOException e) {
-            System.out.println("Errore nella memorizzazione");
+            //System.out.println("Errore nella memorizzazione");
             return false;
         }
         
@@ -56,7 +55,7 @@ public class DbController {//poi diventerà il dbcontroller
         if(this.idSessione == null)
             return null;
         String s = urlSito+"/x.php?pull=1&s="+this.idSessione+"&campi="+campi+"&tabelle="+tabelle+"&predicato="+predicato+"&altro="+altro;
-        //System.out.println("URL  = " + s);
+        System.out.println("URL  = " + s);
         s = DbController.levaSpazi(s);
         return this.sendRequest(this.creaHttpRequest(s));
     }
